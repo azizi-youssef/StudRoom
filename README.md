@@ -5,7 +5,7 @@
 [![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/Styling-TailwindCSS%20(Bleu%20Canard)-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
 
-**StudRoom** est la plateforme moderne de réservation de logements étudiants meublés et ultra-connectés à proximité immédiate des universités (FSP, EST, ISTA) de Selouane / Nador.
+**StudRoom** est la plateforme moderne de réservation de logements étudiants meublés et ultra-connectés à proximité immédiate des universités (FPN, EST, ISTA) de Selouane / Nador.
 
 Ce dépôt adopte une **architecture monorepo découplée** séparant physiquement le **Frontend Next.js**, le **Backend REST API Node.js/Express**, et les **Contrats partagés (TypeScript & Zod)**.
 

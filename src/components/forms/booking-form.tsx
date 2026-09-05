@@ -8,8 +8,9 @@ import { clientBookingService } from '@/client/services/booking.service';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { CheckCircle2, Loader2, Calendar, User, Phone, Mail, GraduationCap, Clock, Send, Bed, AlertCircle } from 'lucide-react';
-import { PropertyDetail, DbRoom } from '@/shared/types';
+import { CheckCircle2, Loader2, Calendar, User, Phone, Mail, GraduationCap, Clock, Send } from 'lucide-react';
+import { PropertyDetail } from '@/shared/types';
+import { DbRoom } from '@/shared/types/database';
 
 interface BookingFormProps {
   property?: PropertyDetail;
@@ -21,7 +22,6 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
   const {
     register,
@@ -31,9 +31,9 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
     resolver: zodResolver(bookingFormSchema),
     defaultValues: {
       propertySlug: property?.slug || 'studroom-al-omrane-01',
-      roomId: room?.id || property?.rooms[0]?.id || '',
-      roomName: room?.name || property?.rooms[0]?.name || '',
-      university: 'Faculté Pluridisciplinaire de Nador (FSP Selouane)',
+      roomId: room?.id,
+      roomName: room?.name,
+      university: 'Faculté Pluridisciplinaire de Nador (FPN Selouane)',
       studyLevel: 'Licence 1ère année',
       durationMonths: 10,
       desiredArrivalDate: new Date().toISOString().split('T')[0],
@@ -42,24 +42,19 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
 
   const onSubmit = async (data: BookingFormValues) => {
     setIsSubmitting(true);
-    setErrorMessage('');
     try {
-      const resData = await clientBookingService.submitBooking({
+      const payload: BookingFormValues = {
         ...data,
-        roomId: room?.id || data.roomId,
-        roomName: room?.name || data.roomName,
-      });
-
+        ...(room ? { roomId: room.id, roomName: room.name } : {}),
+      };
+      const resData = await clientBookingService.submitBooking(payload);
       if (resData.success) {
         setIsSubmitted(true);
         if (resData.data?.bookingId) setBookingRef(resData.data.bookingId);
         if (onSuccess) onSuccess();
-      } else if (resData.error) {
-        setErrorMessage(resData.error.message || 'Une erreur est survenue lors de la réservation.');
       }
     } catch (err) {
       console.error('Booking submission error:', err);
-      setErrorMessage('Connexion réseau interrompue.');
     } finally {
       setIsSubmitting(false);
     }
@@ -71,13 +66,13 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
         <div className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg">
           <CheckCircle2 className="w-10 h-10" />
         </div>
-        <h3 className="text-2xl font-black text-slate-900">Demande enregistrée !</h3>
+        <h3 className="text-2xl font-black text-slate-900">Demande envoyée !</h3>
         <p className="text-slate-700 text-base max-w-md leading-relaxed font-medium">
-          Merci ! Votre demande pour <strong className="text-emerald-900">{room?.name || property?.title}</strong> a bien été prise en compte. Notre équipe StudRoom vous contactera sous 24h pour organiser votre visite.
+          Merci ! Notre équipe StudRoom vous contactera très prochainement par téléphone ou WhatsApp pour finaliser votre dossier.
         </p>
         {bookingRef && (
           <span className="inline-block bg-white px-4 py-2 rounded-xl text-xs font-mono font-bold text-slate-700 border border-emerald-200 shadow-sm">
-            Référence dossier : {bookingRef}
+            Référence : {bookingRef}
           </span>
         )}
       </div>
@@ -87,36 +82,25 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <div className="flex flex-col gap-1">
-        <h3 className="text-xl font-black text-slate-900">
-          {room ? `Réserver : ${room.name}` : 'Demander ce logement'}
-        </h3>
+        <h3 className="text-xl font-black text-slate-900">Demander ce logement</h3>
         <p className="text-xs text-slate-500">
-          Remplissez ce formulaire pour bloquer prioritairement cette chambre.
+          Remplis ce formulaire pour être recontacté prioritairement par notre équipe.
         </p>
       </div>
 
-      {/* Target Room Pill */}
-      {room && (
-        <div className="p-3.5 bg-brand-50 rounded-2xl border border-brand-200/80 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2">
-            <Bed className="w-4 h-4 text-brand-600 flex-shrink-0" />
-            <div>
-              <span className="font-bold text-brand-900 block">{room.name}</span>
-              <span className="text-[10px] text-brand-600 font-medium">
-                {room.surface_sqm} m² • {room.furnished ? 'Meublée' : ''}
+      {property && (
+        <div className="p-3 bg-brand-50 rounded-2xl border border-brand-200/80 flex items-center justify-between text-xs">
+          <div className="flex flex-col min-w-0">
+            <span className="font-bold text-brand-900 truncate">{property.title}</span>
+            {room && (
+              <span className="text-[11px] text-brand-700 font-medium truncate">
+                🛏️ {room.name} ({room.room_type})
               </span>
-            </div>
+            )}
           </div>
-          <span className="font-black text-brand-700 text-sm whitespace-nowrap ml-2">
-            {room.price_monthly} DH/mois
+          <span className="font-extrabold text-brand-600 whitespace-nowrap ml-2">
+            {room ? room.price_monthly : property.min_price_dh} DH/mois
           </span>
-        </div>
-      )}
-
-      {errorMessage && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs font-semibold flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-600" />
-          <span>{errorMessage}</span>
         </div>
       )}
 
@@ -164,7 +148,7 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
           icon={<GraduationCap className="w-4 h-4" />}
           error={errors.university?.message}
           options={[
-            { value: 'Faculté Pluridisciplinaire de Nador (FSP Selouane)', label: 'FSP Selouane' },
+            { value: 'Faculté Pluridisciplinaire de Nador (FPN Selouane)', label: 'FPN Selouane' },
             { value: 'École Supérieure de Technologie de Nador (EST Nador)', label: 'EST Nador' },
             { value: 'ISTA Selouane', label: 'ISTA Selouane' },
             { value: 'Autre établissement Nador', label: 'Autre établissement' },
@@ -227,17 +211,17 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
         variant="primary"
         size="lg"
         disabled={isSubmitting}
-        className="w-full justify-center text-base py-3.5 mt-2 font-extrabold"
+        className="w-full justify-center text-base py-3.5 mt-2"
       >
         {isSubmitting ? (
           <>
             <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-            Traitement en cours...
+            Envoi en cours...
           </>
         ) : (
           <>
             <Send className="w-5 h-5 mr-2" />
-            Envoyer ma demande de réservation
+            Envoyer ma demande
           </>
         )}
       </Button>

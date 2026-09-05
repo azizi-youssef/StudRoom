@@ -41,27 +41,27 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
         isScrolled
-          ? "bg-white/90 backdrop-blur-md shadow-soft border-b border-slate-100 py-2.5"
-          : "bg-white/70 backdrop-blur-sm py-3 border-b border-slate-100/50"
+          ? "glass-nav py-2.5 shadow-soft"
+          : "bg-white/70 backdrop-blur-md py-3.5 border-b border-slate-200/40"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo with Icon & Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative h-12 sm:h-14 w-52 sm:w-64 flex items-center">
+          <div className="relative h-11 sm:h-13 w-48 sm:w-56 flex items-center">
             <Image
               src="/images/logo_studroom.png"
               alt="StudRoom Logo"
               width={350}
               height={140}
               priority
-              className="h-12 sm:h-14 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+              className="h-11 sm:h-13 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </div>
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100/70 p-1.5 rounded-2xl border border-slate-200/60">
+        <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 backdrop-blur-md p-1.5 rounded-full border border-slate-200/70 shadow-inner-light">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -69,12 +69,15 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-4 py-2 text-xs font-semibold rounded-xl transition-all duration-200",
+                  "relative px-4 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 flex items-center gap-1.5",
                   isActive
-                    ? "bg-white text-brand-600 shadow-soft"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-white/50"
+                    ? "bg-white text-brand-700 shadow-sm font-bold"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
                 )}
               >
+                {isActive && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
+                )}
                 {item.label}
               </Link>
             );
@@ -82,16 +85,16 @@ export function Header() {
         </nav>
 
         {/* Desktop CTA & Auth */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2.5">
           {isAuthenticated && user ? (
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-2xl bg-brand-50 border border-brand-100 text-slate-800">
-                <div className="w-7 h-7 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-xs">
+              <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-brand-50/90 border border-brand-100/90 text-slate-800 shadow-xs">
+                <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
                   {user.full_name.charAt(0).toUpperCase()}
                 </div>
-                <div className="flex flex-col text-left">
+                <div className="flex flex-col text-left pr-1">
                   <span className="text-xs font-bold leading-tight">{user.full_name}</span>
-                  <span className="text-[10px] text-brand-600 font-semibold uppercase tracking-wide">
+                  <span className="text-[10px] text-brand-600 font-semibold uppercase tracking-wider">
                     {user.role === 'admin' ? '🛡️ Admin' : user.role === 'student' ? '🎓 Étudiant' : '🏠 Propriétaire'}
                   </span>
                 </div>
@@ -101,26 +104,26 @@ export function Header() {
                 size="sm"
                 onClick={logout}
                 title="Se déconnecter"
-                className="text-xs border-slate-200 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200"
+                className="text-xs rounded-full border-slate-200 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 px-3"
               >
                 <LogOut className="w-3.5 h-3.5" />
               </Button>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <Button
                 variant="outline"
-                size="md"
+                size="sm"
                 onClick={() => openAuthModal('login')}
-                className="text-xs font-bold border-slate-200 hover:border-brand-300"
+                className="text-xs font-bold rounded-full border-slate-200/80 bg-white/80 hover:bg-white hover:border-brand-300 shadow-xs transition-all"
               >
-                <LogIn className="w-4 h-4 mr-1.5 text-brand-600" />
+                <LogIn className="w-3.5 h-3.5 mr-1 text-brand-600" />
                 Se connecter
               </Button>
               <Link href="/logements">
-                <Button size="md" variant="primary" className="shadow-soft text-xs font-bold">
-                  Trouver mon logement
-                  <ArrowRight className="w-4 h-4" />
+                <Button size="sm" variant="primary" className="rounded-full shadow-soft hover:shadow-glow-brand text-xs font-bold gap-1 px-4 py-2 transition-all">
+                  Trouver un logement
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Button>
               </Link>
             </div>
@@ -130,28 +133,28 @@ export function Header() {
         {/* Mobile menu button */}
         <div className="flex items-center gap-2 md:hidden">
           {isAuthenticated ? (
-            <Button size="sm" variant="outline" onClick={logout} className="text-xs px-2.5">
+            <Button size="sm" variant="outline" onClick={logout} className="text-xs px-2.5 rounded-xl">
               <LogOut className="w-3.5 h-3.5" />
             </Button>
           ) : (
-            <Button size="sm" variant="outline" onClick={() => openAuthModal('login')} className="text-xs px-2.5">
+            <Button size="sm" variant="outline" onClick={() => openAuthModal('login')} className="text-xs px-2.5 rounded-xl">
               <User className="w-3.5 h-3.5" />
             </Button>
           )}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors"
+            className="p-2 text-slate-700 bg-slate-100/90 hover:bg-slate-200 rounded-xl transition-colors"
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[65px] bg-white border-b border-slate-200 shadow-2xl p-6 flex flex-col gap-4 animate-fade-in z-50">
+        <div className="md:hidden fixed inset-x-0 top-[60px] glass-card border-b border-slate-200/80 shadow-2xl p-6 flex flex-col gap-4 animate-fade-in z-50">
           <div className="flex flex-col gap-1">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -162,13 +165,13 @@ export function Header() {
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={cn(
-                    "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-colors",
+                    "flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all",
                     isActive
-                      ? "bg-brand-50 text-brand-600"
+                      ? "bg-brand-50/90 text-brand-700 font-bold border border-brand-100"
                       : "text-slate-700 hover:bg-slate-100"
                   )}
                 >
-                  <Icon className="w-5 h-5 text-brand-500" />
+                  <Icon className="w-4 h-4 text-brand-500" />
                   {item.label}
                 </Link>
               );
@@ -177,12 +180,12 @@ export function Header() {
 
           <div className="pt-4 border-t border-slate-100 flex flex-col gap-2">
             <Link href="/logements" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="primary" className="w-full justify-center">
-                Trouver mon logement →
+              <Button variant="primary" className="w-full justify-center rounded-2xl">
+                Trouver un logement →
               </Button>
             </Link>
             <Link href="/proprietaires" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="outline" className="w-full justify-center text-slate-700">
+              <Button variant="outline" className="w-full justify-center rounded-2xl text-slate-700">
                 Proposer mon logement
               </Button>
             </Link>

@@ -8,14 +8,58 @@ import { getSupabaseAdmin } from '../config/supabase';
 
 export class PropertyRepository {
   async findAllProperties(): Promise<PropertyDetail[]> {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      try {
+        const { data, error } = await supabase
+          .from('properties')
+          .select('*, city:cities(*), rooms(*), amenities(*), images:property_images(*)')
+          .eq('is_available', true);
+        if (!error && data && data.length > 0) {
+          return data as unknown as PropertyDetail[];
+        }
+      } catch {
+        // Fallback transparent to local dataset
+      }
+    }
     return PROPERTIES_DATA;
   }
 
   async findPropertyBySlug(slug: string): Promise<PropertyDetail | null> {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      try {
+        const { data, error } = await supabase
+          .from('properties')
+          .select('*, city:cities(*), rooms(*), amenities(*), images:property_images(*)')
+          .eq('slug', slug)
+          .maybeSingle();
+        if (!error && data) {
+          return data as unknown as PropertyDetail;
+        }
+      } catch {
+        // Fallback transparent to local dataset
+      }
+    }
     return PROPERTIES_DATA.find((p) => p.slug === slug) ?? null;
   }
 
   async findFeaturedProperties(): Promise<PropertyDetail[]> {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      try {
+        const { data, error } = await supabase
+          .from('properties')
+          .select('*, city:cities(*), rooms(*), amenities(*), images:property_images(*)')
+          .eq('featured', true)
+          .eq('is_available', true);
+        if (!error && data && data.length > 0) {
+          return data as unknown as PropertyDetail[];
+        }
+      } catch {
+        // Fallback transparent to local dataset
+      }
+    }
     return PROPERTIES_DATA.filter((p) => p.featured);
   }
 

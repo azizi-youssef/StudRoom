@@ -2,13 +2,40 @@ import { DbUniversity } from '../shared/types/database';
 
 export const UNIVERSITIES_DATA: DbUniversity[] = [
   {
-    id: 'uni-fsp-selouane',
+    id: 'uni-fsan-selouane',
     city_id: 'city-selouane',
-    name: 'Faculté Pluridisciplinaire de Nador (FSP Selouane)',
-    short_name: 'FSP Selouane',
+    name: 'Faculté des sciences appliquées de Nador (FSAN Selouane)',
+    short_name: 'FSAN Selouane',
     address: 'Route Nationale 19, Selouane, Nador',
     location_lat: 35.0741,
     location_lng: -2.9125,
+  },
+  {
+    id: 'uni-feg-nador',
+    city_id: 'city-selouane',
+    name: 'Faculté des Économiques et de gestion de Nador (FEG Nador)',
+    short_name: 'FEG Nador',
+    address: 'Quartier Universitaire, Selouane',
+    location_lat: 35.0758,
+    location_lng: -2.9110,
+  },
+  {
+    id: 'uni-flaa-nador',
+    city_id: 'city-selouane',
+    name: 'Faculté des Langues, Lettres et Arts de Nador (FLAA Nador)',
+    short_name: 'FLAA Nador',
+    address: 'Quartier Universitaire, Selouane',
+    location_lat: 35.0758,
+    location_lng: -2.9110,
+  },
+  {
+    id: 'uni-fsjp-nador',
+    city_id: 'city-selouane',
+    name: 'Faculté des Sciences Juridiques et politiques de Nador (FSJP Nador)',
+    short_name: 'FSJP Nador',
+    address: 'Quartier Universitaire, Selouane',
+    location_lat: 35.0758,
+    location_lng: -2.9110,
   },
   {
     id: 'uni-est-nador',

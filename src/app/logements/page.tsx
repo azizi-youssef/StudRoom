@@ -7,7 +7,8 @@ import { DbUniversity, DbCity } from '@/shared/types/database';
 import { clientPropertyService } from '@/client/services/property.service';
 import { PropertyFilterBar } from '@/components/properties/property-filter-bar';
 import { PropertyCard } from '@/components/properties/property-card';
-import { SearchX, Loader2 } from 'lucide-react';
+import { PropertyCardSkeleton } from '@/components/properties/property-card-skeleton';
+import { SearchX, Loader2, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
@@ -73,7 +74,7 @@ function LogementsContent() {
   return (
     <>
       {/* Filter Bar */}
-      <div className="mb-8">
+      <div className="mb-6">
         <PropertyFilterBar
           filters={filters}
           onChange={setFilters}
@@ -83,11 +84,46 @@ function LogementsContent() {
         />
       </div>
 
+      {/* Quick University Filter Pills */}
+      {universities.length > 0 && (
+        <div className="mb-8 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5 mr-1">
+            <GraduationCap className="w-4 h-4 text-brand-600" />
+            Campus :
+          </span>
+          <button
+            type="button"
+            onClick={() => setFilters((prev) => ({ ...prev, universityId: 'all' }))}
+            className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+              filters.universityId === 'all'
+                ? 'bg-brand-600 text-white shadow-soft font-bold'
+                : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80 shadow-xs'
+            }`}
+          >
+            Toutes les universités
+          </button>
+          {universities.map((uni) => (
+            <button
+              key={uni.id}
+              type="button"
+              onClick={() => setFilters((prev) => ({ ...prev, universityId: uni.id }))}
+              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                filters.universityId === uni.id
+                  ? 'bg-brand-600 text-white shadow-soft font-bold'
+                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80 shadow-xs'
+              }`}
+            >
+              {uni.short_name}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Results Grid */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="h-96 bg-white rounded-3xl animate-pulse border border-slate-200" />
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <PropertyCardSkeleton key={i} />
           ))}
         </div>
       ) : properties.length > 0 ? (
@@ -133,19 +169,23 @@ function LogementsContent() {
 
 export default function LogementsPage() {
   return (
-    <div className="pt-28 pb-20 bg-slate-50 min-h-screen">
+    <div className="pt-32 pb-24 bg-mesh-light min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Title */}
-        <div className="mb-8">
-          <span className="text-xs font-bold text-brand-600 uppercase tracking-widest bg-brand-50 px-3 py-1 rounded-full border border-brand-100">
-            Catalogue Offres
+        <div className="mb-10 max-w-3xl">
+          <span className="inline-flex items-center gap-2 text-xs font-black text-brand-700 uppercase tracking-wider bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full border border-brand-200/80 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            Catalogue Logements · Rentrée Universitaire
           </span>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mt-2">
-            Logements Étudiants à Selouane / Nador
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mt-3">
+            Trouve ton logement étudiant à{' '}
+            <span className="bg-gradient-to-r from-brand-600 to-accent-teal bg-clip-text text-transparent">
+              Selouane / Nador
+            </span>
           </h1>
-          <p className="text-slate-600 text-sm sm:text-base mt-2">
-            Trouve ton studio ou appartement meublé idéal à proximité immédiate des campus universitaires.
+          <p className="text-slate-600 text-sm sm:text-base mt-3 leading-relaxed">
+            Studios indépendants et colocations meublées, avec Wi-Fi inclus et situés à moins de 10 minutes à pied de la FPN, de l'EST et de l'ISTA.
           </p>
         </div>
 

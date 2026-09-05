@@ -36,17 +36,36 @@ const config: Config = {
         }
       },
       fontFamily: {
-        sans: ['var(--font-manrope)', 'Inter', 'sans-serif'],
+        sans: ['var(--font-sans)', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'soft': '0 4px 20px -2px rgba(15, 23, 42, 0.05)',
         'card': '0 10px 30px -4px rgba(15, 23, 42, 0.08)',
         'hover': '0 20px 40px -8px rgba(4, 108, 122, 0.18)',
         'glass': '0 8px 32px 0 rgba(4, 108, 122, 0.08)',
+        'glow-brand': '0 0 40px -10px rgba(8, 145, 178, 0.35)',
+        'glow-accent': '0 0 35px -8px rgba(249, 115, 22, 0.30)',
+        'premium': '0 20px 50px -12px rgba(15, 23, 42, 0.12)',
+        'inner-light': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.8)',
       },
       borderRadius: {
         '2xl': '1rem',
         '3xl': '1.5rem',
+        '4xl': '2rem',
+      },
+      animation: {
+        'float-slow': 'float 6s ease-in-out infinite',
+        'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-8px)' },
+        },
+        pulseSubtle: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.85' },
+        }
       }
     },
   },

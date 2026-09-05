@@ -12,7 +12,7 @@ export default function ProprietairesPage() {
     {
       icon: TrendingUp,
       title: 'Occupation optimisée',
-      desc: 'Taux d’occupation maximal grâce à la forte demande étudiante des facultés FSP et EST Nador.',
+      desc: 'Taux d’occupation maximal grâce à la forte demande étudiante des facultés FPN et EST Nador.',
     },
     {
       icon: ShieldCheck,

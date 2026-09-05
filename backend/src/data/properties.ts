@@ -3,10 +3,10 @@ import { AMENITIES_DATA } from './amenities';
 import { UNIVERSITIES_DATA } from './universities';
 import { CITIES_DATA } from './cities';
 
-const selouaneCity = CITIES_DATA.find((c) => c.slug === 'selouane')!;
-const fspUni = UNIVERSITIES_DATA.find((u) => u.short_name === 'FSP Selouane')!;
-const estUni = UNIVERSITIES_DATA.find((u) => u.short_name === 'EST Nador')!;
-const istaUni = UNIVERSITIES_DATA.find((u) => u.short_name === 'ISTA Selouane')!;
+const selouaneCity = CITIES_DATA.find((c) => c.slug === 'selouane') || CITIES_DATA[0];
+const fspUni = UNIVERSITIES_DATA.find((u) => u.short_name.includes('FSAN') || u.short_name.includes('FPN') || u.short_name.includes('FSP')) || UNIVERSITIES_DATA[0];
+const estUni = UNIVERSITIES_DATA.find((u) => u.short_name.includes('EST')) || UNIVERSITIES_DATA[0];
+const istaUni = UNIVERSITIES_DATA.find((u) => u.short_name.includes('ISTA')) || UNIVERSITIES_DATA[0];
 
 export const PROPERTIES_DATA: PropertyDetail[] = [
   {
@@ -17,7 +17,7 @@ export const PROPERTIES_DATA: PropertyDetail[] = [
     title: 'StudRoom Al Omrane 01',
     slug: 'studroom-al-omrane-01',
     description:
-      "Appartement étudiant entièrement meublé et rénové dans le quartier moderne Al Omrane à Selouane. Conçu spécifiquement pour les étudiants de FSP et EST Nador, cet appartement offre une atmosphère calme, propice aux études, avec Wi-Fi fibre optique ultra-rapide, un grand bureau dans chaque chambre et une cuisine équipée.",
+      "Appartement étudiant entièrement meublé et rénové dans le quartier moderne Al Omrane à Selouane. Conçu spécifiquement pour les étudiants de FPN et EST Nador, cet appartement offre une atmosphère calme, propice aux études, avec Wi-Fi fibre optique ultra-rapide, un grand bureau dans chaque chambre et une cuisine équipée.",
     address: 'Secteur 3, Résidence Al Omrane, Selouane',
     neighborhood: 'Al Omrane',
     property_type: 'apartment',
@@ -84,7 +84,7 @@ export const PROPERTIES_DATA: PropertyDetail[] = [
         property_id: 'prop-al-omrane-01',
         name: 'Chambre B — Standard',
         slug: 'chambre-b-standard',
-        description: 'Chambre individuelle meublée très lumineuse, idéale pour étudiant FSP.',
+        description: 'Chambre individuelle meublée très lumineuse, idéale pour étudiant FPN.',
         room_type: 'PRIVATE',
         price_monthly: 1500,
         deposit_dh: 1500,

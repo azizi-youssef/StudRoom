@@ -16,7 +16,7 @@ export default function CommentCaMarchePage() {
       num: '01',
       icon: Search,
       title: 'Choisis',
-      desc: 'Explore notre catalogue et trouve le logement meublé qui correspond à ton budget et à tes critères de proximité avec ton université (FSP, EST, ISTA).',
+      desc: 'Explore notre catalogue et trouve le logement meublé qui correspond à ton budget et à tes critères de proximité avec ton université (FPN, EST, ISTA).',
     },
     {
       num: '02',

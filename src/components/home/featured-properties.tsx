@@ -11,28 +11,28 @@ interface FeaturedPropertiesProps {
 
 export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
   return (
-    <section className="py-16 sm:py-24 bg-slate-50">
+    <section className="py-20 sm:py-28 bg-slate-50/80 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div>
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 uppercase tracking-widest bg-brand-100/80 px-3.5 py-1 rounded-full border border-brand-200">
-              <Sparkles className="w-3.5 h-3.5" />
-              Sélection Selouane / Nador
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-700 uppercase tracking-wider bg-brand-50 px-3.5 py-1.5 rounded-full border border-brand-200/70 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-brand-600" />
+              Sélection Coup de Cœur · Selouane & Nador
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mt-3">
               Découvre ton prochain chez-toi
             </h2>
-            <p className="text-slate-600 text-base mt-2 max-w-xl">
-              Des résidences et appartements meublés prêts à vivre à proximité des campus universitaires de Selouane.
+            <p className="text-slate-600 text-base mt-2.5 leading-relaxed">
+              Des résidences étudiantes modernes et des appartements meublés prêts à vivre à moins de 10 minutes des amphis.
             </p>
           </div>
 
           <Link href="/logements">
-            <Button variant="outline" size="md" className="hidden md:inline-flex">
-              Voir tous les logements ({properties.length})
-              <ArrowRight className="w-4 h-4 ml-1" />
+            <Button variant="outline" size="md" className="hidden md:inline-flex rounded-full border-slate-200/90 hover:border-brand-300 font-bold text-xs shadow-xs hover:bg-white px-5">
+              Explorer tous les logements ({properties.length})
+              <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
           </Link>
         </div>
@@ -45,10 +45,10 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
         </div>
 
         {/* Mobile View All CTA */}
-        <div className="mt-10 text-center md:hidden">
+        <div className="mt-12 text-center md:hidden">
           <Link href="/logements">
-            <Button variant="primary" size="lg" className="w-full justify-center">
-              Voir tous les logements →
+            <Button variant="primary" size="lg" className="w-full justify-center rounded-2xl font-bold shadow-soft">
+              Explorer tous les logements ({properties.length}) →
             </Button>
           </Link>
         </div>

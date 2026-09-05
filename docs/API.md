@@ -121,7 +121,7 @@ Enregistre une demande de réservation avec validation de disponibilité côté 
   "lastName": "El Amrani",
   "email": "karim.amrani@gmail.com",
   "phone": "+212612345678",
-  "university": "Faculté Pluridisciplinaire de Nador (FSP Selouane)",
+  "university": "Faculté Pluridisciplinaire de Nador (FPN Selouane)",
   "studyLevel": "Licence 1ère année",
   "desiredArrivalDate": "2026-09-01",
   "durationMonths": 10,
