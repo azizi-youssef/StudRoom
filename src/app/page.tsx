@@ -4,6 +4,7 @@ import { BenefitsSection } from '@/components/home/benefits-section';
 import { FeaturedProperties } from '@/components/home/featured-properties';
 import { HowItWorksPreview } from '@/components/home/how-it-works-preview';
 import { LandlordBanner } from '@/components/home/landlord-banner';
+import { SupportedUniversitiesBanner } from '@/components/home/SupportedUniversitiesBanner';
 import { PropertyDetail } from '@/shared/types';
 import { DbUniversity } from '@/shared/types/database';
 
@@ -48,6 +49,7 @@ export default async function HomePage() {
       <FeaturedProperties properties={properties} />
       <HowItWorksPreview />
       <LandlordBanner />
+      <SupportedUniversitiesBanner />
     </>
   );
 }

@@ -14,20 +14,20 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="w-full flex flex-col gap-1.5">
         {label && (
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+          <label className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
             {label}
           </label>
         )}
         <div className="relative flex items-center">
           {icon && (
-            <div className="absolute left-3.5 text-slate-400 pointer-events-none">
+            <div className="absolute left-3.5 text-slate-400 dark:text-slate-400 pointer-events-none">
               {icon}
             </div>
           )}
           <select
             ref={ref}
             className={cn(
-              "w-full h-11 bg-white border border-slate-200 rounded-xl px-3.5 pr-9 text-sm text-slate-900 appearance-none transition-colors focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 disabled:bg-slate-50 disabled:cursor-not-allowed",
+              "w-full h-11 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 pr-9 text-sm text-slate-900 dark:text-white appearance-none transition-colors focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 focus:ring-2 focus:ring-brand-500/20 disabled:bg-slate-50 dark:disabled:bg-slate-900 disabled:cursor-not-allowed",
               icon && "pl-10",
               error && "border-red-500 focus:border-red-500 focus:ring-red-500/20",
               className
@@ -35,7 +35,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             {...props}
           >
             {options.map(opt => (
-              <option key={opt.value} value={opt.value}>
+              <option key={opt.value} value={opt.value} className="dark:bg-slate-900">
                 {opt.label}
               </option>
             ))}

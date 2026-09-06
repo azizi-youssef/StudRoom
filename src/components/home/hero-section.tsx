@@ -29,11 +29,11 @@ export function HeroSection({ universities }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-mesh-light">
+    <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-mesh-light dark:bg-mesh-dark">
       {/* Dynamic Ambient Background Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-200/40 rounded-full blur-[120px] pointer-events-none -z-10" />
-      <div className="absolute top-1/3 right-4 w-[450px] h-[450px] bg-accent-orange/10 rounded-full blur-[100px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 left-10 w-[350px] h-[350px] bg-emerald-100/40 rounded-full blur-[90px] pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-200/40 dark:bg-brand-900/20 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 right-4 w-[450px] h-[450px] bg-accent-orange/10 dark:bg-accent-orange/5 rounded-full blur-[100px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 left-10 w-[350px] h-[350px] bg-emerald-100/40 dark:bg-emerald-950/20 rounded-full blur-[90px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -43,7 +43,7 @@ export function HeroSection({ universities }: HeroSectionProps) {
             
             {/* Top Badge */}
             <div className="inline-flex items-center justify-center lg:justify-start">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-white/90 text-brand-700 border border-brand-200/80 shadow-soft backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-white/90 dark:bg-slate-900/90 text-brand-700 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/80 shadow-soft backdrop-blur-sm">
                 <span className="flex h-2 w-2 relative">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-600"></span>
@@ -54,29 +54,29 @@ export function HeroSection({ universities }: HeroSectionProps) {
 
             {/* Main Headline */}
             <div className="flex flex-col gap-3">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.12]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.12]">
                 Trouve ton logement étudiant <br className="hidden sm:inline" />
                 <span className="bg-gradient-to-r from-brand-600 via-brand-500 to-accent-teal bg-clip-text text-transparent">
                   clé en main & sans stress.
                 </span>
               </h1>
-              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
+              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
                 Studios et appartements meublés, ultra-connectés avec Wi-Fi Fibre, situés à quelques minutes à pied de la FPN, EST et ISTA.
               </p>
             </div>
 
             {/* Modern Search Capsule */}
-            <div className="bg-white/95 backdrop-blur-xl p-3 sm:p-5 rounded-4xl shadow-premium border border-slate-200/80 mt-2">
+            <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl p-3 sm:p-5 rounded-4xl shadow-premium border border-slate-200/80 dark:border-slate-800 mt-2">
               
               {/* Type Category Tabs */}
-              <div className="flex items-center gap-2 mb-3 pb-3 border-b border-slate-100/90 text-xs font-bold">
+              <div className="flex items-center gap-2 mb-3 pb-3 border-b border-slate-100/90 dark:border-slate-800 text-xs font-bold">
                 <button
                   type="button"
                   onClick={() => setPropertyCategory('all')}
                   className={`px-3.5 py-1.5 rounded-full transition-all ${
                     propertyCategory === 'all'
                       ? 'bg-brand-600 text-white shadow-soft'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
                 >
                   Tous les logements
@@ -87,7 +87,7 @@ export function HeroSection({ universities }: HeroSectionProps) {
                   className={`px-3.5 py-1.5 rounded-full transition-all ${
                     propertyCategory === 'studio'
                       ? 'bg-brand-600 text-white shadow-soft'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
                 >
                   Studios privés
@@ -98,7 +98,7 @@ export function HeroSection({ universities }: HeroSectionProps) {
                   className={`px-3.5 py-1.5 rounded-full transition-all ${
                     propertyCategory === 'shared'
                       ? 'bg-brand-600 text-white shadow-soft'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
                 >
                   Colocations meublées
@@ -109,30 +109,30 @@ export function HeroSection({ universities }: HeroSectionProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                   
                   {/* Field 1: Localisation */}
-                  <div className="flex flex-col gap-1 p-3 bg-slate-50/80 hover:bg-slate-50 rounded-2xl border border-slate-100 transition-colors">
-                    <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-brand-600" />
+                  <div className="flex flex-col gap-1 p-3 bg-slate-50/80 dark:bg-slate-800/70 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/80 transition-colors">
+                    <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400 flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
                       Localisation
                     </label>
-                    <span className="text-sm font-bold text-slate-900 truncate">
+                    <span className="text-sm font-bold text-slate-900 dark:text-white truncate">
                       Selouane / Al Omrane
                     </span>
                   </div>
 
                   {/* Field 2: Université */}
-                  <div className="flex flex-col gap-1 p-3 bg-slate-50/80 hover:bg-slate-50 rounded-2xl border border-slate-100 transition-colors">
-                    <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                      <GraduationCap className="w-3.5 h-3.5 text-brand-600" />
+                  <div className="flex flex-col gap-1 p-3 bg-slate-50/80 dark:bg-slate-800/70 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/80 transition-colors">
+                    <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400 flex items-center gap-1.5">
+                      <GraduationCap className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
                       Campus cible
                     </label>
                     <select
                       value={selectedUniversity}
                       onChange={(e) => setSelectedUniversity(e.target.value)}
-                      className="bg-transparent text-sm font-bold text-slate-900 focus:outline-none cursor-pointer truncate"
+                      className="bg-transparent text-sm font-bold text-slate-900 dark:text-white focus:outline-none cursor-pointer truncate"
                     >
-                      <option value="all">Tous les campus</option>
+                      <option value="all" className="dark:bg-slate-900">Tous les campus</option>
                       {universities.map((u) => (
-                        <option key={u.id} value={u.id}>
+                        <option key={u.id} value={u.id} className="dark:bg-slate-900">
                           {u.short_name} — {u.name}
                         </option>
                       ))}
@@ -140,24 +140,23 @@ export function HeroSection({ universities }: HeroSectionProps) {
                   </div>
 
                   {/* Field 3: Budget */}
-                  <div className="flex flex-col gap-1 p-3 bg-slate-50/80 hover:bg-slate-50 rounded-2xl border border-slate-100 transition-colors">
-                    <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                      <Coins className="w-3.5 h-3.5 text-brand-600" />
+                  <div className="flex flex-col gap-1 p-3 bg-slate-50/80 dark:bg-slate-800/70 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/80 transition-colors">
+                    <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400 flex items-center gap-1.5">
+                      <Coins className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
                       Budget max
                     </label>
                     <select
                       value={selectedBudget}
                       onChange={(e) => setSelectedBudget(e.target.value)}
-                      className="bg-transparent text-sm font-bold text-slate-900 focus:outline-none cursor-pointer"
+                      className="bg-transparent text-sm font-bold text-slate-900 dark:text-white focus:outline-none cursor-pointer"
                     >
-                      <option value="0">Tous les budgets</option>
-                      <option value="1500">Jusqu'à 1 500 DH/mois</option>
-                      <option value="1800">Jusqu'à 1 800 DH/mois</option>
-                      <option value="2500">Jusqu'à 2 500 DH/mois</option>
-                      <option value="3500">Jusqu'à 3 500 DH/mois</option>
+                      <option value="0" className="dark:bg-slate-900">Tous les budgets</option>
+                      <option value="1500" className="dark:bg-slate-900">Jusqu'à 1 500 DH/mois</option>
+                      <option value="1800" className="dark:bg-slate-900">Jusqu'à 1 800 DH/mois</option>
+                      <option value="2500" className="dark:bg-slate-900">Jusqu'à 2 500 DH/mois</option>
+                      <option value="3500" className="dark:bg-slate-900">Jusqu'à 3 500 DH/mois</option>
                     </select>
                   </div>
-
                 </div>
 
                 {/* Submit CTA */}

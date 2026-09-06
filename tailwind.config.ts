@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -56,6 +57,7 @@ const config: Config = {
       animation: {
         'float-slow': 'float 6s ease-in-out infinite',
         'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
+        marquee: 'marquee 30s linear infinite',
       },
       keyframes: {
         float: {
@@ -65,7 +67,15 @@ const config: Config = {
         pulseSubtle: {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.85' },
-        }
+        },
+        marquee: {
+          '0%': {
+            transform: 'translateX(0)',
+          },
+          '100%': {
+            transform: 'translateX(-50%)',
+          },
+        },
       }
     },
   },

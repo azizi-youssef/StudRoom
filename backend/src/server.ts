@@ -38,6 +38,24 @@ app.use('/api/v1/booking-requests', mutateLimiter);
 app.use('/api/v1/contact', mutateLimiter);
 app.use('/api/v1/landlord-properties', mutateLimiter);
 
+// Strict rate limit for authentication endpoints to prevent brute-force attacks
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    error: {
+      code: 'TOO_MANY_REQUESTS',
+      message: 'Trop de tentatives de connexion. Par mesure de sécurité, veuillez patienter 15 minutes.',
+    },
+  },
+});
+app.use('/api/v1/auth/login', authLimiter);
+app.use('/api/v1/auth/register', authLimiter);
+app.use('/api/v1/auth/google', authLimiter);
+
 // ── Logging ───────────────────────────────────────────────────────────────────
 app.use(morgan(env.isDev() ? 'dev' : 'combined'));
 

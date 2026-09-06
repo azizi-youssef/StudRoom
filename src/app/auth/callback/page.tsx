@@ -49,7 +49,7 @@ function AuthCallbackContent() {
         }
 
         if (session?.user) {
-          await completeLogin(session.user);
+          await completeLogin(session.user, session.access_token);
           return;
         }
 
@@ -57,7 +57,7 @@ function AuthCallbackContent() {
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, currentSession) => {
           if (currentSession?.user && !processedRef.current) {
             subscription.unsubscribe();
-            await completeLogin(currentSession.user);
+            await completeLogin(currentSession.user, currentSession.access_token);
           }
         });
 
@@ -82,7 +82,7 @@ function AuthCallbackContent() {
       }
     }
 
-    async function completeLogin(user: any) {
+    async function completeLogin(user: any, accessToken?: string) {
       if (processedRef.current) return;
       processedRef.current = true;
 
@@ -94,8 +94,9 @@ function AuthCallbackContent() {
         throw new Error('Aucune adresse email trouvée.');
       }
 
-      // Synchronize with StudRoom Express backend
+      // Synchronize with StudRoom Express backend with cryptographically secure token
       const res = await clientAuthService.oauthLogin({
+        accessToken,
         email,
         fullName,
         avatarUrl,

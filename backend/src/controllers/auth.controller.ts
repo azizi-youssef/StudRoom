@@ -35,8 +35,9 @@ export class AuthController {
 
   async googleOAuth(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { email, fullName, avatarUrl, phone } = req.body;
+      const { accessToken, email, fullName, avatarUrl, phone } = req.body;
       const result = await authService.oauthLoginOrRegister({
+        accessToken,
         email,
         fullName,
         avatarUrl,

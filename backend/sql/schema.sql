@@ -219,3 +219,105 @@ CREATE INDEX idx_rooms_price ON rooms(price_monthly);
 CREATE INDEX idx_proximities_uni ON university_proximities(university_id);
 CREATE INDEX idx_booking_room ON booking_requests(room_id);
 CREATE INDEX idx_booking_status ON booking_requests(status);
+
+-- ====================================================================
+-- ROW LEVEL SECURITY (RLS) POLICIES — Production Security Hardening
+-- ====================================================================
+
+-- Ensure optional columns exist if migrating an existing database
+ALTER TABLE properties ADD COLUMN IF NOT EXISTS is_available BOOLEAN DEFAULT true;
+
+-- 1. Enable RLS on all tables
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE students ENABLE ROW LEVEL SECURITY;
+ALTER TABLE landlords ENABLE ROW LEVEL SECURITY;
+ALTER TABLE cities ENABLE ROW LEVEL SECURITY;
+ALTER TABLE universities ENABLE ROW LEVEL SECURITY;
+ALTER TABLE properties ENABLE ROW LEVEL SECURITY;
+ALTER TABLE rooms ENABLE ROW LEVEL SECURITY;
+ALTER TABLE booking_requests ENABLE ROW LEVEL SECURITY;
+ALTER TABLE contact_requests ENABLE ROW LEVEL SECURITY;
+ALTER TABLE landlord_submissions ENABLE ROW LEVEL SECURITY;
+
+-- 2. Public Catalog Policies (Cities, Universities, Properties, Rooms)
+-- Anyone can view active cities, universities, and listed properties/rooms
+DROP POLICY IF EXISTS "Public can view active cities" ON cities;
+CREATE POLICY "Public can view active cities" ON cities
+  FOR SELECT USING (is_active = true);
+
+DROP POLICY IF EXISTS "Public can view universities" ON universities;
+CREATE POLICY "Public can view universities" ON universities
+  FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public can view available properties" ON properties;
+CREATE POLICY "Public can view available properties" ON properties
+  FOR SELECT USING (status IN ('AVAILABLE', 'PARTIALLY_OCCUPIED'));
+
+DROP POLICY IF EXISTS "Public can view available rooms" ON rooms;
+CREATE POLICY "Public can view available rooms" ON rooms
+  FOR SELECT USING (status = 'AVAILABLE');
+
+-- 3. Users Table Protection
+-- Users can only view and edit their own account profile
+DROP POLICY IF EXISTS "Users can view own account" ON users;
+CREATE POLICY "Users can view own account" ON users
+  FOR SELECT USING (auth.uid() = id);
+
+DROP POLICY IF EXISTS "Users can update own account" ON users;
+CREATE POLICY "Users can update own account" ON users
+  FOR UPDATE USING (auth.uid() = id);
+
+-- Service role has full access (for backend authentication & administration)
+DROP POLICY IF EXISTS "Service role full access on users" ON users;
+CREATE POLICY "Service role full access on users" ON users
+  FOR ALL USING (auth.role() = 'service_role');
+
+-- 4. Students & Landlords Profile Protection
+DROP POLICY IF EXISTS "Students can view own profile" ON students;
+CREATE POLICY "Students can view own profile" ON students
+  FOR SELECT USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Students can update own profile" ON students;
+CREATE POLICY "Students can update own profile" ON students
+  FOR UPDATE USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Landlords can view own profile" ON landlords;
+CREATE POLICY "Landlords can view own profile" ON landlords
+  FOR SELECT USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Service role full access on students" ON students;
+CREATE POLICY "Service role full access on students" ON students
+  FOR ALL USING (auth.role() = 'service_role');
+
+DROP POLICY IF EXISTS "Service role full access on landlords" ON landlords;
+CREATE POLICY "Service role full access on landlords" ON landlords
+  FOR ALL USING (auth.role() = 'service_role');
+
+-- 5. Booking Requests Protection
+-- Public can submit a booking request, but cannot view other students' bookings
+DROP POLICY IF EXISTS "Public can submit booking requests" ON booking_requests;
+CREATE POLICY "Public can submit booking requests" ON booking_requests
+  FOR INSERT WITH CHECK (true);
+
+-- Only backend service role (or authenticated admin) can read or modify booking requests
+DROP POLICY IF EXISTS "Service role full access on booking_requests" ON booking_requests;
+CREATE POLICY "Service role full access on booking_requests" ON booking_requests
+  FOR ALL USING (auth.role() = 'service_role');
+
+-- 6. Contact & Landlord Submissions Protection
+-- Public can send contact requests & landlord proposals
+DROP POLICY IF EXISTS "Public can submit contact requests" ON contact_requests;
+CREATE POLICY "Public can submit contact requests" ON contact_requests
+  FOR INSERT WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Service role full access on contact_requests" ON contact_requests;
+CREATE POLICY "Service role full access on contact_requests" ON contact_requests
+  FOR ALL USING (auth.role() = 'service_role');
+
+DROP POLICY IF EXISTS "Public can submit landlord proposals" ON landlord_submissions;
+CREATE POLICY "Public can submit landlord proposals" ON landlord_submissions
+  FOR INSERT WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Service role full access on landlord_submissions" ON landlord_submissions;
+CREATE POLICY "Service role full access on landlord_submissions" ON landlord_submissions
+  FOR ALL USING (auth.role() = 'service_role');

@@ -33,7 +33,7 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
       propertySlug: property?.slug || 'studroom-al-omrane-01',
       roomId: room?.id,
       roomName: room?.name,
-      university: 'Faculté Pluridisciplinaire de Nador (FPN Selouane)',
+      university: 'Faculté Pluridisciplinaire de Nador (FPN Nador)',
       studyLevel: 'Licence 1ère année',
       durationMonths: 10,
       desiredArrivalDate: new Date().toISOString().split('T')[0],

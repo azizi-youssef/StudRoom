@@ -21,7 +21,7 @@ export class ClientAuthService {
     return ApiClient.post<AuthApiResponse>('/auth/register', data);
   }
 
-  async oauthLogin(data: { email: string; fullName?: string; avatarUrl?: string; phone?: string }): Promise<AuthApiResponse> {
+  async oauthLogin(data: { accessToken?: string; email: string; fullName?: string; avatarUrl?: string; phone?: string }): Promise<AuthApiResponse> {
     return ApiClient.post<AuthApiResponse>('/auth/google', data);
   }
 

@@ -101,6 +101,9 @@ export function Footer() {
               <li>
                 <Link href="/a-propos" className="text-slate-400 hover:text-white transition-colors">À propos</Link>
               </li>
+              <li>
+                <Link href="/contact" className="text-slate-400 hover:text-white transition-colors">Contact</Link>
+              </li>
             </ul>
           </div>
 

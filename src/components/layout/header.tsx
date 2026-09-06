@@ -4,10 +4,12 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Home, Building2, HelpCircle, Info, Key, ArrowRight, User, LogOut, LogIn, Calendar, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Home, Building2, HelpCircle, Info, Key, ArrowRight, User, LogOut, LogIn, Calendar, LayoutDashboard, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/auth-context';
+
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,9 +33,12 @@ export function Header() {
     { label: 'Accueil', href: '/', icon: Home },
     { label: 'Logements', href: '/logements', icon: Building2 },
     { label: 'Réservations', href: '/reservations', icon: Calendar },
-    { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+    ...(isAuthenticated && user?.role === 'admin'
+      ? [{ label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard }]
+      : []),
     { label: 'Propriétaires', href: '/proprietaires', icon: Key },
     { label: 'À propos', href: '/a-propos', icon: Info },
+    { label: 'Contact', href: '/contact', icon: Phone },
   ];
 
   return (
@@ -42,7 +47,7 @@ export function Header() {
         "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
         isScrolled
           ? "glass-nav py-2.5 shadow-soft"
-          : "bg-white/70 backdrop-blur-md py-3.5 border-b border-slate-200/40"
+          : "bg-white/75 dark:bg-slate-950/80 backdrop-blur-md py-3.5 border-b border-slate-200/40 dark:border-slate-800/70"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -55,13 +60,13 @@ export function Header() {
               width={350}
               height={140}
               priority
-              className="h-11 sm:h-13 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-11 sm:h-13 w-auto object-contain transition-transform duration-300 group-hover:scale-105 dark:brightness-110"
             />
           </div>
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 backdrop-blur-md p-1.5 rounded-full border border-slate-200/70 shadow-inner-light">
+        <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-md p-1.5 rounded-full border border-slate-200/70 dark:border-slate-800/80 shadow-inner-light">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -71,8 +76,8 @@ export function Header() {
                 className={cn(
                   "relative px-4 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 flex items-center gap-1.5",
                   isActive
-                    ? "bg-white text-brand-700 shadow-sm font-bold"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
+                    ? "bg-white dark:bg-slate-800 text-brand-700 dark:text-brand-300 shadow-sm font-bold"
+                    : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60"
                 )}
               >
                 {isActive && (
@@ -84,27 +89,48 @@ export function Header() {
           })}
         </nav>
 
-        {/* Desktop CTA & Auth */}
+        {/* Desktop CTA, Theme & Auth */}
         <div className="hidden md:flex items-center gap-2.5">
+          {/* Theme Switcher */}
+          <ThemeToggle />
+
           {isAuthenticated && user ? (
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-brand-50/90 border border-brand-100/90 text-slate-800 shadow-xs">
-                <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                  {user.full_name.charAt(0).toUpperCase()}
+              {user.role === 'admin' ? (
+                <Link
+                  href="/dashboard"
+                  title="Accéder au tableau de bord administrateur"
+                  className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-brand-50/90 dark:bg-brand-950/60 hover:bg-brand-100/90 dark:hover:bg-brand-900/60 border border-brand-200/90 dark:border-brand-800/80 text-slate-800 dark:text-slate-100 shadow-xs transition-colors"
+                >
+                  <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                    {user.full_name.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="flex flex-col text-left pr-1">
+                    <span className="text-xs font-bold leading-tight">{user.full_name}</span>
+                    <span className="text-[10px] text-brand-600 dark:text-brand-400 font-semibold uppercase tracking-wider">
+                      🛡️ Admin (Dashboard)
+                    </span>
+                  </div>
+                </Link>
+              ) : (
+                <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-brand-50/90 dark:bg-brand-950/60 border border-brand-100/90 dark:border-brand-800/80 text-slate-800 dark:text-slate-100 shadow-xs">
+                  <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                    {user.full_name.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="flex flex-col text-left pr-1">
+                    <span className="text-xs font-bold leading-tight">{user.full_name}</span>
+                    <span className="text-[10px] text-brand-600 dark:text-brand-400 font-semibold uppercase tracking-wider">
+                      {user.role === 'student' ? '🎓 Étudiant' : '🏠 Propriétaire'}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-col text-left pr-1">
-                  <span className="text-xs font-bold leading-tight">{user.full_name}</span>
-                  <span className="text-[10px] text-brand-600 font-semibold uppercase tracking-wider">
-                    {user.role === 'admin' ? '🛡️ Admin' : user.role === 'student' ? '🎓 Étudiant' : '🏠 Propriétaire'}
-                  </span>
-                </div>
-              </div>
+              )}
               <Button
                 variant="outline"
                 size="sm"
                 onClick={logout}
                 title="Se déconnecter"
-                className="text-xs rounded-full border-slate-200 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 px-3"
+                className="text-xs rounded-full border-slate-200/90 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-500 dark:text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-200/90 px-3 shadow-xs hover:shadow-sm hover:-translate-y-0.5 active:scale-95 transition-all"
               >
                 <LogOut className="w-3.5 h-3.5" />
               </Button>
@@ -115,46 +141,62 @@ export function Header() {
                 variant="outline"
                 size="sm"
                 onClick={() => openAuthModal('login')}
-                className="text-xs font-bold rounded-full border-slate-200/80 bg-white/80 hover:bg-white hover:border-brand-300 shadow-xs transition-all"
+                className="text-xs font-bold rounded-full border-slate-200/90 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:bg-brand-50/40 dark:hover:bg-brand-950/40 hover:text-brand-700 dark:hover:text-brand-300 hover:border-brand-300 shadow-xs hover:shadow-sm hover:-translate-y-0.5 active:scale-95 transition-all px-3.5 py-2"
               >
-                <LogIn className="w-3.5 h-3.5 mr-1 text-brand-600" />
+                <LogIn className="w-3.5 h-3.5 mr-1.5 text-brand-600 dark:text-brand-400" />
                 Se connecter
               </Button>
               <Link href="/logements">
-                <Button size="sm" variant="primary" className="rounded-full shadow-soft hover:shadow-glow-brand text-xs font-bold gap-1 px-4 py-2 transition-all">
-                  Trouver un logement
-                  <ArrowRight className="w-3.5 h-3.5" />
+                <Button
+                  size="sm"
+                  variant="primary"
+                  className="group rounded-full shadow-md shadow-brand-600/20 hover:shadow-lg hover:shadow-brand-600/35 text-xs font-bold gap-1.5 px-4 py-2 hover:-translate-y-0.5 active:scale-95 transition-all"
+                >
+                  <span>Trouver un logement</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
                 </Button>
               </Link>
             </div>
           )}
         </div>
 
-        {/* Mobile menu button */}
+        {/* Mobile menu button & Theme toggle */}
         <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+
           {isAuthenticated ? (
-            <Button size="sm" variant="outline" onClick={logout} className="text-xs px-2.5 rounded-xl">
-              <LogOut className="w-3.5 h-3.5" />
-            </Button>
+            <button
+              type="button"
+              onClick={logout}
+              title="Se déconnecter"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 shadow-xs hover:border-rose-300 hover:bg-rose-50 dark:hover:bg-rose-950/50 hover:text-rose-600 active:scale-95 transition-all"
+            >
+              <LogOut className="w-4 h-4 text-rose-500" />
+            </button>
           ) : (
-            <Button size="sm" variant="outline" onClick={() => openAuthModal('login')} className="text-xs px-2.5 rounded-xl">
-              <User className="w-3.5 h-3.5" />
-            </Button>
+            <button
+              type="button"
+              onClick={() => openAuthModal('login')}
+              title="Se connecter"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-xs hover:border-brand-300 hover:bg-brand-50/50 active:scale-95 transition-all"
+            >
+              <User className="w-4 h-4" />
+            </button>
           )}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-slate-700 bg-slate-100/90 hover:bg-slate-200 rounded-xl transition-colors"
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 shadow-xs hover:border-brand-300 hover:bg-brand-50/50 hover:text-brand-600 active:scale-95 transition-all"
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-brand-600 dark:text-brand-400" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[60px] glass-card border-b border-slate-200/80 shadow-2xl p-6 flex flex-col gap-4 animate-fade-in z-50">
+        <div className="md:hidden fixed inset-x-0 top-[60px] glass-card dark:bg-slate-900/95 border-b border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 flex flex-col gap-4 animate-fade-in z-50">
           <div className="flex flex-col gap-1">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -167,8 +209,8 @@ export function Header() {
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all",
                     isActive
-                      ? "bg-brand-50/90 text-brand-700 font-bold border border-brand-100"
-                      : "text-slate-700 hover:bg-slate-100"
+                      ? "bg-brand-50/90 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 font-bold border border-brand-100 dark:border-brand-800/60 shadow-2xs"
+                      : "text-slate-700 dark:text-slate-200 hover:bg-slate-100/80 dark:hover:bg-slate-800/80"
                   )}
                 >
                   <Icon className="w-4 h-4 text-brand-500" />
@@ -178,17 +220,46 @@ export function Header() {
             })}
           </div>
 
-          <div className="pt-4 border-t border-slate-100 flex flex-col gap-2">
-            <Link href="/logements" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="primary" className="w-full justify-center rounded-2xl">
-                Trouver un logement →
+          {/* Theme Mode Option in Mobile Menu */}
+          <div className="py-2 px-1 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+              Thème d'affichage
+            </span>
+            <ThemeToggle variant="segmented" />
+          </div>
+
+          <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-2.5">
+            <Link href="/logements" onClick={() => setMobileMenuOpen(false)} className="w-full">
+              <Button
+                variant="primary"
+                className="group w-full h-11 justify-center rounded-xl text-sm font-bold shadow-md shadow-brand-600/25 gap-2"
+              >
+                <span>Trouver un logement</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link href="/proprietaires" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="outline" className="w-full justify-center rounded-2xl text-slate-700">
+            <Link href="/proprietaires" onClick={() => setMobileMenuOpen(false)} className="w-full">
+              <Button
+                variant="outline"
+                className="w-full h-11 justify-center rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 border-slate-200/90 dark:border-slate-800 hover:border-brand-300 hover:bg-slate-50 dark:hover:bg-slate-800 gap-2 shadow-2xs"
+              >
+                <Key className="w-4 h-4 text-amber-500" />
                 Proposer mon logement
               </Button>
             </Link>
+            {!isAuthenticated && (
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openAuthModal('login');
+                }}
+                className="w-full h-11 justify-center rounded-xl text-sm font-semibold gap-2 mt-0.5 shadow-2xs dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700"
+              >
+                <LogIn className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                Se connecter / Créer un compte
+              </Button>
+            )}
           </div>
         </div>
       )}

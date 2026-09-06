@@ -73,21 +73,43 @@ export class AuthService {
   }
 
   async oauthLoginOrRegister(data: {
+    accessToken?: string;
     email: string;
     fullName?: string;
     avatarUrl?: string;
     phone?: string;
   }): Promise<AuthResult> {
-    if (!data.email) {
+    const supabase = (await import('../config/supabase')).getSupabaseAdmin() ?? (await import('../config/supabase')).getSupabase();
+
+    let verifiedEmail = data.email?.toLowerCase().trim();
+    let verifiedFullName = data.fullName;
+
+    // Cryptographic verification of OAuth access token via Supabase Auth
+    if (data.accessToken && supabase) {
+      const { data: userData, error } = await supabase.auth.getUser(data.accessToken);
+      if (error || !userData.user?.email) {
+        throw new AppError(401, 'UNAUTHORIZED', 'Jeton d’authentification Google / Supabase invalide ou expiré.');
+      }
+      // Use cryptographically verified email from Supabase Auth
+      verifiedEmail = userData.user.email.toLowerCase().trim();
+      verifiedFullName = userData.user.user_metadata?.full_name || userData.user.user_metadata?.name || verifiedFullName;
+    } else if (env.isProd()) {
+      // In production, an access token is strictly required
+      throw new AppError(401, 'UNAUTHORIZED', 'Jeton d’authentification OAuth requis en environnement de production.');
+    } else {
+      console.warn('[SECURITY WARNING] OAuth login executed without token verification (allowed in development only).');
+    }
+
+    if (!verifiedEmail) {
       throw new AppError(400, 'VALIDATION_ERROR', 'Adresse email requise pour l’authentification OAuth.');
     }
 
-    let user = await authRepository.findUserByEmail(data.email);
+    let user = await authRepository.findUserByEmail(verifiedEmail);
 
     if (!user) {
       user = await authRepository.createOAuthUser({
-        email: data.email,
-        full_name: data.fullName || data.email.split('@')[0],
+        email: verifiedEmail,
+        full_name: verifiedFullName || verifiedEmail.split('@')[0],
         phone: data.phone,
         role: 'student',
       });

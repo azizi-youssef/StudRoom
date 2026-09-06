@@ -25,46 +25,44 @@ const baseStyles = cn(
 
 const variants = {
   primary: cn(
-    'bg-brand-600 text-white',
-    'shadow-sm',
-    'hover:bg-brand-700 hover:shadow-md',
-    'active:bg-brand-800'
+    'bg-gradient-to-r from-brand-600 via-brand-600 to-brand-500 text-white',
+    'shadow-sm shadow-brand-600/25',
+    'hover:shadow-md hover:shadow-brand-600/35 hover:-translate-y-0.5 hover:brightness-105',
+    'active:translate-y-0 active:scale-[0.98]'
   ),
 
   secondary: cn(
-    'bg-brand-50 text-brand-700',
-    'border border-brand-100',
-    'hover:bg-brand-100 hover:border-brand-200',
-    'active:bg-brand-100'
+    'bg-brand-50/90 text-brand-700',
+    'border border-brand-200/80',
+    'hover:bg-brand-100 hover:border-brand-300 hover:text-brand-800 hover:shadow-xs',
+    'active:bg-brand-100 active:scale-[0.98]'
   ),
 
   accent: cn(
-    'bg-accent-orange text-white',
-    'shadow-sm',
-    'hover:bg-orange-600 hover:shadow-md',
-    'active:bg-orange-700'
+    'bg-gradient-to-r from-orange-500 to-amber-500 text-white',
+    'shadow-sm shadow-orange-500/25',
+    'hover:from-orange-600 hover:to-amber-600 hover:shadow-md hover:shadow-orange-500/35 hover:-translate-y-0.5',
+    'active:translate-y-0 active:scale-[0.98]'
   ),
 
   outline: cn(
     'bg-white text-slate-700',
-    'border border-slate-200',
-    'hover:bg-slate-50',
-    'hover:border-slate-300',
-    'hover:text-slate-900',
-    'active:bg-slate-100'
+    'border border-slate-200/90 shadow-2xs',
+    'hover:bg-slate-50/80 hover:border-slate-300 hover:text-slate-900 hover:shadow-xs hover:-translate-y-0.5',
+    'active:bg-slate-100 active:translate-y-0 active:scale-[0.98]'
   ),
 
   ghost: cn(
     'bg-transparent text-slate-600',
     'hover:bg-slate-100 hover:text-slate-900',
-    'active:bg-slate-200'
+    'active:bg-slate-200 active:scale-[0.98]'
   ),
 
   danger: cn(
     'bg-red-600 text-white',
-    'shadow-sm',
-    'hover:bg-red-700 hover:shadow-md',
-    'active:bg-red-800'
+    'shadow-sm shadow-red-600/20',
+    'hover:bg-red-700 hover:shadow-md hover:shadow-red-600/30 hover:-translate-y-0.5',
+    'active:translate-y-0 active:scale-[0.98]'
   ),
 };
 

@@ -6,6 +6,8 @@ import { Footer } from '@/components/layout/footer';
 import { AuthProvider } from '@/context/auth-context';
 import { AuthModal } from '@/components/forms/auth-modal';
 
+import { ThemeProvider } from '@/context/theme-context';
+
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
@@ -55,14 +57,35 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`scroll-smooth ${plusJakartaSans.variable}`}>
-      <body className="font-sans bg-surface-light text-slate-900 flex flex-col min-h-screen antialiased">
-        <AuthProvider>
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-          <AuthModal />
-        </AuthProvider>
+    <html lang="fr" suppressHydrationWarning className={`scroll-smooth ${plusJakartaSans.variable}`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('studroom-theme');
+                const supportDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (theme === 'dark' || (!theme && supportDark) || (theme === 'system' && supportDark)) {
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.style.colorScheme = 'dark';
+                } else {
+                  document.documentElement.classList.remove('dark');
+                  document.documentElement.style.colorScheme = 'light';
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body className="font-sans bg-surface-light dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col min-h-screen antialiased selection:bg-brand-600 selection:text-white">
+        <ThemeProvider>
+          <AuthProvider>
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+            <AuthModal />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
