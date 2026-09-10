@@ -17,6 +17,11 @@ import {
   Key,
   Users,
   Compass,
+  Zap,
+  Check,
+  Calendar,
+  Camera,
+  BadgeCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -63,21 +68,48 @@ export default function ProprietairesPage() {
   const steps = [
     {
       num: '01',
+      stepBadge: 'Étape 1 • 24 à 48h',
       icon: Compass,
-      title: 'Évaluation & Visite gratuite',
-      desc: 'Remplissez le formulaire en 2 minutes. Notre responsable local visite votre bien et vous conseille sur le loyer optimal.',
+      title: 'Évaluation sur place & Estimation offerte',
+      desc: 'Remplissez le formulaire en 2 minutes. Notre responsable local se déplace directement à votre bien à Selouane pour analyser son potentiel, vérifier les équipements et estimer le loyer optimal.',
+      tags: ['Visite gratuite sans engagement', 'Étude comparative du marché Selouane'],
+      gradient: 'from-cyan-500 to-teal-500',
+      accentColor: 'text-cyan-400',
+      bgGlow: 'from-cyan-500/15 via-cyan-500/5 to-transparent',
+      borderColor: 'border-cyan-500/30 hover:border-cyan-400',
+      badgeBg: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
+      iconBg: 'bg-gradient-to-tr from-cyan-600 to-teal-500 text-white shadow-cyan-500/30',
+      numberColor: 'text-cyan-400/30 group-hover:text-cyan-400/50',
     },
     {
       num: '02',
-      icon: Users,
-      title: 'Mise en valeur & Sélection',
-      desc: 'Photos de qualité, annonce ciblée sur nos canaux universitaires et sélection des dossiers étudiants sérieux.',
+      stepBadge: 'Étape 2 • 3 à 5 jours',
+      icon: Camera,
+      title: 'Shooting professionnel & Sélection des dossiers',
+      desc: 'Nous réalisons un shooting photo HD de votre logement, diffusons l’annonce en priorité auprès des facultés (FPN, EST, ISTA) et sélectionnons des étudiants sérieux avec garants solvables.',
+      tags: ['Photos HD & Visite immersive', 'Vérification stricte des garants'],
+      gradient: 'from-brand-500 to-blue-500',
+      accentColor: 'text-brand-300',
+      bgGlow: 'from-brand-500/15 via-brand-500/5 to-transparent',
+      borderColor: 'border-brand-500/30 hover:border-brand-400',
+      badgeBg: 'bg-brand-500/15 text-brand-300 border-brand-500/30',
+      iconBg: 'bg-gradient-to-tr from-brand-600 to-blue-600 text-white shadow-brand-500/30',
+      numberColor: 'text-brand-400/30 group-hover:text-brand-400/50',
     },
     {
       num: '03',
+      stepBadge: 'Étape 3 • Clé en main',
       icon: Key,
-      title: 'Signature & Revenus garantis',
-      desc: 'Signature du bail officiel, remise des clés et perception sereine de vos revenus locatifs chaque mois.',
+      title: 'Bail officiel, Remise des clés & Revenus garantis',
+      desc: 'Rédaction du bail conforme à la législation marocaine, état des lieux d’entrée contradictoire et remise des clés. Vos loyers sont ensuite virés directement sur votre compte chaque début de mois.',
+      tags: ['Bail officiel légalisé', 'Loyers virés dès le 5 du mois'],
+      gradient: 'from-emerald-500 to-teal-500',
+      accentColor: 'text-emerald-400',
+      bgGlow: 'from-emerald-500/15 via-emerald-500/5 to-transparent',
+      borderColor: 'border-emerald-500/30 hover:border-emerald-400',
+      badgeBg: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+      iconBg: 'bg-gradient-to-tr from-emerald-600 to-teal-600 text-white shadow-emerald-500/30',
+      numberColor: 'text-emerald-400/30 group-hover:text-emerald-400/50',
     },
   ];
 
@@ -256,54 +288,130 @@ export default function ProprietairesPage() {
           </div>
         </div>
 
-        {/* 3 Steps Section: Comment se passe la prise en charge ? */}
-        <div className="mb-24 bg-gradient-to-br from-brand-900 via-brand-950 to-slate-950 text-white rounded-3xl p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-xl">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-brand-200 border border-white/15 mb-3">
-              Processus Transparent
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-              Comment se passe la prise en charge ?
+        {/* 🌟 3 Steps Section: Comment se passe la prise en charge ? */}
+        <div className="mb-24 rounded-4xl bg-gradient-to-br from-slate-950 via-slate-900 to-brand-950 text-white p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl border border-slate-800/80">
+          
+          {/* Ambient lighting effects */}
+          <div className="pointer-events-none absolute -top-24 left-1/4 h-80 w-80 rounded-full bg-cyan-500/15 blur-[100px]" />
+          <div className="pointer-events-none absolute top-1/2 right-10 h-96 w-96 rounded-full bg-brand-500/15 blur-[120px]" />
+          <div className="pointer-events-none absolute -bottom-20 left-10 h-72 w-72 rounded-full bg-emerald-500/15 blur-[90px]" />
+
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-16 relative z-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-white/10 text-teal-300 border border-white/15 mb-4 shadow-2xs backdrop-blur-xs">
+              <Sparkles className="w-3.5 h-3.5 text-teal-400 animate-pulse" />
+              Parcours Clé en Main • 100% Serein
+            </div>
+
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+              Comment se passe la{' '}
+              <span className="bg-gradient-to-r from-teal-300 via-brand-200 to-emerald-300 bg-clip-text text-transparent">
+                prise en charge ?
+              </span>
             </h2>
-            <p className="text-slate-300 text-sm sm:text-base mt-2">
-              Un parcours fluide en 3 étapes pour commencer à louer sans aucun effort.
+
+            <p className="text-slate-300 text-sm sm:text-base mt-3.5 max-w-2xl mx-auto leading-relaxed">
+              De l'estimation initiale jusqu'au versement mensuel ponctuel de vos loyers, notre équipe locale à Selouane s'occupe de tout sans aucun effort de votre part.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-            {steps.map((s, idx) => {
-              const StepIcon = s.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white/5 backdrop-blur-sm rounded-2xl p-7 border border-white/10 hover:border-brand-400/40 transition-all flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-300 flex items-center justify-center border border-brand-400/30">
-                        <StepIcon className="w-6 h-6" />
+          {/* Connected Steps Grid */}
+          <div className="relative z-10">
+            {/* Desktop connecting progress line */}
+            <div className="hidden lg:block absolute top-[52px] left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-cyan-500/40 via-brand-400/50 to-emerald-500/40 -z-0" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {steps.map((s, idx) => {
+                const StepIcon = s.icon;
+                return (
+                  <div
+                    key={idx}
+                    className={`group relative rounded-3xl p-7 sm:p-8 bg-gradient-to-b ${s.bgGlow} bg-slate-900/80 backdrop-blur-md border ${s.borderColor} shadow-[0_4px_24px_-4px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_40px_-4px_rgba(0,0,0,0.5)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between`}
+                  >
+                    <div>
+                      {/* Step Header: Badge & Number */}
+                      <div className="flex items-center justify-between gap-2 mb-6">
+                        <span className={`inline-flex items-center gap-1.5 text-xs font-extrabold px-3 py-1 rounded-full border ${s.badgeBg}`}>
+                          <Clock className="w-3 h-3" />
+                          {s.stepBadge}
+                        </span>
+
+                        <span className={`font-mono text-3xl sm:text-4xl font-black tracking-tighter ${s.numberColor} transition-colors select-none`}>
+                          {s.num}
+                        </span>
                       </div>
-                      <span className="text-3xl font-black text-white/20">
-                        {s.num}
-                      </span>
+
+                      {/* Icon */}
+                      <div className="mb-5">
+                        <div className={`w-14 h-14 rounded-2xl ${s.iconBg} flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300`}>
+                          <StepIcon className="w-7 h-7" />
+                        </div>
+                      </div>
+
+                      {/* Title & Description */}
+                      <h3 className="text-lg sm:text-xl font-black text-white mb-3 tracking-tight leading-snug group-hover:text-teal-200 transition-colors">
+                        {s.title}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        {s.desc}
+                      </p>
+
+                      {/* Feature Tags / Points Clés */}
+                      <div className="mt-5 flex flex-col gap-2 pt-4 border-t border-white/10">
+                        {s.tags.map((tag, tIdx) => (
+                          <div key={tIdx} className="flex items-center gap-2 text-xs font-semibold text-slate-200">
+                            <BadgeCheck className={`w-4 h-4 ${s.accentColor} shrink-0`} />
+                            <span>{tag}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
-                    <h3 className="text-lg font-bold text-white mb-2">
-                      {s.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                      {s.desc}
-                    </p>
+                    {/* Step Footer Status */}
+                    <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bold text-slate-300">
+                      <span className="flex items-center gap-1.5 text-emerald-400">
+                        <CheckCircle2 className="w-4 h-4" />
+                        Prise en charge intégrale
+                      </span>
+                      <span className={`${s.accentColor} group-hover:translate-x-1 transition-transform`}>
+                        &rarr;
+                      </span>
+                    </div>
                   </div>
-
-                  <div className="mt-5 pt-3 border-t border-white/10 flex items-center gap-1.5 text-xs text-brand-300 font-semibold">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Prise en charge intégrale</span>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
+
+          {/* Bottom Reassurance & CTA Row */}
+          <div className="mt-14 pt-10 border-t border-white/10 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 bg-white/5 rounded-3xl p-6 sm:p-8 backdrop-blur-xs border border-white/10">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-10 text-center lg:text-left">
+              <div>
+                <p className="font-mono text-2xl sm:text-3xl font-black text-emerald-400">98.4%</p>
+                <p className="text-xs text-slate-400 mt-0.5">Taux d'occupation annuel</p>
+              </div>
+              <div className="hidden sm:block w-px h-10 bg-white/10" />
+              <div>
+                <p className="font-mono text-2xl sm:text-3xl font-black text-cyan-400">Le 5</p>
+                <p className="text-xs text-slate-400 mt-0.5">Du mois : loyers virés</p>
+              </div>
+              <div className="hidden sm:block w-px h-10 bg-white/10" />
+              <div>
+                <p className="font-mono text-2xl sm:text-3xl font-black text-amber-400">0 DH</p>
+                <p className="text-xs text-slate-400 mt-0.5">Frais d'évaluation du bien</p>
+              </div>
+            </div>
+
+            <a
+              href="#form-proposer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-brand-500 to-teal-500 hover:from-brand-600 hover:to-teal-600 text-white text-xs sm:text-sm font-bold shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all w-full sm:w-auto text-center"
+            >
+              <span>Estimer mon bien gratuitement</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+
         </div>
 
         {/* Form Section */}

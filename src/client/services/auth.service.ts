@@ -21,24 +21,35 @@ export class ClientAuthService {
     return ApiClient.post<AuthApiResponse>('/auth/register', data);
   }
 
-  async oauthLogin(data: { accessToken?: string; email: string; fullName?: string; avatarUrl?: string; phone?: string }): Promise<AuthApiResponse> {
+  async oauthLogin(data: {
+    accessToken?: string;
+    email: string;
+    fullName?: string;
+    avatarUrl?: string;
+    phone?: string;
+  }): Promise<AuthApiResponse> {
     return ApiClient.post<AuthApiResponse>('/auth/google', data);
   }
 
   /**
-   * Re-validates the current JWT token against the server.
-   * Called on app load to check if the saved session is still valid.
+   * Re-valide la session courante via le cookie HttpOnly.
+   * Aucun token n'est passé — le cookie est envoyé automatiquement par le navigateur
+   * grâce à credentials: 'include' dans fetchWithTimeout.
    */
-  async getMe(token: string): Promise<MeApiResponse> {
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
-    const response = await fetch(`${API_BASE_URL}/auth/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.json();
+  async getMe(): Promise<MeApiResponse> {
+    return ApiClient.authGet<MeApiResponse>('/auth/me');
+  }
+
+  /**
+   * Demande au serveur d'effacer le cookie HttpOnly.
+   * Doit être appelé lors de la déconnexion pour invalider la session côté serveur.
+   */
+  async logout(): Promise<void> {
+    try {
+      await ApiClient.post<void>('/auth/logout', {});
+    } catch {
+      // Ignorer les erreurs réseau lors du logout — on nettoie quand même côté client
+    }
   }
 }
 

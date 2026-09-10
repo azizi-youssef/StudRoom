@@ -7,14 +7,20 @@ import { getSupabaseAdmin } from '../config/supabase';
 
 
 export class PropertyRepository {
-  async findAllProperties(): Promise<PropertyDetail[]> {
+  async findAllProperties(
+    page = 1,
+    limit = 50
+  ): Promise<PropertyDetail[]> {
     const supabase = getSupabaseAdmin();
     if (supabase) {
       try {
+        const from = (page - 1) * limit;
+        const to = from + limit - 1;
         const { data, error } = await supabase
           .from('properties')
-          .select('*, city:cities(*), rooms(*), amenities(*), images:property_images(*)')
-          .eq('is_available', true);
+          .select('*, city:cities(*), rooms(*), amenities:property_amenities(amenity:amenities(*)), images:property_images(*), proximities:university_proximities(*, university:universities(*))')
+          .eq('is_available', true)
+          .range(from, to);
         if (!error && data && data.length > 0) {
           return data as unknown as PropertyDetail[];
         }
@@ -31,7 +37,7 @@ export class PropertyRepository {
       try {
         const { data, error } = await supabase
           .from('properties')
-          .select('*, city:cities(*), rooms(*), amenities(*), images:property_images(*)')
+          .select('*, city:cities(*), rooms(*), amenities:property_amenities(amenity:amenities(*)), images:property_images(*), proximities:university_proximities(*, university:universities(*))')
           .eq('slug', slug)
           .maybeSingle();
         if (!error && data) {
@@ -50,9 +56,10 @@ export class PropertyRepository {
       try {
         const { data, error } = await supabase
           .from('properties')
-          .select('*, city:cities(*), rooms(*), amenities(*), images:property_images(*)')
+          .select('*, city:cities(*), rooms(*), amenities:property_amenities(amenity:amenities(*)), images:property_images(*), proximities:university_proximities(*, university:universities(*))')
           .eq('featured', true)
-          .eq('is_available', true);
+          .eq('is_available', true)
+          .limit(12);
         if (!error && data && data.length > 0) {
           return data as unknown as PropertyDetail[];
         }
@@ -66,9 +73,53 @@ export class PropertyRepository {
   async findRooms(
     filters?: Partial<PropertyFilterState>
   ): Promise<{ rooms: RoomDetail[]; meta: PaginationMeta }> {
+    const supabase = getSupabaseAdmin();
+
+    // ── Supabase path ────────────────────────────────────────────────────────
+    if (supabase) {
+      try {
+        const page = filters?.page ?? 1;
+        const limit = filters?.limit ?? 12;
+        const from = (page - 1) * limit;
+        const to = from + limit - 1;
+
+        let query = supabase
+          .from('rooms')
+          .select('*, property:properties(*, city:cities(*), amenities:property_amenities(amenity:amenities(*)), images:property_images(*), proximities:university_proximities(*, university:universities(*)))', { count: 'exact' });
+
+        if (filters?.maxPrice && filters.maxPrice > 0) {
+          query = query.lte('price_monthly', filters.maxPrice);
+        }
+        if (filters?.roomType && filters.roomType !== 'all') {
+          query = query.eq('room_type', filters.roomType);
+        }
+        if (filters?.sortBy === 'price_asc') {
+          query = query.order('price_monthly', { ascending: true });
+        } else if (filters?.sortBy === 'price_desc') {
+          query = query.order('price_monthly', { ascending: false });
+        } else {
+          query = query.order('created_at', { ascending: false });
+        }
+
+        query = query.range(from, to);
+
+        const { data, error, count } = await query;
+        if (!error && data) {
+          const total = count ?? data.length;
+          const totalPages = Math.ceil(total / limit) || 1;
+          return {
+            rooms: data as unknown as RoomDetail[],
+            meta: { total, page, limit, totalPages, hasNextPage: page < totalPages, hasPrevPage: page > 1 },
+          };
+        }
+      } catch {
+        // Fallback transparent to local dataset
+      }
+    }
+
+    // ── Local static fallback ─────────────────────────────────────────────────
     let allRooms: RoomDetail[] = [];
 
-    // Flatten all rooms with their parent property and city
     PROPERTIES_DATA.forEach((property) => {
       property.rooms.forEach((room) => {
         allRooms.push({
@@ -109,7 +160,6 @@ export class PropertyRepository {
         allRooms = allRooms.filter((r) => r.room_type === filters.roomType);
       }
 
-      // Status filter — only AVAILABLE by default unless specified
       if (filters.sortBy === 'price_asc') {
         allRooms.sort((a, b) => a.price_monthly - b.price_monthly);
       } else if (filters.sortBy === 'price_desc') {
@@ -138,6 +188,19 @@ export class PropertyRepository {
   }
 
   async findRoomById(id: string): Promise<RoomDetail | null> {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      try {
+        const { data, error } = await supabase
+          .from('rooms')
+          .select('*, property:properties(*, city:cities(*), amenities:property_amenities(amenity:amenities(*)), proximities:university_proximities(*, university:universities(*)))')
+          .eq('id', id)
+          .maybeSingle();
+        if (!error && data) return data as unknown as RoomDetail;
+      } catch {
+        // Fallback to local data
+      }
+    }
     for (const property of PROPERTIES_DATA) {
       const room = property.rooms.find((r) => r.id === id);
       if (room) {

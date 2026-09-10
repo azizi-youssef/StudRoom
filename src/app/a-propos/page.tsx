@@ -73,12 +73,12 @@ export default function AProposPage() {
 
   return (
     <div className="relative overflow-hidden pt-28 pb-24 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 min-h-screen transition-colors">
-      
+
       {/* Ambient background lighting */}
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-brand-100/40 dark:bg-brand-900/20 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-950/60 border border-brand-200/80 dark:border-brand-800/80 text-xs font-bold uppercase tracking-wider text-brand-700 dark:text-brand-300 shadow-xs mb-4">
@@ -108,19 +108,19 @@ export default function AProposPage() {
 
         {/* Narrative Box with Image Collage */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-28">
-          
+
           {/* Images Section */}
           <div className="lg:col-span-6 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800 aspect-[4/3]">
               <Image
-                src="/images/studroom_hero.jpg"
+                src="/images/hero.jpeg"
                 alt="Espace de vie StudRoom Selouane"
                 fill
                 className="object-cover"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-              
+
               <div className="absolute bottom-4 left-4 right-4 text-white">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold">
                   <MapPin className="w-3.5 h-3.5 text-brand-300" />
@@ -229,7 +229,7 @@ export default function AProposPage() {
                     <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors group-hover:text-brand-700 dark:group-hover:text-brand-400">
                       {p.title}
                     </h3>
-                    
+
                     <p className="mt-2.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                       {p.desc}
                     </p>
@@ -291,7 +291,7 @@ export default function AProposPage() {
         {/* Big Bottom CTA Banner */}
         <div className="rounded-3xl bg-gradient-to-r from-brand-600 via-brand-600 to-teal-600 text-white p-8 sm:p-12 lg:p-14 text-center flex flex-col items-center gap-6 shadow-xl relative overflow-hidden">
           <div className="pointer-events-none absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/10 blur-2xl" />
-          
+
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight max-w-xl">
             Prêt à vivre l'expérience StudRoom à Selouane ?
           </h2>

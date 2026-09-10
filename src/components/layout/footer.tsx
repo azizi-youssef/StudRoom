@@ -102,6 +102,12 @@ export function Footer() {
                 <Link href="/a-propos" className="text-slate-400 hover:text-white transition-colors">À propos</Link>
               </li>
               <li>
+                <Link href="/mentions-legales" className="text-slate-400 hover:text-white transition-colors">Mentions Légales & CGU</Link>
+              </li>
+              <li>
+                <Link href="/politique-confidentialite" className="text-slate-400 hover:text-white transition-colors">Confidentialité</Link>
+              </li>
+              <li>
                 <Link href="/contact" className="text-slate-400 hover:text-white transition-colors">Contact</Link>
               </li>
             </ul>
@@ -112,11 +118,11 @@ export function Footer() {
             <h4 className="text-white font-extrabold text-xs uppercase tracking-wider">Villes & Campus</h4>
             <ul className="flex flex-col gap-2.5 text-sm">
               <li className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse motion-reduce:animate-none"></span>
                 <span className="text-white font-semibold">Selouane / Al Omrane</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse motion-reduce:animate-none"></span>
                 <span className="text-white font-semibold">Nador Ville</span>
               </li>
               <li className="flex items-center gap-2 text-slate-500">
@@ -149,7 +155,7 @@ export function Footer() {
             </div>
 
             <div className="mt-2 p-3 rounded-2xl bg-brand-500/10 border border-brand-500/20 text-xs text-brand-300 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping motion-reduce:animate-none" />
               <span>Support réactif 7j/7 pour étudiants</span>
             </div>
           </div>
@@ -158,9 +164,10 @@ export function Footer() {
         {/* Sub-footer */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} StudRoom Maroc. Tous droits réservés. Student living, made simple.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <Link href="/mentions-legales" className="hover:text-slate-300 transition-colors">Mentions Légales & CGU</Link>
+            <Link href="/politique-confidentialite" className="hover:text-slate-300 transition-colors">Confidentialité</Link>
             <Link href="/contact" className="hover:text-slate-300 transition-colors">Contact Direct</Link>
-            <Link href="/comment-ca-marche" className="hover:text-slate-300 transition-colors">Conditions & FAQ</Link>
           </div>
         </div>
       </div>

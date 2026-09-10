@@ -40,7 +40,7 @@ export class BookingService {
       }
     }
 
-    const bookingId = 'SR-BOOK-' + Math.floor(100000 + Math.random() * 900000);
+    const bookingId = 'SR-BOOK-' + crypto.randomUUID().replace(/-/g, '').slice(0, 12).toUpperCase();
     const result = await bookingRepository.saveBooking(validatedData, bookingId);
     return { bookingId, data: result };
   }
@@ -73,7 +73,7 @@ export class BookingService {
     rawPayload: unknown
   ): Promise<{ proposalId: string; data: DbLandlordSubmission }> {
     const validatedData: LandlordFormValues = landlordFormSchema.parse(rawPayload);
-    const proposalId = 'SR-PROP-' + Math.floor(100000 + Math.random() * 900000);
+    const proposalId = 'SR-PROP-' + crypto.randomUUID().replace(/-/g, '').slice(0, 12).toUpperCase();
     const result = await bookingRepository.saveLandlordSubmission(validatedData, proposalId);
     return { proposalId, data: result };
   }
@@ -102,7 +102,7 @@ export class BookingService {
     rawPayload: unknown
   ): Promise<{ ticketId: string; data: DbContactRequest }> {
     const validatedData: ContactFormValues = contactFormSchema.parse(rawPayload);
-    const ticketId = 'SR-TKT-' + Math.floor(100000 + Math.random() * 900000);
+    const ticketId = 'SR-TKT-' + crypto.randomUUID().replace(/-/g, '').slice(0, 12).toUpperCase();
     const result = await bookingRepository.saveContactRequest(validatedData, ticketId);
     return { ticketId, data: result };
   }

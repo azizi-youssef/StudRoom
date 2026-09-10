@@ -5,16 +5,16 @@ import { DbUser } from '@/shared/types/database';
 import { LoginValues, RegisterValues } from '@/shared/validation/auth.schema';
 import { clientAuthService } from '@/client/services/auth.service';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+import { USER_STORAGE_KEY } from '@/client/services/api-client';
 
 interface AuthContextType {
   user: DbUser | null;
-  token: string | null;
   isLoading: boolean;
   isAuthenticated: boolean;
   login: (credentials: LoginValues) => Promise<{ success: boolean; message?: string }>;
   register: (data: RegisterValues) => Promise<{ success: boolean; message?: string }>;
   loginWithGoogle: () => Promise<void>;
-  setSession: (token: string, user: DbUser) => void;
+  setSession: (user: DbUser) => void;
   logout: () => void;
   isAuthModalOpen: boolean;
   authModalTab: 'login' | 'register';
@@ -24,63 +24,77 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const TOKEN_KEY = 'studroom_auth_token';
-const USER_KEY = 'studroom_auth_user';
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<DbUser | null>(null);
-  const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalTab, setAuthModalTab] = useState<'login' | 'register'>('login');
 
+  /**
+   * Au chargement de l'application :
+   * 1. Récupération rapide de l'utilisateur depuis localStorage (affichage immédiat sans flash)
+   * 2. Re-validation silencieuse de la session via le cookie HttpOnly (/auth/me)
+   *    - Si valide → met à jour l'état utilisateur
+   *    - Si invalide → logout propre (cookie expiré ou révoqué)
+   *
+   * Note : le JWT lui-même n'est JAMAIS lu depuis localStorage. Seul l'objet user
+   * (données non sensibles) y est mis en cache pour l'affichage UI instantané.
+   */
   useEffect(() => {
-    try {
-      const savedToken = localStorage.getItem(TOKEN_KEY);
-      const savedUser = localStorage.getItem(USER_KEY);
-      if (savedToken && savedUser) {
-        setToken(savedToken);
-        setUser(JSON.parse(savedUser));
+    const restoreSession = async () => {
+      try {
+        // Affichage rapide depuis le cache local (données non sensibles uniquement)
+        const cachedUser = localStorage.getItem(USER_STORAGE_KEY);
+        if (cachedUser) {
+          setUser(JSON.parse(cachedUser));
+        }
 
-        // Re-validate token in background
-        clientAuthService.getMe(savedToken).then((res) => {
-          if (res.success && res.data) {
-            setUser(res.data);
-            localStorage.setItem(USER_KEY, JSON.stringify(res.data));
-          } else {
-            // Invalid/expired token
-            logout();
-          }
-        }).catch(() => {
-          // Keep offline session if server temporarily down
-        });
+        // Re-validation cryptographique via le cookie HttpOnly (envoyé automatiquement)
+        const res = await clientAuthService.getMe();
+        if (res.success && res.data) {
+          setUser(res.data as DbUser);
+          localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(res.data));
+        } else {
+          // Cookie expiré ou révoqué — nettoyer l'état
+          clearLocalState();
+        }
+      } catch {
+        // Serveur temporairement indisponible — garder la session locale affichée
+        // sans déconnecter l'utilisateur (UX dégradée mais non cassée)
+      } finally {
+        setIsLoading(false);
       }
-    } catch (e) {
-      console.error('Error restoring auth state:', e);
-    } finally {
-      setIsLoading(false);
-    }
+    };
+
+    restoreSession();
   }, []);
 
-  const logout = React.useCallback(() => {
+  const clearLocalState = () => {
     setUser(null);
-    setToken(null);
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
+    localStorage.removeItem(USER_STORAGE_KEY);
+  };
+
+  const logout = React.useCallback(async () => {
+    // 1. Efface le cookie HttpOnly côté serveur
+    await clientAuthService.logout();
+
+    // 2. Nettoie l'état local et le cache
+    clearLocalState();
+
+    // 3. Déconnecte aussi Supabase (OAuth Google)
     try {
       const supabase = getSupabaseBrowserClient();
       supabase.auth.signOut().catch(() => {});
-    } catch (e) {}
+    } catch {}
   }, []);
 
   const login = React.useCallback(async (credentials: LoginValues) => {
     const res = await clientAuthService.login(credentials);
     if (res.success && res.data) {
-      const { token: newToken, user: newUser } = res.data;
-      setToken(newToken);
+      const { user: newUser } = res.data;
       setUser(newUser as DbUser);
-      localStorage.setItem(TOKEN_KEY, newToken);
-      localStorage.setItem(USER_KEY, JSON.stringify(newUser));
+      // Stocke uniquement les données user (non-sensibles) pour l'affichage rapide
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));
       setIsAuthModalOpen(false);
       return { success: true, message: res.data.message };
     }
@@ -93,25 +107,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const register = React.useCallback(async (data: RegisterValues) => {
     const res = await clientAuthService.register(data);
     if (res.success && res.data) {
-      const { token: newToken, user: newUser } = res.data;
-      setToken(newToken);
+      const { user: newUser } = res.data;
       setUser(newUser as DbUser);
-      localStorage.setItem(TOKEN_KEY, newToken);
-      localStorage.setItem(USER_KEY, JSON.stringify(newUser));
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));
       setIsAuthModalOpen(false);
       return { success: true, message: res.data.message };
     }
     return {
       success: false,
-      message: res.error?.message || 'Erreur lors de l’inscription. Veuillez réessayer.',
+      message: res.error?.message || "Erreur lors de l'inscription. Veuillez réessayer.",
     };
   }, []);
 
-  const setSession = React.useCallback((newToken: string, newUser: DbUser) => {
-    setToken(newToken);
+  /**
+   * Appelé après un callback OAuth réussi.
+   * Permet à la page /auth/callback de mettre à jour l'état sans recharger la page.
+   */
+  const setSession = React.useCallback((newUser: DbUser) => {
     setUser(newUser);
-    localStorage.setItem(TOKEN_KEY, newToken);
-    localStorage.setItem(USER_KEY, JSON.stringify(newUser));
+    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));
   }, []);
 
   const loginWithGoogle = React.useCallback(async () => {
@@ -153,9 +167,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     <AuthContext.Provider
       value={{
         user,
-        token,
         isLoading,
-        isAuthenticated: !!user && !!token,
+        isAuthenticated: !!user,
         login,
         register,
         loginWithGoogle,

@@ -38,6 +38,11 @@ export const env = {
     : getEnvRequired('JWT_SECRET'),
   JWT_EXPIRES_IN: getEnv('JWT_EXPIRES_IN', '7d'),
 
+  // Cookie signing secret
+  COOKIE_SECRET: isDev
+    ? getEnv('COOKIE_SECRET', 'studroom_cookie_dev_secret_change_in_prod')
+    : getEnvRequired('COOKIE_SECRET'),
+
   // Supabase
   SUPABASE_URL: getEnv('SUPABASE_URL', ''),
   SUPABASE_ANON_KEY: getEnv('SUPABASE_ANON_KEY', getEnv('SUPABASE_KEY', '')),
@@ -46,4 +51,5 @@ export const env = {
   isDev: () => isDev,
   isProd: () => process.env.NODE_ENV === 'production',
 };
+
 

@@ -44,7 +44,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroSection universities={universities} />
+      <HeroSection universities={universities} featuredProperty={properties[0] ?? null} />
       <BenefitsSection />
       <FeaturedProperties properties={properties} />
       <HowItWorksPreview />

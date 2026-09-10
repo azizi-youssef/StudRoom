@@ -18,7 +18,7 @@ export class ClientBookingService {
 
   /**
    * Get all bookings — admin only.
-   * Automatically sends JWT token from localStorage.
+   * Le cookie HttpOnly est envoyé automatiquement par le navigateur.
    */
   async getAllBookings(): Promise<BookingListResponse> {
     return ApiClient.authGet<BookingListResponse>('/booking-requests');
@@ -26,7 +26,7 @@ export class ClientBookingService {
 
   /**
    * Update booking status — admin only.
-   * Automatically sends JWT token from localStorage.
+   * Le cookie HttpOnly est envoyé automatiquement par le navigateur.
    */
   async updateBookingStatus(
     id: string,

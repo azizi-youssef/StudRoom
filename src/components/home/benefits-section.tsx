@@ -31,7 +31,7 @@ export function BenefitsSection() {
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-16 sm:mb-20">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-200/80 dark:border-brand-800/80 bg-brand-50 dark:bg-brand-950/60 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-700 dark:text-brand-300 shadow-xs mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400 animate-pulse" />
+            <Sparkles className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400 animate-pulse motion-reduce:animate-none" />
             L'Expérience Étudiante Réinventée
           </div>
 
@@ -64,10 +64,10 @@ export function BenefitsSection() {
         </div>
 
         {/* Modern Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 lg:gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
 
-          {/* Bento Item 1: Large Card - Ready to Live (2 cols on md/lg) */}
-          <div className="md:col-span-2 group relative overflow-hidden rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-gradient-to-br from-white via-slate-50/70 to-brand-50/30 dark:from-slate-900 dark:via-slate-900/90 dark:to-brand-950/30 p-8 sm:p-10 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)] hover:shadow-[0_20px_40px_-12px_rgba(4,108,122,0.18)] hover:border-brand-300 dark:hover:border-brand-700 transition-all duration-300 flex flex-col justify-between">
+          {/* Bento Item 1: Large Card - Ready to Live (2 cols on sm/lg) */}
+          <div className="sm:col-span-2 lg:col-span-2 group relative overflow-hidden rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-gradient-to-br from-white via-slate-50/70 to-brand-50/30 dark:from-slate-900 dark:via-slate-900/90 dark:to-brand-950/30 p-8 sm:p-10 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)] hover:shadow-[0_20px_40px_-12px_rgba(4,108,122,0.18)] hover:border-brand-300 dark:hover:border-brand-700 transition-all duration-300 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between gap-4 mb-6">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-brand-600 to-teal-500 text-white shadow-md shadow-brand-500/25 group-hover:scale-110 group-hover:rotate-1 transition-all duration-300">
@@ -191,8 +191,8 @@ export function BenefitsSection() {
             <div className="absolute inset-x-8 bottom-0 h-1 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </div>
 
-          {/* Bento Item 4: Transparency & Safety (2 cols on md/lg) */}
-          <div className="md:col-span-2 group relative overflow-hidden rounded-3xl border border-slate-800/90 bg-gradient-to-br from-slate-950 via-slate-900 to-brand-950 text-white p-8 sm:p-10 shadow-xl hover:shadow-[0_25px_50px_-12px_rgba(4,108,122,0.3)] transition-all duration-300 flex flex-col justify-between">
+          {/* Bento Item 4: Transparency & Safety (2 cols on sm/lg) */}
+          <div className="sm:col-span-2 lg:col-span-2 group relative overflow-hidden rounded-3xl border border-slate-800/90 bg-gradient-to-br from-slate-950 via-slate-900 to-brand-950 text-white p-8 sm:p-10 shadow-xl hover:shadow-[0_25px_50px_-12px_rgba(4,108,122,0.3)] transition-all duration-300 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between gap-4 mb-6">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 text-white shadow-md shadow-emerald-500/25 group-hover:scale-110 group-hover:rotate-1 transition-all duration-300">

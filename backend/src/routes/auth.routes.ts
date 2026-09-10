@@ -19,4 +19,7 @@ router.post('/oauth', authController.googleOAuth.bind(authController));
 // GET /api/v1/auth/me
 router.get('/me', requireAuth, authController.me.bind(authController));
 
+// POST /api/v1/auth/logout — Efface le cookie HttpOnly côté serveur
+router.post('/logout', authController.logout.bind(authController));
+
 export default router;
