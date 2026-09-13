@@ -89,16 +89,16 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
       </div>
 
       {property && (
-        <div className="p-3 bg-brand-50 rounded-2xl border border-brand-200/80 flex items-center justify-between text-xs">
+        <div className="p-3 bg-primary-50 rounded-2xl border border-primary-200/80 flex items-center justify-between text-xs">
           <div className="flex flex-col min-w-0">
-            <span className="font-bold text-brand-900 truncate">{property.title}</span>
+            <span className="font-bold text-primary-900 truncate">{property.title}</span>
             {room && (
-              <span className="text-[11px] text-brand-700 font-medium truncate">
+              <span className="text-[11px] text-primary-700 font-medium truncate">
                 🛏️ {room.name} ({room.room_type})
               </span>
             )}
           </div>
-          <span className="font-extrabold text-brand-600 whitespace-nowrap ml-2">
+          <span className="font-extrabold text-primary-600 whitespace-nowrap ml-2">
             {room ? room.price_monthly : property.min_price_dh} DH/mois
           </span>
         </div>
@@ -201,7 +201,7 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
         <textarea
           rows={3}
           placeholder="Précisions sur vos préférences, colocataires souhaités..."
-          className="w-full bg-white border border-slate-200 rounded-xl p-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+          className="w-full bg-white border border-slate-200 rounded-xl p-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
           {...register('message')}
         />
       </div>

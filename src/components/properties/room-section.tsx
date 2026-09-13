@@ -69,7 +69,7 @@ export function RoomSection({ rooms, property }: RoomSectionProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
         <div>
           <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
-            <Bed className="w-5 h-5 text-brand-600" />
+            <Bed className="w-5 h-5 text-primary-600" />
             Chambres & Disponibilités
           </h3>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -77,7 +77,7 @@ export function RoomSection({ rooms, property }: RoomSectionProps) {
           </p>
         </div>
 
-        <span className="text-xs font-bold px-3 py-1 bg-brand-50 text-brand-700 rounded-full border border-brand-100 w-fit">
+        <span className="text-xs font-bold px-3 py-1 bg-primary-50 text-primary-700 rounded-full border border-primary-100 w-fit">
           {rooms.filter(r => r.status === 'AVAILABLE').length} / {rooms.length} disponibles
         </span>
       </div>
@@ -91,7 +91,7 @@ export function RoomSection({ rooms, property }: RoomSectionProps) {
               key={room.id}
               className={`p-5 rounded-2xl border transition-all flex flex-col md:flex-row md:items-center justify-between gap-5 ${
                 isAvailable
-                  ? 'bg-white border-slate-200 hover:border-brand-300 hover:shadow-soft'
+                  ? 'bg-white border-slate-200 hover:border-primary-300 hover:shadow-soft'
                   : 'bg-slate-50 border-slate-200/70 opacity-80'
               }`}
             >
@@ -125,7 +125,7 @@ export function RoomSection({ rooms, property }: RoomSectionProps) {
               <div className="flex items-center justify-between md:flex-col md:items-end gap-3 pt-3 md:pt-0 border-t md:border-t-0 border-slate-100">
                 <div className="text-left md:text-right">
                   <span className="text-[10px] font-bold text-slate-400 uppercase">Loyer mensuel</span>
-                  <div className="text-xl font-black text-brand-600">
+                  <div className="text-xl font-black text-primary-600">
                     {formatCurrencyDH(room.price_monthly)}
                     <span className="text-xs font-semibold text-slate-500"> /mois</span>
                   </div>

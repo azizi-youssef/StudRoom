@@ -122,12 +122,12 @@ function AuthCallbackContent() {
     <div className="relative min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100/70 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex items-center justify-center p-4 transition-colors">
       
       {/* Ambient background glow */}
-      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-500/10 dark:bg-brand-600/15 rounded-full blur-3xl -z-10" />
+      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary-500/10 dark:bg-primary-600/15 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-md w-full bg-white dark:bg-slate-900 rounded-3xl p-8 sm:p-10 border border-slate-200/90 dark:border-slate-800 shadow-2xl shadow-slate-200/50 dark:shadow-none text-center relative z-10">
         {status === 'loading' && (
           <div className="flex flex-col items-center py-6">
-            <div className="w-16 h-16 rounded-2xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4 border border-brand-100 dark:border-brand-800/80 shadow-xs">
+            <div className="w-16 h-16 rounded-2xl bg-primary-50 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 flex items-center justify-center mb-4 border border-primary-100 dark:border-primary-800/80 shadow-xs">
               <Loader2 className="w-8 h-8 animate-spin" />
             </div>
             <h2 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
@@ -172,7 +172,7 @@ function AuthCallbackContent() {
             <div className="mt-6 flex flex-col sm:flex-row gap-2.5 w-full justify-center">
               <Link
                 href="/connexion"
-                className="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5"
+                className="px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 Retour à la connexion
@@ -202,7 +202,7 @@ export default function AuthCallbackPage() {
         <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100/70 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex items-center justify-center p-4">
           <div className="max-w-md w-full bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-2xl text-center">
             <div className="flex flex-col items-center py-6">
-              <div className="w-16 h-16 rounded-2xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4 border border-brand-100 dark:border-brand-800/80 shadow-xs">
+              <div className="w-16 h-16 rounded-2xl bg-primary-50 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 flex items-center justify-center mb-4 border border-primary-100 dark:border-primary-800/80 shadow-xs">
                 <Loader2 className="w-8 h-8 animate-spin" />
               </div>
               <h2 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">

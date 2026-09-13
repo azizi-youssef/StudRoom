@@ -40,7 +40,7 @@ export function GoogleButton({
     >
       {isLoading ? (
         <>
-          <Loader2 className="w-4 h-4 animate-spin text-brand-600" />
+          <Loader2 className="w-4 h-4 animate-spin text-primary-600" />
           <span>Redirection vers Google...</span>
         </>
       ) : (

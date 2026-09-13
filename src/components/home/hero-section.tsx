@@ -58,7 +58,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
   return (
     <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-mesh-light dark:bg-mesh-dark">
       {/* Dynamic Ambient Background Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-200/40 dark:bg-brand-900/20 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary-200/40 dark:bg-primary-900/20 rounded-full blur-[120px] pointer-events-none -z-10" />
       <div className="absolute top-1/3 right-4 w-[450px] h-[450px] bg-accent-orange/10 dark:bg-accent-orange/5 rounded-full blur-[100px] pointer-events-none -z-10" />
       <div className="absolute bottom-10 left-10 w-[350px] h-[350px] bg-emerald-100/40 dark:bg-emerald-950/20 rounded-full blur-[90px] pointer-events-none -z-10" />
 
@@ -70,10 +70,10 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
 
             {/* Top Badge */}
             <div className="inline-flex items-center justify-center lg:justify-start">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-white/90 dark:bg-slate-900/90 text-brand-700 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/80 shadow-soft backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-white/90 dark:bg-slate-900/90 text-primary-700 dark:text-primary-300 border border-primary-200/80 dark:border-primary-800/80 shadow-soft backdrop-blur-sm">
                 <span className="flex h-2 w-2 relative">
-                  <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-600"></span>
+                  <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-600"></span>
                 </span>
                 La référence étudiante · Selouane &amp; Nador
               </span>
@@ -83,7 +83,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
             <div className="flex flex-col gap-3">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.12]">
                 Trouve ton logement étudiant <br className="hidden sm:inline" />
-                <span className="bg-gradient-to-r from-brand-600 via-brand-500 to-accent-teal bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-accent-teal bg-clip-text text-transparent">
                   clé en main &amp; sans stress.
                 </span>
               </h1>
@@ -106,7 +106,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
                       onClick={() => setPropertyCategory(cat)}
                       className={`px-3.5 py-1.5 rounded-full transition-all ${
                         propertyCategory === cat
-                          ? 'bg-brand-600 text-white shadow-soft'
+                          ? 'bg-primary-600 text-white shadow-soft'
                           : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
                       }`}
                     >
@@ -122,7 +122,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
                   {/* Field 1: Localisation (static) */}
                   <div className="flex flex-col gap-1 p-3 bg-slate-50/80 dark:bg-slate-800/70 rounded-2xl border border-slate-100 dark:border-slate-700/80">
                     <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400 flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+                      <MapPin className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
                       Localisation
                     </label>
                     <span className="text-sm font-bold text-slate-900 dark:text-white truncate">
@@ -133,7 +133,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
                   {/* Field 2: Université */}
                   <div className="flex flex-col gap-1 p-3 bg-slate-50/80 dark:bg-slate-800/70 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/80 transition-colors">
                     <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400 flex items-center gap-1.5">
-                      <GraduationCap className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+                      <GraduationCap className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
                       Campus cible
                     </label>
                     <select
@@ -154,10 +154,10 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
                   <div className="flex flex-col gap-1.5 p-3 bg-slate-50/80 dark:bg-slate-800/70 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/80 transition-colors">
                     <div className="flex items-center justify-between">
                       <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400 flex items-center gap-1.5">
-                        <Coins className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+                        <Coins className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
                         Budget max
                       </label>
-                      <span className="text-[10px] font-black text-brand-600 dark:text-brand-400 tabular-nums">
+                      <span className="text-[10px] font-black text-primary-600 dark:text-primary-400 tabular-nums">
                         {formatBudget(budgetMax)}
                       </span>
                     </div>
@@ -189,7 +189,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
                   type="submit"
                   variant="primary"
                   size="lg"
-                  className="w-full justify-center text-sm font-black py-4 rounded-2xl shadow-glow-brand hover:scale-[1.01] transition-transform"
+                  className="w-full justify-center text-sm font-black py-4 rounded-2xl shadow-glow-primary hover:scale-[1.01] transition-transform"
                 >
                   <Search className="w-4 h-4 mr-2" />
                   Rechercher mon logement idéal
@@ -218,7 +218,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
           {/* Right Column: Visual PropTech Showcase */}
           <div className="lg:col-span-5 relative mt-4 lg:mt-0">
             {/* Ambient Background Behind Image */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-brand-500 to-accent-orange rounded-4xl blur-2xl opacity-20 -rotate-2 scale-95 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary-500 to-accent-orange rounded-4xl blur-2xl opacity-20 -rotate-2 scale-95 pointer-events-none" />
 
             <div className="relative rounded-4xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] sm:aspect-[4/4.5] lg:aspect-[4/5] group bg-slate-100">
               <Image
@@ -241,7 +241,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
 
               {/* Floating Badge 2: Campus Proximity (Top Left) — dynamic */}
               <div className="absolute top-5 left-5 bg-slate-900/85 backdrop-blur-md text-white px-3 py-1.5 rounded-2xl text-[11px] font-bold flex items-center gap-1.5 border border-white/20 shadow-md">
-                <GraduationCap className="w-3.5 h-3.5 text-brand-400" />
+                <GraduationCap className="w-3.5 h-3.5 text-primary-400" />
                 <span>{proximityLabel}</span>
               </div>
 
@@ -249,7 +249,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
               {cardSlug ? (
                 <Link
                   href={`/logements/${cardSlug}`}
-                  className="absolute bottom-5 left-5 right-5 glass-card p-4 rounded-3xl border border-white/80 shadow-xl flex items-center justify-between gap-3 hover:border-brand-300 transition-colors group/card"
+                  className="absolute bottom-5 left-5 right-5 glass-card p-4 rounded-3xl border border-white/80 shadow-xl flex items-center justify-between gap-3 hover:border-primary-300 transition-colors group/card"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
@@ -261,7 +261,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
                   </div>
                   <div className="text-right shrink-0">
                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Dès</span>
-                    <div className="bg-brand-600 text-white font-black text-xs px-3 py-1.5 rounded-xl shadow-xs whitespace-nowrap">
+                    <div className="bg-primary-600 text-white font-black text-xs px-3 py-1.5 rounded-xl shadow-xs whitespace-nowrap">
                       {cardPrice.toLocaleString('fr-MA')} DH<span className="text-[9px] font-normal">/m</span>
                     </div>
                   </div>
@@ -278,7 +278,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
                   </div>
                   <div className="text-right shrink-0">
                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Dès</span>
-                    <div className="bg-brand-600 text-white font-black text-xs px-3 py-1.5 rounded-xl shadow-xs whitespace-nowrap">
+                    <div className="bg-primary-600 text-white font-black text-xs px-3 py-1.5 rounded-xl shadow-xs whitespace-nowrap">
                       {cardPrice.toLocaleString('fr-MA')} DH<span className="text-[9px] font-normal">/m</span>
                     </div>
                   </div>

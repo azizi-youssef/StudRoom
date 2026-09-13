@@ -19,13 +19,13 @@ export function AccordionItem({ question, answer, defaultOpen = false }: Accordi
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-5 text-left font-semibold text-slate-900 hover:text-brand-600 transition-colors gap-4"
+        className="w-full flex items-center justify-between p-5 text-left font-semibold text-slate-900 hover:text-primary-600 transition-colors gap-4"
       >
         <span className="text-base sm:text-lg">{question}</span>
         <ChevronDown
           className={cn(
             "w-5 h-5 text-slate-400 transition-transform duration-300 flex-shrink-0",
-            isOpen && "transform rotate-180 text-brand-600"
+            isOpen && "transform rotate-180 text-primary-600"
           )}
         />
       </button>

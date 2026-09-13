@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -17,6 +17,20 @@ import {
 import { Button } from '@/components/ui/button';
 
 export function HowItWorksPreview() {
+  const iconRef = useRef<HTMLDivElement>(null);
+  const [connectorTop, setConnectorTop] = useState(52);
+
+  useEffect(() => {
+    const updateConnector = () => {
+      if (iconRef.current) {
+        const rect = iconRef.current.getBoundingClientRect();
+        setConnectorTop(rect.height / 2 + 24); // 24px = p-6 top padding
+      }
+    };
+    updateConnector();
+    window.addEventListener('resize', updateConnector);
+    return () => window.removeEventListener('resize', updateConnector);
+  }, []);
   const steps = [
     {
       num: '01',
@@ -25,8 +39,8 @@ export function HowItWorksPreview() {
       title: 'Explore & Compare',
       desc: 'Filtre selon ta faculté (FSAN, FEGN, ESTN...), ton budget max, le quartier et les équipements souhaités.',
       tags: ['Proche campus', 'Prix tout inclus'],
-      gradient: 'from-brand-600 to-teal-500',
-      shadowColor: 'shadow-brand-500/20',
+      gradient: 'from-primary-600 to-teal-500',
+      shadowColor: 'shadow-primary-500/20',
     },
     {
       num: '02',
@@ -65,11 +79,11 @@ export function HowItWorksPreview() {
       
       {/* Decorative background blurs */}
       <div
-        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-brand-100/40 via-teal-100/30 to-transparent dark:from-brand-900/20 dark:via-teal-950/20 blur-3xl opacity-70"
+        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-primary-100/40 via-teal-100/30 to-transparent dark:from-primary-900/20 dark:via-teal-950/20 blur-3xl opacity-70"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute bottom-0 right-0 w-96 h-96 bg-brand-50/50 dark:bg-brand-950/20 rounded-full blur-3xl opacity-60"
+        className="pointer-events-none absolute bottom-0 right-0 w-96 h-96 bg-primary-50/50 dark:bg-primary-950/20 rounded-full blur-3xl opacity-60"
         aria-hidden="true"
       />
 
@@ -77,9 +91,9 @@ export function HowItWorksPreview() {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-950/60 border border-brand-200/80 dark:border-brand-800/80 shadow-xs mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400 animate-pulse" />
-            <span className="text-xs font-bold text-brand-700 dark:text-brand-300 uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200/80 dark:border-primary-800/80 shadow-xs mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400 animate-pulse" />
+            <span className="text-xs font-bold text-primary-700 dark:text-primary-300 uppercase tracking-wider">
               Parcours simple & 100% digital
             </span>
           </div>
@@ -95,7 +109,7 @@ export function HowItWorksPreview() {
           {/* Quick reassurance pills */}
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-xs font-medium text-slate-600 dark:text-slate-300 shadow-2xs">
-              <Clock className="w-3.5 h-3.5 text-brand-500" />
+              <Clock className="w-3.5 h-3.5 text-primary-500" />
               Réservation en 2 min
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-xs font-medium text-slate-600 dark:text-slate-300 shadow-2xs">
@@ -112,9 +126,10 @@ export function HowItWorksPreview() {
         {/* Steps Grid with connecting line on desktop */}
         <div className="relative">
           
-          {/* Connecting line between cards for desktop */}
+          {/* Connecting line between cards for desktop — dynamically positioned */}
           <div
-            className="hidden lg:block absolute top-[52px] left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-brand-200 via-teal-200 to-amber-200 dark:from-brand-900 dark:via-teal-900 dark:to-amber-900 -z-0 pointer-events-none"
+            className="hidden lg:block absolute left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-primary-200 via-teal-200 to-amber-200 dark:from-primary-900 dark:via-teal-900 dark:to-amber-900 -z-0 pointer-events-none transition-all"
+            style={{ top: `${connectorTop}px` }}
             aria-hidden="true"
           />
 
@@ -124,7 +139,7 @@ export function HowItWorksPreview() {
               return (
                 <div
                   key={idx}
-                  className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs p-6 sm:p-7 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-2 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-[0_20px_40px_-12px_rgba(4,108,122,0.18)]"
+                  className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs p-6 sm:p-7 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-2 hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-[0_20px_40px_-12px_rgba(4,108,122,0.18)]"
                 >
                   {/* Top card bar with icon, step number and badge */}
                   <div>
@@ -132,26 +147,27 @@ export function HowItWorksPreview() {
                       
                       {/* Gradient icon box */}
                       <div
+                        ref={idx === 0 ? iconRef : undefined}
                         className={`relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr ${s.gradient} text-white shadow-md ${s.shadowColor} transition-all duration-300 group-hover:scale-110 group-hover:rotate-2`}
                       >
                         <Icon className="h-7 w-7" strokeWidth={2.2} />
                       </div>
 
                       {/* Number Watermark */}
-                      <span className="text-3xl sm:text-4xl font-black text-slate-200 dark:text-slate-800 transition-colors duration-300 group-hover:text-brand-500/40">
+                      <span className="text-3xl sm:text-4xl font-black text-slate-200 dark:text-slate-800 transition-colors duration-300 group-hover:text-primary-500/40">
                         {s.num}
                       </span>
                     </div>
 
                     {/* Step category badge */}
                     <div className="mb-2.5">
-                      <span className="inline-block rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-brand-50 dark:group-hover:bg-brand-950 group-hover:text-brand-700 dark:group-hover:text-brand-300">
+                      <span className="inline-block rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-primary-50 dark:group-hover:bg-primary-950 group-hover:text-primary-700 dark:group-hover:text-primary-300">
                         {s.badge}
                       </span>
                     </div>
 
                     {/* Title & Desc */}
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors group-hover:text-brand-700 dark:group-hover:text-brand-400">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors group-hover:text-primary-700 dark:group-hover:text-primary-400">
                       {s.title}
                     </h3>
                     <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -164,7 +180,7 @@ export function HowItWorksPreview() {
                     {s.tags.map((tag, tIdx) => (
                       <span
                         key={tIdx}
-                        className="inline-flex items-center gap-1 rounded-full bg-slate-50 dark:bg-slate-800/80 px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:text-slate-400 group-hover:bg-brand-50/60 dark:group-hover:bg-brand-950/60 group-hover:text-brand-700 dark:group-hover:text-brand-300 transition-colors"
+                        className="inline-flex items-center gap-1 rounded-full bg-slate-50 dark:bg-slate-800/80 px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:text-slate-400 group-hover:bg-primary-50/60 dark:group-hover:bg-primary-950/60 group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors"
                       >
                         <CheckCircle2 className="h-3 w-3 text-emerald-500" />
                         {tag}
@@ -173,7 +189,7 @@ export function HowItWorksPreview() {
                   </div>
 
                   {/* Accent bottom hover line */}
-                  <div className="absolute inset-x-7 bottom-0 h-1 bg-gradient-to-r from-brand-500 to-teal-400 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
+                  <div className="absolute inset-x-7 bottom-0 h-1 bg-gradient-to-r from-primary-500 to-teal-400 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
                 </div>
               );
             })}
@@ -187,7 +203,7 @@ export function HowItWorksPreview() {
             <Button
               variant="primary"
               size="lg"
-              className="group rounded-full font-bold text-sm px-8 py-3.5 shadow-md shadow-brand-600/25 hover:shadow-lg hover:shadow-brand-600/35 hover:-translate-y-0.5 active:scale-95 transition-all gap-2"
+              className="group rounded-full font-bold text-sm px-8 py-3.5 shadow-md shadow-primary-600/25 hover:shadow-lg hover:shadow-primary-600/35 hover:-translate-y-0.5 active:scale-95 transition-all gap-2"
             >
               <span>Trouver mon logement maintenant</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -198,7 +214,7 @@ export function HowItWorksPreview() {
             <Button
               variant="outline"
               size="lg"
-              className="rounded-full font-semibold text-sm px-7 py-3.5 border-slate-200/90 text-slate-700 hover:border-brand-300 hover:bg-slate-50 shadow-2xs hover:-translate-y-0.5 transition-all"
+              className="rounded-full font-semibold text-sm px-7 py-3.5 border-slate-200/90 text-slate-700 hover:border-primary-300 hover:bg-slate-50 shadow-2xs hover:-translate-y-0.5 transition-all"
             >
               Des questions ? Découvrir StudRoom
             </Button>

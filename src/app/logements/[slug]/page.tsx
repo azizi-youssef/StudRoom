@@ -86,14 +86,14 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
               {property.title}
             </h1>
             <div className="flex items-center gap-2 text-slate-500 text-sm font-semibold mt-1">
-              <MapPin className="w-4 h-4 text-brand-600" />
+              <MapPin className="w-4 h-4 text-primary-600" />
               <span>{property.address}, {property.neighborhood}, {property.city.name}</span>
             </div>
           </div>
 
           <div className="text-left md:text-right">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block">Loyer mensuel dès</span>
-            <div className="text-3xl font-black text-brand-600">
+            <div className="text-3xl font-black text-primary-600">
               {formatCurrencyDH(property.min_price_dh)}
               <span className="text-xs font-semibold text-slate-500"> / mois</span>
             </div>
@@ -114,14 +114,14 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
               <div className="flex flex-col items-center">
                 <span className="text-xs font-bold text-slate-400 uppercase">Superficie</span>
                 <div className="flex items-center gap-1 font-black text-slate-900 text-lg mt-0.5">
-                  <Maximize className="w-4 h-4 text-brand-600" />
+                  <Maximize className="w-4 h-4 text-primary-600" />
                   {property.surface_sqm} m²
                 </div>
               </div>
               <div className="flex flex-col items-center border-x border-slate-100">
                 <span className="text-xs font-bold text-slate-400 uppercase">Chambres</span>
                 <div className="flex items-center gap-1 font-black text-slate-900 text-lg mt-0.5">
-                  <Bed className="w-4 h-4 text-brand-600" />
+                  <Bed className="w-4 h-4 text-primary-600" />
                   {property.total_rooms} chambres
                 </div>
               </div>

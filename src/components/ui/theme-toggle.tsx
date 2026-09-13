@@ -60,7 +60,7 @@ export function ThemeToggle({ className, variant = 'button' }: ThemeToggleProps)
               className={cn(
                 "flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200",
                 isSelected
-                  ? "bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-xs"
+                  ? "bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-400 shadow-xs"
                   : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               )}
             >
@@ -88,7 +88,7 @@ export function ThemeToggle({ className, variant = 'button' }: ThemeToggleProps)
           "relative flex h-9 w-9 items-center justify-center rounded-xl border transition-all duration-300 shadow-xs active:scale-95",
           resolvedTheme === 'dark'
             ? "border-slate-800 bg-slate-900/90 text-amber-400 hover:border-amber-400/50 hover:bg-slate-800 hover:shadow-amber-500/10 hover:shadow-md"
-            : "border-slate-200/90 bg-white/90 text-slate-700 hover:border-brand-300 hover:bg-brand-50/40 hover:text-brand-600 hover:shadow-md",
+            : "border-slate-200/90 bg-white/90 text-slate-700 hover:border-primary-300 hover:bg-primary-50/40 hover:text-primary-600 hover:shadow-md",
           className
         )}
       >
@@ -128,7 +128,7 @@ export function ThemeToggle({ className, variant = 'button' }: ThemeToggleProps)
             className={cn(
               "w-full flex items-center justify-between px-2.5 py-2 rounded-xl transition-colors",
               theme === 'light'
-                ? "bg-brand-50 text-brand-700 font-bold dark:bg-brand-950/60 dark:text-brand-400"
+                ? "bg-primary-50 text-primary-700 font-bold dark:bg-primary-950/60 dark:text-primary-400"
                 : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
             )}
           >
@@ -136,7 +136,7 @@ export function ThemeToggle({ className, variant = 'button' }: ThemeToggleProps)
               <Sun className="w-3.5 h-3.5 text-amber-500" />
               <span>Mode clair</span>
             </div>
-            {theme === 'light' && <Check className="w-3.5 h-3.5 text-brand-600" />}
+            {theme === 'light' && <Check className="w-3.5 h-3.5 text-primary-600" />}
           </button>
 
           <button
@@ -148,7 +148,7 @@ export function ThemeToggle({ className, variant = 'button' }: ThemeToggleProps)
             className={cn(
               "w-full flex items-center justify-between px-2.5 py-2 rounded-xl transition-colors",
               theme === 'dark'
-                ? "bg-brand-50 text-brand-700 font-bold dark:bg-brand-950/60 dark:text-brand-400"
+                ? "bg-primary-50 text-primary-700 font-bold dark:bg-primary-950/60 dark:text-primary-400"
                 : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
             )}
           >
@@ -156,7 +156,7 @@ export function ThemeToggle({ className, variant = 'button' }: ThemeToggleProps)
               <Moon className="w-3.5 h-3.5 text-indigo-400" />
               <span>Mode sombre</span>
             </div>
-            {theme === 'dark' && <Check className="w-3.5 h-3.5 text-brand-600" />}
+            {theme === 'dark' && <Check className="w-3.5 h-3.5 text-primary-600" />}
           </button>
 
           <button
@@ -168,7 +168,7 @@ export function ThemeToggle({ className, variant = 'button' }: ThemeToggleProps)
             className={cn(
               "w-full flex items-center justify-between px-2.5 py-2 rounded-xl transition-colors",
               theme === 'system'
-                ? "bg-brand-50 text-brand-700 font-bold dark:bg-brand-950/60 dark:text-brand-400"
+                ? "bg-primary-50 text-primary-700 font-bold dark:bg-primary-950/60 dark:text-primary-400"
                 : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
             )}
           >
@@ -176,7 +176,7 @@ export function ThemeToggle({ className, variant = 'button' }: ThemeToggleProps)
               <Laptop className="w-3.5 h-3.5 text-slate-500" />
               <span>Système (Auto)</span>
             </div>
-            {theme === 'system' && <Check className="w-3.5 h-3.5 text-brand-600" />}
+            {theme === 'system' && <Check className="w-3.5 h-3.5 text-primary-600" />}
           </button>
         </div>
       )}

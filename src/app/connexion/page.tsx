@@ -71,7 +71,7 @@ export default function ConnexionPage() {
     <div className="relative min-h-screen pt-28 pb-20 flex items-center justify-center bg-gradient-to-b from-slate-50 via-white to-slate-100/70 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 px-4 transition-colors">
       
       {/* Ambient background lighting */}
-      <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-brand-500/10 dark:bg-brand-600/15 rounded-full blur-3xl -z-10" />
+      <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-primary-500/10 dark:bg-primary-600/15 rounded-full blur-3xl -z-10" />
       <div className="pointer-events-none absolute bottom-10 right-10 w-[400px] h-[400px] bg-emerald-500/10 dark:bg-emerald-600/10 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-5xl w-full mx-auto">
@@ -82,8 +82,8 @@ export default function ConnexionPage() {
             <div>
               {/* Header Badge & Title */}
               <div className="mb-7">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/80 mb-3">
-                  <ShieldCheck className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-primary-50 dark:bg-primary-950/60 text-primary-700 dark:text-primary-300 border border-primary-200/80 dark:border-primary-800/80 mb-3">
+                  <ShieldCheck className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
                   Espace Sécurisé StudRoom
                 </div>
 
@@ -132,7 +132,7 @@ export default function ConnexionPage() {
                       {...registerField('email')}
                       type="email"
                       placeholder="votre.email@etudiant.ma"
-                      className="pl-10 h-11 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500/20"
+                      className="pl-10 h-11 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20"
                     />
                   </div>
                   {errors.email && (
@@ -146,7 +146,7 @@ export default function ConnexionPage() {
                     <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
                       Mot de passe *
                     </label>
-                    <span className="text-[11px] text-slate-400 dark:text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors cursor-pointer">
+                    <span className="text-[11px] text-slate-400 dark:text-slate-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors cursor-pointer">
                       Mot de passe oublié ?
                     </span>
                   </div>
@@ -156,7 +156,7 @@ export default function ConnexionPage() {
                       {...registerField('password')}
                       type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••"
-                      className="pl-10 pr-10 h-11 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500/20"
+                      className="pl-10 pr-10 h-11 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20"
                     />
                     <button
                       type="button"
@@ -177,7 +177,7 @@ export default function ConnexionPage() {
                   type="submit"
                   variant="primary"
                   size="lg"
-                  className="w-full font-bold h-12 text-sm rounded-xl shadow-md shadow-brand-600/20 hover:shadow-lg hover:shadow-brand-600/30 hover:-translate-y-0.5 transition-all mt-2"
+                  className="w-full font-bold h-12 text-sm rounded-xl shadow-md shadow-primary-600/20 hover:shadow-lg hover:shadow-primary-600/30 hover:-translate-y-0.5 transition-all mt-2"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -200,7 +200,7 @@ export default function ConnexionPage() {
               <span>Vous n'avez pas encore de compte ?</span>
               <Link
                 href="/inscription"
-                className="font-bold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="font-bold text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center gap-1"
               >
                 <span>Créer un compte</span>
                 <ArrowRight className="w-3 h-3" />
@@ -209,27 +209,27 @@ export default function ConnexionPage() {
           </div>
 
           {/* Right Column: Branded Visual Showcase Panel (Desktop) */}
-          <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-brand-950 via-slate-900 to-slate-950 text-white p-10 flex-col justify-between relative overflow-hidden border-l border-slate-800">
+          <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-primary-950 via-slate-900 to-slate-950 text-white p-10 flex-col justify-between relative overflow-hidden border-l border-slate-800">
             {/* Ambient inner glow */}
-            <div className="pointer-events-none absolute -top-20 -right-20 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl" />
+            <div className="pointer-events-none absolute -top-20 -right-20 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 -left-20 w-64 h-64 bg-teal-500/15 rounded-full blur-3xl" />
 
             <div className="relative z-10">
               {/* Logo / Brand badge */}
               <div className="flex items-center gap-2.5 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-brand-600/30 border border-brand-400/30 flex items-center justify-center shadow-xs">
-                  <Building2 className="w-5 h-5 text-brand-400" />
+                <div className="w-10 h-10 rounded-xl bg-primary-600/30 border border-primary-400/30 flex items-center justify-center shadow-xs">
+                  <Building2 className="w-5 h-5 text-primary-400" />
                 </div>
                 <div>
                   <span className="text-base font-black tracking-tight text-white">StudRoom</span>
-                  <p className="text-[10px] text-brand-300 font-semibold uppercase tracking-wider">Selouane &bull; Nador</p>
+                  <p className="text-[10px] text-primary-300 font-semibold uppercase tracking-wider">Selouane &bull; Nador</p>
                 </div>
               </div>
 
               {/* Catchphrase */}
               <h2 className="text-2xl font-black text-white leading-tight tracking-tight mb-3">
                 Votre logement étudiant idéal,{' '}
-                <span className="bg-gradient-to-r from-teal-300 to-brand-300 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-teal-300 to-primary-300 bg-clip-text text-transparent">
                   sans stress.
                 </span>
               </h2>
@@ -260,7 +260,7 @@ export default function ConnexionPage() {
                 </div>
 
                 <div className="flex items-start gap-3 bg-white/5 border border-white/10 p-3 rounded-2xl backdrop-blur-xs">
-                  <div className="w-7 h-7 rounded-lg bg-brand-500/20 text-brand-300 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-lg bg-primary-500/20 text-primary-300 flex items-center justify-center shrink-0 mt-0.5">
                     <CheckCircle2 className="w-4 h-4" />
                   </div>
                   <div>
@@ -274,7 +274,7 @@ export default function ConnexionPage() {
             {/* Bottom mini-card quote */}
             <div className="relative z-10 pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
               <span className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-brand-400" />
+                <MapPin className="w-3.5 h-3.5 text-primary-400" />
                 Secteur Al Omrane, Selouane
               </span>
               <span className="font-semibold text-teal-300">

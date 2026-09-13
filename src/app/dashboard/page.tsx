@@ -38,7 +38,7 @@ const BOOKING_STATUS_CONFIG: Record<
 > = {
   PENDING: { label: 'En attente', className: 'bg-amber-100 text-amber-800' },
   CONTACTED: { label: 'Contacté', className: 'bg-blue-100 text-blue-800' },
-  VISIT_SCHEDULED: { label: 'Visite programmée', className: 'bg-brand-100 text-brand-800' },
+  VISIT_SCHEDULED: { label: 'Visite programmée', className: 'bg-primary-100 text-primary-800' },
   APPROVED: { label: 'Confirmée', className: 'bg-emerald-100 text-emerald-800' },
   REJECTED: { label: 'Refusée', className: 'bg-rose-100 text-rose-800' },
   CANCELLED: { label: 'Annulée', className: 'bg-slate-100 text-slate-600' },
@@ -59,7 +59,7 @@ function BookingStatusBadge({ status }: { status: string }) {
 function LandlordStatusBadge({ status }: { status: string }) {
   const map: Record<string, { label: string; className: string }> = {
     new: { label: 'Nouvelle', className: 'bg-amber-100 text-amber-800' },
-    contacted: { label: 'Contacté', className: 'bg-brand-100 text-brand-800' },
+    contacted: { label: 'Contacté', className: 'bg-primary-100 text-primary-800' },
     approved: { label: 'Approuvée', className: 'bg-emerald-100 text-emerald-800' },
     declined: { label: 'Refusée', className: 'bg-rose-100 text-rose-800' },
   };
@@ -130,14 +130,8 @@ export default function DashboardPage() {
   const [dataLoading, setDataLoading] = useState(true);
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
 
-  // ── Auth guard ──────────────────────────────────────────────────────────────
-  // Wait for auth state to be resolved before rendering
-  if (authLoading) return <DashboardSkeleton />;
-  if (!isAuthenticated) return <AccessDenied reason="unauthenticated" />;
-  if (user?.role !== 'admin') return <AccessDenied reason="forbidden" />;
-
-  // ── Data loading ────────────────────────────────────────────────────────────
-  const loadDashboardData = async () => {
+  // ── Data loading (defined before guards so hook order is stable) ─────────────
+  const loadDashboardData = useCallback(async () => {
     setDataLoading(true);
     try {
       const [bookingsRes, proposalsRes, propertiesRes, contactsRes] = await Promise.all([
@@ -156,11 +150,20 @@ export default function DashboardPage() {
     } finally {
       setDataLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    loadDashboardData();
-  }, []);
+    // Only fetch when the admin is confirmed authenticated
+    if (!authLoading && isAuthenticated && user?.role === 'admin') {
+      loadDashboardData();
+    }
+  }, [authLoading, isAuthenticated, user?.role, loadDashboardData]);
+
+  // ── Auth guard (AFTER all hooks) ─────────────────────────────────────────────
+  if (authLoading) return <DashboardSkeleton />;
+  if (!isAuthenticated) return <AccessDenied reason="unauthenticated" />;
+  if (user?.role !== 'admin') return <AccessDenied reason="forbidden" />;
+
 
   // ── Actions ─────────────────────────────────────────────────────────────────
   const handleUpdateBookingStatus = async (id: string, newStatus: BookingStatus) => {
@@ -217,7 +220,7 @@ export default function DashboardPage() {
         {/* ── Dashboard Header ─────────────────────────────────────────── */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
           <div>
-            <span className="text-xs font-bold text-brand-600 uppercase tracking-widest bg-brand-50 px-3.5 py-1 rounded-full border border-brand-100">
+            <span className="text-xs font-bold text-primary-600 uppercase tracking-widest bg-primary-50 px-3.5 py-1 rounded-full border border-primary-100">
               Administration & Gestion
             </span>
             <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mt-2">
@@ -261,9 +264,9 @@ export default function DashboardPage() {
             label="Offres Bailleurs"
             value={dataLoading ? '—' : totalProposals}
             sub={`${proposals.filter((p) => p.status === 'new').length} nouvelles`}
-            subClassName="text-brand-600"
+            subClassName="text-primary-600"
             icon={<UserCheck className="w-6 h-6" />}
-            iconBg="bg-brand-100 text-brand-700"
+            iconBg="bg-primary-100 text-primary-700"
           />
           <KpiCard
             label="Logements Gérés"
@@ -282,7 +285,7 @@ export default function DashboardPage() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 min-w-max py-2.5 px-4 text-xs font-extrabold rounded-xl transition-all flex items-center justify-center gap-2 ${
                 activeTab === tab.id
-                  ? 'bg-white text-brand-600 shadow-soft'
+                  ? 'bg-white text-primary-600 shadow-soft'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -295,7 +298,7 @@ export default function DashboardPage() {
         {/* Loading overlay */}
         {dataLoading && (
           <div className="flex items-center justify-center py-20 gap-3 text-slate-500">
-            <Loader2 className="w-6 h-6 animate-spin text-brand-600" />
+            <Loader2 className="w-6 h-6 animate-spin text-primary-600" />
             <span className="text-sm font-medium">Chargement des données…</span>
           </div>
         )}
@@ -337,7 +340,7 @@ export default function DashboardPage() {
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <p className="font-bold text-brand-600">Chambre réservée</p>
+                          <p className="font-bold text-primary-600">Chambre réservée</p>
                           <p className="text-slate-500 text-[11px]">
                             Arrivée : {booking.preferred_move_in_date} ({booking.preferred_duration_months} mois)
                           </p>
@@ -362,7 +365,7 @@ export default function DashboardPage() {
                                 onClick={() => handleUpdateBookingStatus(booking.id, 'VISIT_SCHEDULED')}
                                 disabled={actionLoadingId === booking.id}
                                 title="Programmer une visite"
-                                className="p-1.5 rounded-lg bg-brand-50 text-brand-700 hover:bg-brand-600 hover:text-white transition-colors"
+                                className="p-1.5 rounded-lg bg-primary-50 text-primary-700 hover:bg-primary-600 hover:text-white transition-colors"
                               >
                                 <Calendar className="w-4 h-4" />
                               </button>
@@ -435,7 +438,7 @@ export default function DashboardPage() {
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <p className="font-bold text-brand-600">{prop.expected_rent_dh} DH / mois</p>
+                          <p className="font-bold text-primary-600">{prop.expected_rent_dh} DH / mois</p>
                           <p className="text-slate-500 text-[11px]">{prop.rooms_count} chambres ({prop.surface_sqm || 80} m²)</p>
                         </td>
                         <td className="px-6 py-4">
@@ -448,7 +451,7 @@ export default function DashboardPage() {
                                 onClick={() => handleUpdateLandlordStatus(prop.id, 'contacted')}
                                 disabled={actionLoadingId === prop.id}
                                 title="Marquer comme contacté"
-                                className="p-1.5 rounded-lg bg-brand-50 text-brand-700 hover:bg-brand-600 hover:text-white transition-colors"
+                                className="p-1.5 rounded-lg bg-primary-50 text-primary-700 hover:bg-primary-600 hover:text-white transition-colors"
                               >
                                 <Phone className="w-4 h-4" />
                               </button>
@@ -505,7 +508,7 @@ export default function DashboardPage() {
                     <p className="text-xs text-slate-500 mt-1 line-clamp-2">{property.description}</p>
                   </div>
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
-                    <span className="text-brand-600">{property.min_price_dh} – {property.max_price_dh} DH/mois</span>
+                    <span className="text-primary-600">{property.min_price_dh} – {property.max_price_dh} DH/mois</span>
                     <span className="text-slate-700">{property.available_rooms} chambres dispo.</span>
                   </div>
                 </div>
@@ -533,7 +536,7 @@ export default function DashboardPage() {
                         <h4 className="font-bold text-slate-900 text-sm">{ticket.full_name}</h4>
                         <span className="text-xs font-mono text-slate-400">Ref: {ticket.id}</span>
                       </div>
-                      <p className="text-xs font-semibold text-brand-600 mb-2">Sujet : {ticket.subject}</p>
+                      <p className="text-xs font-semibold text-primary-600 mb-2">Sujet : {ticket.subject}</p>
                       <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-2xl border border-slate-100 max-w-2xl">
                         &ldquo;{ticket.message}&rdquo;
                       </p>

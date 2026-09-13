@@ -125,10 +125,10 @@ export function ContactForm() {
       className="bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-[0_10px_40px_-10px_rgba(15,23,42,0.08)] flex flex-col gap-6 relative overflow-hidden transition-colors"
     >
       {/* Decorative top accent line */}
-      <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-600 via-teal-500 to-accent-orange" />
+      <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary-600 via-teal-500 to-accent-orange" />
 
       <div className="flex flex-col gap-1 border-b border-slate-100 dark:border-slate-800 pb-4">
-        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider mb-1">
+        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider mb-1">
           <MessageSquare className="w-3.5 h-3.5" />
           Formulaire de contact direct
         </div>
@@ -182,7 +182,7 @@ export function ContactForm() {
               onClick={() => setValue('subject', subj, { shouldValidate: true })}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 selectedSubject === subj
-                  ? 'bg-brand-600 text-white shadow-xs'
+                  ? 'bg-primary-600 text-white shadow-xs'
                   : 'bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700'
               }`}
             >
@@ -233,7 +233,7 @@ export function ContactForm() {
         <textarea
           rows={4}
           placeholder="Dites-nous tout : le type de chambre recherché, la faculté fréquentée, vos dates souhaitées..."
-          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 focus:ring-2 focus:ring-brand-500/20"
+          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20"
           {...register('message')}
         />
         {errors.message && (
@@ -248,7 +248,7 @@ export function ContactForm() {
           variant="primary"
           size="lg"
           disabled={isSubmitting}
-          className="w-full justify-center text-base py-4 font-bold shadow-md shadow-brand-600/25 hover:shadow-lg hover:shadow-brand-600/35 hover:-translate-y-0.5 active:scale-95 transition-all rounded-2xl"
+          className="w-full justify-center text-base py-4 font-bold shadow-md shadow-primary-600/25 hover:shadow-lg hover:shadow-primary-600/35 hover:-translate-y-0.5 active:scale-95 transition-all rounded-2xl"
         >
           {isSubmitting ? (
             <>
@@ -266,7 +266,7 @@ export function ContactForm() {
         {/* Guarantees */}
         <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400 pt-1">
           <span className="inline-flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-brand-500" />
+            <Clock className="w-3.5 h-3.5 text-primary-500" />
             Réponse rapide sous 2h à 24h
           </span>
           <span>•</span>

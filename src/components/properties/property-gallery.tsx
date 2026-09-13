@@ -65,7 +65,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
         {/* Hover Center Indicator */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <div className="bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-full text-xs font-bold text-slate-900 shadow-xl flex items-center gap-2 transform -translate-y-1 group-hover:translate-y-0 transition-all">
-            <Maximize2 className="w-4 h-4 text-brand-600" />
+            <Maximize2 className="w-4 h-4 text-primary-600" />
             Ouvrir la galerie plein écran
           </div>
         </div>
@@ -94,7 +94,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
 
         {/* Floating Photo Counter Badge */}
         <div className="absolute bottom-4 right-4 bg-slate-900/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2 border border-white/10 shadow-lg">
-          <Camera className="w-3.5 h-3.5 text-brand-400" />
+          <Camera className="w-3.5 h-3.5 text-primary-400" />
           <span>
             {selectedImageIndex + 1} / {safeImages.length}
           </span>
@@ -111,7 +111,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
               onClick={() => setSelectedImageIndex(idx)}
               className={`relative aspect-[16/10] rounded-2xl overflow-hidden border-2 transition-all group/thumb ${
                 selectedImageIndex === idx
-                  ? 'border-brand-600 ring-2 ring-brand-500/30 scale-[1.02]'
+                  ? 'border-primary-600 ring-2 ring-primary-500/30 scale-[1.02]'
                   : 'border-transparent opacity-70 hover:opacity-100 hover:border-slate-300'
               }`}
             >
@@ -176,7 +176,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                 <button
                   type="button"
                   onClick={handlePrev}
-                  className="absolute left-2 sm:-left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-800/90 hover:bg-brand-600 text-white flex items-center justify-center transition-all shadow-xl hover:scale-110 z-20"
+                  className="absolute left-2 sm:-left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-800/90 hover:bg-primary-600 text-white flex items-center justify-center transition-all shadow-xl hover:scale-110 z-20"
                   aria-label="Précédent"
                 >
                   <ChevronLeft className="w-6 h-6" />
@@ -184,7 +184,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="absolute right-2 sm:-right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-800/90 hover:bg-brand-600 text-white flex items-center justify-center transition-all shadow-xl hover:scale-110 z-20"
+                  className="absolute right-2 sm:-right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-800/90 hover:bg-primary-600 text-white flex items-center justify-center transition-all shadow-xl hover:scale-110 z-20"
                   aria-label="Suivant"
                 >
                   <ChevronRight className="w-6 h-6" />
@@ -206,7 +206,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                   onClick={() => setSelectedImageIndex(idx)}
                   className={`relative w-16 h-12 sm:w-20 sm:h-14 flex-shrink-0 rounded-xl overflow-hidden border-2 transition-all ${
                     selectedImageIndex === idx
-                      ? 'border-brand-500 scale-105 shadow-md'
+                      ? 'border-primary-500 scale-105 shadow-md'
                       : 'border-transparent opacity-50 hover:opacity-90'
                   }`}
                 >

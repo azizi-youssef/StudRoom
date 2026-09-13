@@ -39,7 +39,7 @@ export function PropertyCardSkeleton() {
             <div className="h-3 w-16 bg-slate-200 rounded" />
             <div className="h-6 w-28 bg-slate-300 rounded-lg" />
           </div>
-          <div className="h-10 w-28 bg-brand-100 rounded-xl" />
+          <div className="h-10 w-28 bg-primary-100 rounded-xl" />
         </div>
       </div>
     </div>

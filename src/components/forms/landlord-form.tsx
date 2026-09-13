@@ -108,22 +108,22 @@ export function LandlordForm() {
         {/* What happens next */}
         <div className="w-full max-w-lg bg-white/90 dark:bg-slate-800/90 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700 text-left space-y-3">
           <p className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-            <Clock className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+            <Clock className="w-4 h-4 text-primary-600 dark:text-primary-400" />
             Prochaines étapes :
           </p>
 
           <div className="flex items-start gap-3 text-xs text-slate-600 dark:text-slate-300">
-            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-50 dark:bg-brand-950 text-[10px] font-bold text-brand-700 dark:text-brand-300">1</span>
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-50 dark:bg-primary-950 text-[10px] font-bold text-primary-700 dark:text-primary-300">1</span>
             <span>Appel téléphonique de notre conseiller pour préciser vos attentes et caractéristiques du logement.</span>
           </div>
 
           <div className="flex items-start gap-3 text-xs text-slate-600 dark:text-slate-300">
-            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-50 dark:bg-brand-950 text-[10px] font-bold text-brand-700 dark:text-brand-300">2</span>
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-50 dark:bg-primary-950 text-[10px] font-bold text-primary-700 dark:text-primary-300">2</span>
             <span>Visite d'expertise gratuite sur place à Selouane / Nador pour estimer le loyer optimal.</span>
           </div>
 
           <div className="flex items-start gap-3 text-xs text-slate-600 dark:text-slate-300">
-            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-50 dark:bg-brand-950 text-[10px] font-bold text-brand-700 dark:text-brand-300">3</span>
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-50 dark:bg-primary-950 text-[10px] font-bold text-primary-700 dark:text-primary-300">3</span>
             <span>Signature du mandat de gestion et mise en ligne auprès de nos étudiants qualifiés.</span>
           </div>
         </div>
@@ -149,12 +149,12 @@ export function LandlordForm() {
       className="bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-[0_10px_40px_-10px_rgba(15,23,42,0.08)] flex flex-col gap-8 relative overflow-hidden transition-colors"
     >
       {/* Decorative top accent line */}
-      <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-600 via-teal-500 to-accent-orange" />
+      <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary-600 via-teal-500 to-accent-orange" />
 
       {/* Block 1: Coordonnées du propriétaire */}
       <div>
         <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-100 dark:border-slate-800">
-          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-xs font-black">
+          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-primary-50 dark:bg-primary-950 text-primary-700 dark:text-primary-300 text-xs font-black">
             1
           </span>
           <h4 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
@@ -191,7 +191,7 @@ export function LandlordForm() {
       {/* Block 2: Localisation & Typologie du bien */}
       <div>
         <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-100 dark:border-slate-800">
-          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-xs font-black">
+          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-primary-50 dark:bg-primary-950 text-primary-700 dark:text-primary-300 text-xs font-black">
             2
           </span>
           <h4 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
@@ -239,7 +239,7 @@ export function LandlordForm() {
       {/* Block 3: Caractéristiques & Conditions */}
       <div>
         <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-100 dark:border-slate-800">
-          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-xs font-black">
+          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-primary-50 dark:bg-primary-950 text-primary-700 dark:text-primary-300 text-xs font-black">
             3
           </span>
           <h4 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
@@ -286,7 +286,7 @@ export function LandlordForm() {
       {/* Block 4: Précisions & Commentaires */}
       <div>
         <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100 dark:border-slate-800">
-          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-xs font-black">
+          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-primary-50 dark:bg-primary-950 text-primary-700 dark:text-primary-300 text-xs font-black">
             4
           </span>
           <h4 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
@@ -298,7 +298,7 @@ export function LandlordForm() {
           <textarea
             rows={3}
             placeholder="Récemment rénové, meublé, présence de balcon, Wi-Fi déjà installé, chauffe-eau neuf, etc."
-            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 focus:ring-2 focus:ring-brand-500/20"
+            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20"
             {...register('message')}
           />
           <p className="text-[11px] text-slate-400 dark:text-slate-500">
@@ -314,7 +314,7 @@ export function LandlordForm() {
           variant="primary"
           size="lg"
           disabled={isSubmitting}
-          className="w-full justify-center text-base py-4 font-bold shadow-md shadow-brand-600/25 hover:shadow-lg hover:shadow-brand-600/35 hover:-translate-y-0.5 active:scale-95 transition-all rounded-2xl"
+          className="w-full justify-center text-base py-4 font-bold shadow-md shadow-primary-600/25 hover:shadow-lg hover:shadow-primary-600/35 hover:-translate-y-0.5 active:scale-95 transition-all rounded-2xl"
         >
           {isSubmitting ? (
             <>
@@ -337,7 +337,7 @@ export function LandlordForm() {
           </span>
           <span>•</span>
           <span className="inline-flex items-center gap-1.5 font-medium">
-            <Clock className="w-4 h-4 text-brand-500" />
+            <Clock className="w-4 h-4 text-primary-500" />
             Contact sous 24h par notre équipe locale
           </span>
           <span>•</span>

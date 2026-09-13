@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -14,7 +14,16 @@ import { ThemeToggle } from '@/components/ui/theme-toggle';
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMenuClosing, setIsMenuClosing] = useState(false);
   const pathname = usePathname();
+
+  const closeMobileMenu = useCallback(() => {
+    setIsMenuClosing(true);
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+      setIsMenuClosing(false);
+    }, 200);
+  }, []);
   const { user, isAuthenticated, logout, openAuthModal } = useAuth();
 
   useEffect(() => {
@@ -29,7 +38,20 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
+  // Navigation principale affichée dans la pill desktop (max 5 items)
+  const mainNavItems = [
+    { label: 'Accueil', href: '/', icon: Home },
+    { label: 'Logements', href: '/logements', icon: Building2 },
+    ...(isAuthenticated && user?.role === 'admin'
+      ? [{ label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard }]
+      : []),
+    { label: 'Propriétaires', href: '/proprietaires', icon: Key },
+    { label: 'À propos', href: '/a-propos', icon: Info },
+    { label: 'Contact', href: '/contact', icon: Phone },
+  ];
+
+  // Navigation complète affichée dans le menu mobile (tous les liens)
+  const allNavItems = [
     { label: 'Accueil', href: '/', icon: Home },
     { label: 'Logements', href: '/logements', icon: Building2 },
     { label: 'Réservations', href: '/reservations', icon: Calendar },
@@ -67,7 +89,7 @@ export function Header() {
 
         {/* Desktop Nav Links */}
         <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-md p-1.5 rounded-full border border-slate-200/70 dark:border-slate-800/80 shadow-inner-light">
-          {navItems.map((item) => {
+          {mainNavItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
@@ -76,12 +98,12 @@ export function Header() {
                 className={cn(
                   "relative px-4 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 flex items-center gap-1.5",
                   isActive
-                    ? "bg-white dark:bg-slate-800 text-brand-700 dark:text-brand-300 shadow-sm font-bold"
+                    ? "bg-white dark:bg-slate-800 text-primary-700 dark:text-primary-300 shadow-sm font-bold"
                     : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60"
                 )}
               >
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
                 )}
                 {item.label}
               </Link>
@@ -100,26 +122,26 @@ export function Header() {
                 <Link
                   href="/dashboard"
                   title="Accéder au tableau de bord administrateur"
-                  className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-brand-50/90 dark:bg-brand-950/60 hover:bg-brand-100/90 dark:hover:bg-brand-900/60 border border-brand-200/90 dark:border-brand-800/80 text-slate-800 dark:text-slate-100 shadow-xs transition-colors"
+                  className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-primary-50/90 dark:bg-primary-950/60 hover:bg-primary-100/90 dark:hover:bg-primary-900/60 border border-primary-200/90 dark:border-primary-800/80 text-slate-800 dark:text-slate-100 shadow-xs transition-colors"
                 >
-                  <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                  <div className="w-7 h-7 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
                     {user.full_name.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex flex-col text-left pr-1">
                     <span className="text-xs font-bold leading-tight">{user.full_name}</span>
-                    <span className="text-[10px] text-brand-600 dark:text-brand-400 font-semibold uppercase tracking-wider">
+                    <span className="text-[10px] text-primary-600 dark:text-primary-400 font-semibold uppercase tracking-wider">
                       🛡️ Admin (Dashboard)
                     </span>
                   </div>
                 </Link>
               ) : (
-                <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-brand-50/90 dark:bg-brand-950/60 border border-brand-100/90 dark:border-brand-800/80 text-slate-800 dark:text-slate-100 shadow-xs">
-                  <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-primary-50/90 dark:bg-primary-950/60 border border-primary-100/90 dark:border-primary-800/80 text-slate-800 dark:text-slate-100 shadow-xs">
+                  <div className="w-7 h-7 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
                     {user.full_name.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex flex-col text-left pr-1">
                     <span className="text-xs font-bold leading-tight">{user.full_name}</span>
-                    <span className="text-[10px] text-brand-600 dark:text-brand-400 font-semibold uppercase tracking-wider">
+                    <span className="text-[10px] text-primary-600 dark:text-primary-400 font-semibold uppercase tracking-wider">
                       {user.role === 'student' ? '🎓 Étudiant' : '🏠 Propriétaire'}
                     </span>
                   </div>
@@ -141,16 +163,16 @@ export function Header() {
                 variant="outline"
                 size="sm"
                 onClick={() => openAuthModal('login')}
-                className="text-xs font-bold rounded-full border-slate-200/90 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:bg-brand-50/40 dark:hover:bg-brand-950/40 hover:text-brand-700 dark:hover:text-brand-300 hover:border-brand-300 shadow-xs hover:shadow-sm hover:-translate-y-0.5 active:scale-95 transition-all px-3.5 py-2"
+                className="text-xs font-bold rounded-full border-slate-200/90 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:bg-primary-50/40 dark:hover:bg-primary-950/40 hover:text-primary-700 dark:hover:text-primary-300 hover:border-primary-300 shadow-xs hover:shadow-sm hover:-translate-y-0.5 active:scale-95 transition-all px-3.5 py-2"
               >
-                <LogIn className="w-3.5 h-3.5 mr-1.5 text-brand-600 dark:text-brand-400" />
+                <LogIn className="w-3.5 h-3.5 mr-1.5 text-primary-600 dark:text-primary-400" />
                 Se connecter
               </Button>
               <Link href="/logements">
                 <Button
                   size="sm"
                   variant="primary"
-                  className="group rounded-full shadow-md shadow-brand-600/20 hover:shadow-lg hover:shadow-brand-600/35 text-xs font-bold gap-1.5 px-4 py-2 hover:-translate-y-0.5 active:scale-95 transition-all"
+                  className="group rounded-full shadow-md shadow-primary-600/20 hover:shadow-lg hover:shadow-primary-600/35 text-xs font-bold gap-1.5 px-4 py-2 hover:-translate-y-0.5 active:scale-95 transition-all"
                 >
                   <span>Trouver un logement</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
@@ -178,42 +200,50 @@ export function Header() {
               type="button"
               onClick={() => openAuthModal('login')}
               title="Se connecter"
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-xs hover:border-brand-300 hover:bg-brand-50/50 active:scale-95 transition-all"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 text-primary-600 dark:text-primary-400 shadow-xs hover:border-primary-300 hover:bg-primary-50/50 active:scale-95 transition-all"
             >
               <User className="w-4 h-4" />
             </button>
           )}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 shadow-xs hover:border-brand-300 hover:bg-brand-50/50 hover:text-brand-600 active:scale-95 transition-all"
+            onClick={() => mobileMenuOpen ? closeMobileMenu() : setMobileMenuOpen(true)}
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 shadow-xs hover:border-primary-300 hover:bg-primary-50/50 hover:text-primary-600 active:scale-95 transition-all"
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-5 h-5 text-brand-600 dark:text-brand-400" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-primary-600 dark:text-primary-400" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer Navigation */}
-      {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[60px] glass-card dark:bg-slate-900/95 border-b border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 flex flex-col gap-4 animate-fade-in z-50">
+      {(mobileMenuOpen || isMenuClosing) && (
+        <div
+          className={cn(
+            "md:hidden fixed inset-x-0 top-[60px] glass-card dark:bg-slate-900/95 border-b border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 flex flex-col gap-4 z-50 transition-all duration-200",
+            isMenuClosing
+              ? "opacity-0 -translate-y-2 pointer-events-none"
+              : "opacity-100 translate-y-0 animate-fade-in"
+          )}
+        >
           <div className="flex flex-col gap-1">
-            {navItems.map((item) => {
+            {allNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => closeMobileMenu()}
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all",
                     isActive
-                      ? "bg-brand-50/90 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 font-bold border border-brand-100 dark:border-brand-800/60 shadow-2xs"
+                      ? "bg-primary-50/90 dark:bg-primary-950/70 text-primary-700 dark:text-primary-300 font-bold border border-primary-100 dark:border-primary-800/60 shadow-2xs"
                       : "text-slate-700 dark:text-slate-200 hover:bg-slate-100/80 dark:hover:bg-slate-800/80"
                   )}
                 >
-                  <Icon className="w-4 h-4 text-brand-500" />
+                  <Icon className="w-4 h-4 text-primary-500" />
                   {item.label}
                 </Link>
               );
@@ -229,19 +259,19 @@ export function Header() {
           </div>
 
           <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-2.5">
-            <Link href="/logements" onClick={() => setMobileMenuOpen(false)} className="w-full">
+            <Link href="/logements" onClick={() => closeMobileMenu()} className="w-full">
               <Button
                 variant="primary"
-                className="group w-full h-11 justify-center rounded-xl text-sm font-bold shadow-md shadow-brand-600/25 gap-2"
+                className="group w-full h-11 justify-center rounded-xl text-sm font-bold shadow-md shadow-primary-600/25 gap-2"
               >
                 <span>Trouver un logement</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link href="/proprietaires" onClick={() => setMobileMenuOpen(false)} className="w-full">
+            <Link href="/proprietaires" onClick={() => closeMobileMenu()} className="w-full">
               <Button
                 variant="outline"
-                className="w-full h-11 justify-center rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 border-slate-200/90 dark:border-slate-800 hover:border-brand-300 hover:bg-slate-50 dark:hover:bg-slate-800 gap-2 shadow-2xs"
+                className="w-full h-11 justify-center rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 border-slate-200/90 dark:border-slate-800 hover:border-primary-300 hover:bg-slate-50 dark:hover:bg-slate-800 gap-2 shadow-2xs"
               >
                 <Key className="w-4 h-4 text-amber-500" />
                 Proposer mon logement
@@ -251,12 +281,12 @@ export function Header() {
               <Button
                 variant="secondary"
                 onClick={() => {
-                  setMobileMenuOpen(false);
+                  closeMobileMenu();
                   openAuthModal('login');
                 }}
                 className="w-full h-11 justify-center rounded-xl text-sm font-semibold gap-2 mt-0.5 shadow-2xs dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700"
               >
-                <LogIn className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                <LogIn className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                 Se connecter / Créer un compte
               </Button>
             )}

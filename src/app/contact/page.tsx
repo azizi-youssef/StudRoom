@@ -160,20 +160,20 @@ export default function ContactPage() {
     <div className="relative overflow-hidden pt-28 pb-24 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 min-h-screen transition-colors">
       
       {/* Background ambient lighting */}
-      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[380px] bg-brand-500/10 dark:bg-brand-600/15 rounded-full blur-3xl -z-10" />
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[380px] bg-primary-500/10 dark:bg-primary-600/15 rounded-full blur-3xl -z-10" />
       <div className="pointer-events-none absolute top-60 right-0 w-[400px] h-[400px] bg-emerald-500/10 dark:bg-emerald-600/10 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-18">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-950/60 border border-brand-200/80 dark:border-brand-800/80 text-xs font-bold uppercase tracking-wider text-brand-700 dark:text-brand-300 shadow-xs mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200/80 dark:border-primary-800/80 text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300 shadow-xs mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400 animate-pulse" />
             Support & Accueil Étudiant • Selouane & Nador
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-            Contactez l'Équipe <span className="text-brand-600 dark:text-brand-400">StudRoom</span>
+            Contactez l'Équipe <span className="text-primary-600 dark:text-primary-400">StudRoom</span>
           </h1>
 
           <p className="mt-4 text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
@@ -339,13 +339,13 @@ export default function ContactPage() {
                   </p>
 
                   <div className="mt-3 flex items-center justify-between gap-2 bg-slate-50 dark:bg-slate-800/70 px-3.5 py-2 rounded-xl border border-slate-200/70 dark:border-slate-700">
-                    <span className="font-mono text-xs sm:text-sm font-bold text-brand-700 dark:text-brand-300 truncate">
+                    <span className="font-mono text-xs sm:text-sm font-bold text-primary-700 dark:text-primary-300 truncate">
                       studroom50@gmail.com
                     </span>
                     <button
                       type="button"
                       onClick={() => copyToClipboard('studroom50@gmail.com', 'email')}
-                      className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex items-center gap-1 p-1 hover:bg-white dark:hover:bg-slate-700 rounded transition-colors shrink-0"
+                      className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 flex items-center gap-1 p-1 hover:bg-white dark:hover:bg-slate-700 rounded transition-colors shrink-0"
                       title="Copier l'email"
                     >
                       {copiedEmail ? (
@@ -392,7 +392,7 @@ export default function ContactPage() {
                     <h3 className="font-extrabold text-slate-900 dark:text-white text-base">
                       Bureau Local & Accueil
                     </h3>
-                    <span className="text-[11px] font-bold text-brand-700 dark:text-brand-300 bg-brand-50 dark:bg-brand-950/60 px-2 py-0.5 rounded-full border border-brand-200/60 dark:border-brand-800/60">
+                    <span className="text-[11px] font-bold text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-950/60 px-2 py-0.5 rounded-full border border-primary-200/60 dark:border-primary-800/60">
                       Sur place
                     </span>
                   </div>
@@ -405,7 +405,7 @@ export default function ContactPage() {
                   </p>
 
                   <div className="mt-3 flex items-center gap-3 text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
-                    <Clock className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                    <Clock className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" />
                     <span>Ouvert du Lundi au Samedi : 09h00 – 19h00</span>
                   </div>
                 </div>
@@ -426,9 +426,9 @@ export default function ContactPage() {
             </div>
 
             {/* Selouane Proximity Campus Banner */}
-            <div className="rounded-3xl bg-gradient-to-br from-brand-900 via-slate-900 to-slate-950 text-white p-6 sm:p-7 shadow-lg relative overflow-hidden border border-slate-800">
+            <div className="rounded-3xl bg-gradient-to-br from-primary-900 via-slate-900 to-slate-950 text-white p-6 sm:p-7 shadow-lg relative overflow-hidden border border-slate-800">
               <div className="flex items-center gap-2 mb-2">
-                <GraduationCap className="w-5 h-5 text-brand-400" />
+                <GraduationCap className="w-5 h-5 text-primary-400" />
                 <h4 className="font-extrabold text-sm sm:text-base">Au cœur de la vie étudiante de Selouane</h4>
               </div>
 
@@ -438,11 +438,11 @@ export default function ContactPage() {
 
               <div className="grid grid-cols-2 gap-2 text-[11px]">
                 <div className="bg-white/10 rounded-xl p-2.5 border border-white/10 flex items-center gap-2">
-                  <Building2 className="w-3.5 h-3.5 text-brand-300 shrink-0" />
+                  <Building2 className="w-3.5 h-3.5 text-primary-300 shrink-0" />
                   <span>FPN Selouane : 3 min</span>
                 </div>
                 <div className="bg-white/10 rounded-xl p-2.5 border border-white/10 flex items-center gap-2">
-                  <Building2 className="w-3.5 h-3.5 text-brand-300 shrink-0" />
+                  <Building2 className="w-3.5 h-3.5 text-primary-300 shrink-0" />
                   <span>EST Nador : 4 min</span>
                 </div>
               </div>
@@ -462,8 +462,8 @@ export default function ContactPage() {
           
           {/* Section Heading */}
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-950/60 border border-brand-200/80 dark:border-brand-800/80 text-xs font-bold uppercase tracking-wider text-brand-700 dark:text-brand-300 shadow-xs mb-3">
-              <HelpCircle className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200/80 dark:border-primary-800/80 text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300 shadow-xs mb-3">
+              <HelpCircle className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
               Guide Étudiant & Réponses Immédiates
             </div>
 
@@ -486,7 +486,7 @@ export default function ContactPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Rechercher une question (ex: visite, caution, documents, distance...)"
-                className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition-all shadow-2xs"
+                className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all shadow-2xs"
               />
               {searchQuery && (
                 <button
@@ -511,11 +511,11 @@ export default function ContactPage() {
                     onClick={() => setSelectedCategory(cat.id as any)}
                     className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                       isActive
-                        ? 'bg-brand-600 text-white shadow-xs scale-102'
+                        ? 'bg-primary-600 text-white shadow-xs scale-102'
                         : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800'
                     }`}
                   >
-                    <IconComponent className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-brand-500'}`} />
+                    <IconComponent className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-primary-500'}`} />
                     <span>{cat.label}</span>
                   </button>
                 );
@@ -538,7 +538,7 @@ export default function ContactPage() {
                     setSearchQuery('');
                     setSelectedCategory('all');
                   }}
-                  className="mt-4 px-4 py-2 text-xs font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/60 rounded-xl hover:bg-brand-100 transition-colors"
+                  className="mt-4 px-4 py-2 text-xs font-bold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950/60 rounded-xl hover:bg-primary-100 transition-colors"
                 >
                   Réinitialiser les filtres
                 </button>
@@ -551,7 +551,7 @@ export default function ContactPage() {
                     key={faq.id}
                     className={`group rounded-2xl sm:rounded-3xl border transition-all duration-200 overflow-hidden ${
                       isOpen
-                        ? 'bg-white dark:bg-slate-900 border-brand-300 dark:border-brand-700/80 shadow-[0_8px_25px_-5px_rgba(37,99,235,0.08)]'
+                        ? 'bg-white dark:bg-slate-900 border-primary-300 dark:border-primary-700/80 shadow-[0_8px_25px_-5px_rgba(37,99,235,0.08)]'
                         : 'bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 border-slate-200/90 dark:border-slate-800 shadow-2xs'
                     }`}
                   >
@@ -565,8 +565,8 @@ export default function ContactPage() {
                         <div
                           className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                             isOpen
-                              ? 'bg-brand-600 text-white shadow-xs'
-                              : 'bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 group-hover:bg-brand-100'
+                              ? 'bg-primary-600 text-white shadow-xs'
+                              : 'bg-primary-50 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 group-hover:bg-primary-100'
                           }`}
                         >
                           <CheckCircle2 className="w-4 h-4" />
@@ -574,7 +574,7 @@ export default function ContactPage() {
 
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-[10px] font-extrabold uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                            <span className="text-[10px] font-extrabold uppercase tracking-wider text-primary-600 dark:text-primary-400">
                               {faq.categoryLabel}
                             </span>
                             {faq.badge && (
@@ -593,7 +593,7 @@ export default function ContactPage() {
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-transform duration-300 ${
                           isOpen
-                            ? 'rotate-180 bg-brand-50 dark:bg-brand-950/60 border-brand-200 dark:border-brand-800 text-brand-600 dark:text-brand-400'
+                            ? 'rotate-180 bg-primary-50 dark:bg-primary-950/60 border-primary-200 dark:border-primary-800 text-primary-600 dark:text-primary-400'
                             : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 group-hover:text-slate-700'
                         }`}
                       >
@@ -610,10 +610,10 @@ export default function ContactPage() {
 
                         {/* Highlight Tip / Bon à savoir */}
                         {faq.tip && (
-                          <div className="mt-4 sm:ml-12.5 flex items-start gap-3 p-3.5 rounded-2xl bg-brand-50/70 dark:bg-brand-950/40 border border-brand-200/70 dark:border-brand-800/60">
-                            <Info className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
-                            <div className="text-xs text-brand-900 dark:text-brand-200 font-medium leading-relaxed">
-                              <span className="font-bold text-brand-700 dark:text-brand-300 mr-1">Bon à savoir :</span>
+                          <div className="mt-4 sm:ml-12.5 flex items-start gap-3 p-3.5 rounded-2xl bg-primary-50/70 dark:bg-primary-950/40 border border-primary-200/70 dark:border-primary-800/60">
+                            <Info className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0 mt-0.5" />
+                            <div className="text-xs text-primary-900 dark:text-primary-200 font-medium leading-relaxed">
+                              <span className="font-bold text-primary-700 dark:text-primary-300 mr-1">Bon à savoir :</span>
                               {faq.tip}
                             </div>
                           </div>
@@ -627,13 +627,13 @@ export default function ContactPage() {
           </div>
 
           {/* 🚀 Bottom Assistance Box: "Toujours une question ?" */}
-          <div className="mt-14 max-w-4xl mx-auto rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-brand-950 p-7 sm:p-9 text-white relative overflow-hidden shadow-xl border border-slate-800">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="mt-14 max-w-4xl mx-auto rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-primary-950 p-7 sm:p-9 text-white relative overflow-hidden shadow-xl border border-slate-800">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
               <div className="text-center md:text-left max-w-xl">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-white/10 text-brand-300 border border-white/10 mb-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-white/10 text-primary-300 border border-white/10 mb-2">
                   <MessageCircle className="w-3.5 h-3.5" />
                   Support en direct
                 </span>

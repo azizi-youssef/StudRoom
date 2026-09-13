@@ -92,7 +92,7 @@ export function AuthModal() {
         
         {/* Header */}
         <div className="text-center pb-2">
-          <div className="w-12 h-12 rounded-2xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 flex items-center justify-center mx-auto mb-2.5 border border-brand-100 dark:border-brand-800/80 shadow-xs">
+          <div className="w-12 h-12 rounded-2xl bg-primary-50 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 flex items-center justify-center mx-auto mb-2.5 border border-primary-100 dark:border-primary-800/80 shadow-xs">
             <ShieldCheck className="w-6 h-6" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
@@ -113,7 +113,7 @@ export function AuthModal() {
             }}
             className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 ${
               activeTab === 'login'
-                ? 'bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-soft'
+                ? 'bg-white dark:bg-slate-900 text-primary-600 dark:text-primary-400 shadow-soft'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
@@ -128,7 +128,7 @@ export function AuthModal() {
             }}
             className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 ${
               activeTab === 'register'
-                ? 'bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-soft'
+                ? 'bg-white dark:bg-slate-900 text-primary-600 dark:text-primary-400 shadow-soft'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
@@ -175,7 +175,7 @@ export function AuthModal() {
                   {...loginForm.register('email')}
                   type="email"
                   placeholder="exemple@etudiant.ma"
-                  className="pl-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500/20"
+                  className="pl-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20"
                 />
               </div>
               {loginForm.formState.errors.email && (
@@ -195,7 +195,7 @@ export function AuthModal() {
                   {...loginForm.register('password')}
                   type={showLoginPassword ? 'text' : 'password'}
                   placeholder="••••••••"
-                  className="pl-10 pr-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500/20"
+                  className="pl-10 pr-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20"
                 />
                 <button
                   type="button"
@@ -217,7 +217,7 @@ export function AuthModal() {
               type="submit"
               variant="primary"
               size="lg"
-              className="w-full font-bold h-11 text-xs sm:text-sm rounded-xl shadow-md shadow-brand-600/20 hover:shadow-lg hover:shadow-brand-600/30 hover:-translate-y-0.5 transition-all mt-1"
+              className="w-full font-bold h-11 text-xs sm:text-sm rounded-xl shadow-md shadow-primary-600/20 hover:shadow-lg hover:shadow-primary-600/30 hover:-translate-y-0.5 transition-all mt-1"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
@@ -250,7 +250,7 @@ export function AuthModal() {
                   onClick={() => registerForm.setValue('role', 'student')}
                   className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all flex items-center justify-center gap-1.5 ${
                     registerForm.watch('role') === 'student'
-                      ? 'border-brand-600 bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300'
+                      ? 'border-primary-600 bg-primary-50 dark:bg-primary-950/70 text-primary-700 dark:text-primary-300'
                       : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
@@ -262,7 +262,7 @@ export function AuthModal() {
                   onClick={() => registerForm.setValue('role', 'landlord')}
                   className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all flex items-center justify-center gap-1.5 ${
                     registerForm.watch('role') === 'landlord'
-                      ? 'border-brand-600 bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300'
+                      ? 'border-primary-600 bg-primary-50 dark:bg-primary-950/70 text-primary-700 dark:text-primary-300'
                       : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
@@ -358,7 +358,7 @@ export function AuthModal() {
               type="submit"
               variant="primary"
               size="lg"
-              className="w-full font-bold h-11 text-xs sm:text-sm rounded-xl shadow-md shadow-brand-600/20 hover:shadow-lg hover:shadow-brand-600/30 hover:-translate-y-0.5 transition-all mt-2"
+              className="w-full font-bold h-11 text-xs sm:text-sm rounded-xl shadow-md shadow-primary-600/20 hover:shadow-lg hover:shadow-primary-600/30 hover:-translate-y-0.5 transition-all mt-2"
               disabled={isSubmitting}
             >
               {isSubmitting ? (

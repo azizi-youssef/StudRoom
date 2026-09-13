@@ -31,7 +31,7 @@ export default function PolitiqueConfidentialitePage() {
         <div className="mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Retour à l'accueil
@@ -46,7 +46,7 @@ export default function PolitiqueConfidentialitePage() {
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
             Politique de <br />
-            <span className="bg-gradient-to-r from-emerald-600 via-brand-600 to-teal-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-emerald-600 via-primary-600 to-teal-500 bg-clip-text text-transparent">
               Confidentialité & Données
             </span>
           </h1>
@@ -76,7 +76,7 @@ export default function PolitiqueConfidentialitePage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/80">
-                <div className="text-brand-600 dark:text-brand-400 font-bold text-sm mb-1">0 Vente de données</div>
+                <div className="text-primary-600 dark:text-primary-400 font-bold text-sm mb-1">0 Vente de données</div>
                 <p className="text-xs text-slate-600 dark:text-slate-300">
                   Vos coordonnées ne sont jamais vendues, cédées ou louées à des régies publicitaires tierces.
                 </p>
@@ -101,7 +101,7 @@ export default function PolitiqueConfidentialitePage() {
           {/* Section 2: Données collectées */}
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-soft">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-950/80 border border-brand-200/80 dark:border-brand-800/80 flex items-center justify-center text-brand-600 dark:text-brand-400">
+              <div className="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-950/80 border border-primary-200/80 dark:border-primary-800/80 flex items-center justify-center text-primary-600 dark:text-primary-400">
                 <Database className="w-5 h-5" />
               </div>
               <div>
@@ -190,11 +190,11 @@ export default function PolitiqueConfidentialitePage() {
             </p>
             <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" />
                 <span><strong>Cookie d'authentification (`token`) :</strong> HttpOnly, Secure, SameSite, indispensable pour maintenir votre session active en toute sécurité.</span>
               </li>
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" />
                 <span><strong>Préférence de thème (`studroom-theme`) :</strong> Stocke localement votre choix (Clair / Sombre / Système) sans transmettre aucune donnée nominative.</span>
               </li>
             </ul>
@@ -203,7 +203,7 @@ export default function PolitiqueConfidentialitePage() {
           {/* Section 5: Droits de l'Utilisateur & Contact */}
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-soft">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-950/80 border border-brand-200/80 dark:border-brand-800/80 flex items-center justify-center text-brand-600 dark:text-brand-400">
+              <div className="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-950/80 border border-primary-200/80 dark:border-primary-800/80 flex items-center justify-center text-primary-600 dark:text-primary-400">
                 <UserCheck className="w-5 h-5" />
               </div>
               <div>
@@ -218,12 +218,12 @@ export default function PolitiqueConfidentialitePage() {
               Conformément à la loi n° 09-08 promulguée par le Dahir 1-09-15 du 22 safar 1430, vous bénéficiez d'un droit d'accès, de rectification et d'opposition pour motifs légitimes sur l'ensemble de vos données à caractère personnel.
             </p>
 
-            <div className="mt-5 p-4 rounded-2xl bg-brand-50/50 dark:bg-brand-950/40 border border-brand-200/60 dark:border-brand-800/60 text-sm text-slate-700 dark:text-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="mt-5 p-4 rounded-2xl bg-primary-50/50 dark:bg-primary-950/40 border border-primary-200/60 dark:border-primary-800/60 text-sm text-slate-700 dark:text-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-brand-600 dark:text-brand-400 shrink-0" />
+                <Mail className="w-5 h-5 text-primary-600 dark:text-primary-400 shrink-0" />
                 <div>
                   <div className="font-bold text-slate-900 dark:text-white">Contact Délégué à la Protection des Données</div>
-                  <a href="mailto:studroom50@gmail.com" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">
+                  <a href="mailto:studroom50@gmail.com" className="text-primary-600 dark:text-primary-400 font-medium hover:underline">
                     studroom50@gmail.com
                   </a>
                 </div>
@@ -233,7 +233,7 @@ export default function PolitiqueConfidentialitePage() {
           </div>
 
           {/* Need help box */}
-          <div className="rounded-3xl bg-gradient-to-r from-emerald-600 to-brand-600 text-white p-6 sm:p-8 shadow-glow-brand flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="rounded-3xl bg-gradient-to-r from-emerald-600 to-primary-600 text-white p-6 sm:p-8 shadow-glow-primary flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4 text-left">
               <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-6 h-6 text-white" />

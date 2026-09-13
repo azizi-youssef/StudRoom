@@ -20,7 +20,7 @@ export function Footer() {
   return (
     <footer className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-300 pt-20 pb-12 border-t border-slate-800/80 relative overflow-hidden">
       {/* Ambient background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-primary-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-slate-800/90">
@@ -48,7 +48,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram StudRoom"
-                className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-500 transition-all shadow-xs"
+                className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary-600 hover:border-primary-500 transition-all shadow-xs"
               >
                 <Instagram className="w-4 h-4" />
               </a>
@@ -57,7 +57,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook StudRoom"
-                className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-500 transition-all shadow-xs"
+                className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary-600 hover:border-primary-500 transition-all shadow-xs"
               >
                 <Facebook className="w-4 h-4" />
               </a>
@@ -66,7 +66,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok StudRoom"
-                className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-500 transition-all shadow-xs"
+                className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary-600 hover:border-primary-500 transition-all shadow-xs"
               >
                 <Tiktok className="w-4 h-4" />
               </a>
@@ -75,7 +75,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn StudRoom"
-                className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-500 transition-all shadow-xs"
+                className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary-600 hover:border-primary-500 transition-all shadow-xs"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
@@ -141,20 +141,20 @@ export function Footer() {
             <h4 className="text-white font-extrabold text-xs uppercase tracking-wider">Contact & Support</h4>
             <div className="flex flex-col gap-3 text-sm">
               <div className="flex items-start gap-2.5 text-slate-400">
-                <MapPin className="w-4 h-4 text-brand-400 flex-shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-primary-400 flex-shrink-0 mt-0.5" />
                 <span>Al Omrane, Selouane, Nador, Maroc</span>
               </div>
               <div className="flex items-center gap-2.5 text-slate-400">
-                <Phone className="w-4 h-4 text-brand-400 flex-shrink-0" />
+                <Phone className="w-4 h-4 text-primary-400 flex-shrink-0" />
                 <a href="tel:+212634536286" className="hover:text-white transition-colors font-medium">+212 634 536 286</a>
               </div>
               <div className="flex items-center gap-2.5 text-slate-400">
-                <Mail className="w-4 h-4 text-brand-400 flex-shrink-0" />
+                <Mail className="w-4 h-4 text-primary-400 flex-shrink-0" />
                 <a href="mailto:studroom50@gmail.com" className="hover:text-white transition-colors truncate font-medium">studroom50@gmail.com</a>
               </div>
             </div>
 
-            <div className="mt-2 p-3 rounded-2xl bg-brand-500/10 border border-brand-500/20 text-xs text-brand-300 flex items-center gap-2">
+            <div className="mt-2 p-3 rounded-2xl bg-primary-500/10 border border-primary-500/20 text-xs text-primary-300 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping motion-reduce:animate-none" />
               <span>Support réactif 7j/7 pour étudiants</span>
             </div>

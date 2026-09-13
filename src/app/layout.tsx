@@ -7,6 +7,7 @@ import { AuthProvider } from '@/context/auth-context';
 import { AuthModal } from '@/components/forms/auth-modal';
 
 import { ThemeProvider } from '@/context/theme-context';
+import Script from 'next/script';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -59,25 +60,11 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning className={`scroll-smooth ${plusJakartaSans.variable}`}>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const theme = localStorage.getItem('studroom-theme');
-                const supportDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (theme === 'dark' || (!theme && supportDark) || (theme === 'system' && supportDark)) {
-                  document.documentElement.classList.add('dark');
-                  document.documentElement.style.colorScheme = 'dark';
-                } else {
-                  document.documentElement.classList.remove('dark');
-                  document.documentElement.style.colorScheme = 'light';
-                }
-              } catch (e) {}
-            `,
-          }}
-        />
+        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{
+          __html: `try{var t=localStorage.getItem('studroom-theme'),d=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(!t&&d)||(t==='system'&&d)){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark';}else{document.documentElement.classList.remove('dark');document.documentElement.style.colorScheme='light';}}catch(e){}`
+        }} />
       </head>
-      <body className="font-sans bg-surface-light dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col min-h-screen antialiased selection:bg-brand-600 selection:text-white">
+      <body className="font-sans bg-surface-light dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col min-h-screen antialiased selection:bg-primary-600 selection:text-white">
         <ThemeProvider>
           <AuthProvider>
             <Header />

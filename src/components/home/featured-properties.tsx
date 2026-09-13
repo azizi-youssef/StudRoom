@@ -17,8 +17,8 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-700 uppercase tracking-wider bg-brand-50 px-3.5 py-1.5 rounded-full border border-brand-200/70 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-brand-600" />
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-700 uppercase tracking-wider bg-primary-50 px-3.5 py-1.5 rounded-full border border-primary-200/70 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-primary-600" />
               Sélection Coup de Cœur · Selouane & Nador
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mt-3">
@@ -30,7 +30,7 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
           </div>
 
           <Link href="/logements">
-            <Button variant="outline" size="md" className="hidden md:inline-flex rounded-full border-slate-200/90 hover:border-brand-300 font-bold text-xs shadow-xs hover:bg-white px-5">
+            <Button variant="outline" size="md" className="hidden md:inline-flex rounded-full border-slate-200/90 hover:border-primary-300 font-bold text-xs shadow-xs hover:bg-white px-5">
               Explorer tous les logements ({properties.length})
               <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>

@@ -83,7 +83,7 @@ export default function InscriptionPage() {
     <div className="relative min-h-screen pt-28 pb-20 flex items-center justify-center bg-gradient-to-b from-slate-50 via-white to-slate-100/70 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 px-4 transition-colors">
       
       {/* Ambient background lighting */}
-      <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-brand-500/10 dark:bg-brand-600/15 rounded-full blur-3xl -z-10" />
+      <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-primary-500/10 dark:bg-primary-600/15 rounded-full blur-3xl -z-10" />
       <div className="pointer-events-none absolute bottom-10 left-10 w-[400px] h-[400px] bg-teal-500/10 dark:bg-teal-600/10 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-5xl w-full mx-auto">
@@ -94,8 +94,8 @@ export default function InscriptionPage() {
             <div>
               {/* Header Badge & Title */}
               <div className="mb-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/80 mb-3">
-                  <UserPlus className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-primary-50 dark:bg-primary-950/60 text-primary-700 dark:text-primary-300 border border-primary-200/80 dark:border-primary-800/80 mb-3">
+                  <UserPlus className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
                   Inscription Rapide & Gratuite
                 </div>
 
@@ -145,11 +145,11 @@ export default function InscriptionPage() {
                       onClick={() => setValue('role', 'student')}
                       className={`py-2.5 px-3 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-2 ${
                         selectedRole === 'student'
-                          ? 'border-brand-600 bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 shadow-xs'
+                          ? 'border-primary-600 bg-primary-50 dark:bg-primary-950/70 text-primary-700 dark:text-primary-300 shadow-xs'
                           : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
                       }`}
                     >
-                      <GraduationCap className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                      <GraduationCap className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                       <span>Étudiant / Étudiante</span>
                     </button>
 
@@ -158,11 +158,11 @@ export default function InscriptionPage() {
                       onClick={() => setValue('role', 'landlord')}
                       className={`py-2.5 px-3 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-2 ${
                         selectedRole === 'landlord'
-                          ? 'border-brand-600 bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 shadow-xs'
+                          ? 'border-primary-600 bg-primary-50 dark:bg-primary-950/70 text-primary-700 dark:text-primary-300 shadow-xs'
                           : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
                       }`}
                     >
-                      <Building2 className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                      <Building2 className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                       <span>Propriétaire Bailleur</span>
                     </button>
                   </div>
@@ -179,7 +179,7 @@ export default function InscriptionPage() {
                       {...registerField('fullName')}
                       type="text"
                       placeholder="ex: Amina Tazi"
-                      className="pl-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500/20"
+                      className="pl-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20"
                     />
                   </div>
                   {errors.fullName && (
@@ -198,7 +198,7 @@ export default function InscriptionPage() {
                       {...registerField('email')}
                       type="email"
                       placeholder="exemple@etudiant.ma"
-                      className="pl-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500/20"
+                      className="pl-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20"
                     />
                   </div>
                   {errors.email && (
@@ -217,7 +217,7 @@ export default function InscriptionPage() {
                       {...registerField('phone')}
                       type="tel"
                       placeholder="06 12 34 56 78"
-                      className="pl-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500/20"
+                      className="pl-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20"
                     />
                   </div>
                   {errors.phone && (
@@ -236,7 +236,7 @@ export default function InscriptionPage() {
                       {...registerField('password')}
                       type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••"
-                      className="pl-10 pr-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500/20"
+                      className="pl-10 pr-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20"
                     />
                     <button
                       type="button"
@@ -257,7 +257,7 @@ export default function InscriptionPage() {
                   type="submit"
                   variant="primary"
                   size="lg"
-                  className="w-full font-bold h-12 text-sm rounded-xl shadow-md shadow-brand-600/20 hover:shadow-lg hover:shadow-brand-600/30 hover:-translate-y-0.5 transition-all mt-3"
+                  className="w-full font-bold h-12 text-sm rounded-xl shadow-md shadow-primary-600/20 hover:shadow-lg hover:shadow-primary-600/30 hover:-translate-y-0.5 transition-all mt-3"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -280,7 +280,7 @@ export default function InscriptionPage() {
               <span>Vous avez déjà un compte ?</span>
               <Link
                 href="/connexion"
-                className="font-bold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="font-bold text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center gap-1"
               >
                 <span>Se connecter</span>
                 <ArrowRight className="w-3 h-3" />
@@ -289,20 +289,20 @@ export default function InscriptionPage() {
           </div>
 
           {/* Right Column: Branded Visual Showcase Panel (Desktop) */}
-          <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-brand-950 via-slate-900 to-slate-950 text-white p-10 flex-col justify-between relative overflow-hidden border-l border-slate-800">
+          <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-primary-950 via-slate-900 to-slate-950 text-white p-10 flex-col justify-between relative overflow-hidden border-l border-slate-800">
             {/* Ambient inner glow */}
             <div className="pointer-events-none absolute -top-20 -right-20 w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-20 -left-20 w-64 h-64 bg-brand-500/15 rounded-full blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-20 w-64 h-64 bg-primary-500/15 rounded-full blur-3xl" />
 
             <div className="relative z-10">
               {/* Logo / Brand badge */}
               <div className="flex items-center gap-2.5 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-brand-600/30 border border-brand-400/30 flex items-center justify-center shadow-xs">
-                  <GraduationCap className="w-5 h-5 text-brand-400" />
+                <div className="w-10 h-10 rounded-xl bg-primary-600/30 border border-primary-400/30 flex items-center justify-center shadow-xs">
+                  <GraduationCap className="w-5 h-5 text-primary-400" />
                 </div>
                 <div>
                   <span className="text-base font-black tracking-tight text-white">StudRoom</span>
-                  <p className="text-[10px] text-brand-300 font-semibold uppercase tracking-wider">Campus Selouane</p>
+                  <p className="text-[10px] text-primary-300 font-semibold uppercase tracking-wider">Campus Selouane</p>
                 </div>
               </div>
 
@@ -354,7 +354,7 @@ export default function InscriptionPage() {
             {/* Bottom mini-card quote */}
             <div className="relative z-10 pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
               <span className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-brand-400" />
+                <MapPin className="w-3.5 h-3.5 text-primary-400" />
                 Selouane &bull; Nador
               </span>
               <span className="font-semibold text-emerald-300">

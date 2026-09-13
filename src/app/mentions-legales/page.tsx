@@ -25,14 +25,14 @@ export default function MentionsLegalesPage() {
   return (
     <div className="min-h-screen pt-28 pb-20 bg-slate-50 dark:bg-slate-950 transition-colors">
       {/* Ambient background glows */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-4xl h-72 bg-brand-500/10 dark:bg-brand-500/5 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-4xl h-72 bg-primary-500/10 dark:bg-primary-500/5 rounded-full blur-3xl pointer-events-none -z-10" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation back */}
         <div className="mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Retour à l'accueil
@@ -41,13 +41,13 @@ export default function MentionsLegalesPage() {
 
         {/* Page Header */}
         <div className="text-center sm:text-left mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/80 shadow-2xs mb-4">
-            <Scale className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-primary-50 dark:bg-primary-950/70 text-primary-700 dark:text-primary-300 border border-primary-200/80 dark:border-primary-800/80 shadow-2xs mb-4">
+            <Scale className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
             Cadre Réglementaire & Transparence
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
             Mentions Légales & <br />
-            <span className="bg-gradient-to-r from-brand-600 via-teal-600 to-accent-orange bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-600 via-teal-600 to-accent-orange bg-clip-text text-transparent">
               Conditions Générales d'Utilisation
             </span>
           </h1>
@@ -64,7 +64,7 @@ export default function MentionsLegalesPage() {
           {/* Section 1: Éditeur du site */}
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-soft">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-950/80 border border-brand-200/80 dark:border-brand-800/80 flex items-center justify-center text-brand-600 dark:text-brand-400">
+              <div className="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-950/80 border border-primary-200/80 dark:border-primary-800/80 flex items-center justify-center text-primary-600 dark:text-primary-400">
                 <Building className="w-5 h-5" />
               </div>
               <div>
@@ -77,7 +77,7 @@ export default function MentionsLegalesPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-300 pt-2 border-t border-slate-100 dark:border-slate-800">
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-slate-900 dark:text-white block">Siège social</strong>
                   Al Omrane, Selouane, Province de Nador, Région de l'Oriental, Royaume du Maroc.
@@ -85,20 +85,20 @@ export default function MentionsLegalesPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <Phone className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                <Phone className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-slate-900 dark:text-white block">Ligne d'assistance</strong>
-                  <a href="tel:+212634536286" className="text-brand-600 dark:text-brand-400 hover:underline">
+                  <a href="tel:+212634536286" className="text-primary-600 dark:text-primary-400 hover:underline">
                     +212 634 536 286
                   </a> (Disponible 7j/7)
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                <Mail className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-slate-900 dark:text-white block">Email officiel</strong>
-                  <a href="mailto:studroom50@gmail.com" className="text-brand-600 dark:text-brand-400 hover:underline">
+                  <a href="mailto:studroom50@gmail.com" className="text-primary-600 dark:text-primary-400 hover:underline">
                     studroom50@gmail.com
                   </a>
                 </div>
@@ -133,11 +133,11 @@ export default function MentionsLegalesPage() {
             </p>
             <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" />
                 <span><strong>Hébergement Frontend & CDN :</strong> Déploiement Next.js sur réseau de diffusion mondial sécurisé avec chiffrement SSL/TLS (HTTPS).</span>
               </li>
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" />
                 <span><strong>Base de données & Authentification :</strong> Infrastructure cloud gérée avec Row Level Security (RLS), certificats cryptographiques et stockage sécurisé des données applicatives.</span>
               </li>
             </ul>
@@ -227,19 +227,19 @@ export default function MentionsLegalesPage() {
           </div>
 
           {/* Need help box */}
-          <div className="rounded-3xl bg-gradient-to-r from-brand-600 to-teal-600 text-white p-6 sm:p-8 shadow-glow-brand flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="rounded-3xl bg-gradient-to-r from-primary-600 to-teal-600 text-white p-6 sm:p-8 shadow-glow-primary flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4 text-left">
               <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center shrink-0">
                 <HelpCircle className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="font-extrabold text-lg text-white">Une question sur les conditions ?</h3>
-                <p className="text-sm text-brand-100">Notre équipe est à votre écoute 7j/7 pour vous orienter.</p>
+                <p className="text-sm text-primary-100">Notre équipe est à votre écoute 7j/7 pour vous orienter.</p>
               </div>
             </div>
             <Link
               href="/contact"
-              className="px-6 py-3 rounded-full bg-white text-brand-700 font-bold text-sm hover:bg-brand-50 transition-colors shadow-md whitespace-nowrap"
+              className="px-6 py-3 rounded-full bg-white text-primary-700 font-bold text-sm hover:bg-primary-50 transition-colors shadow-md whitespace-nowrap"
             >
               Nous Contacter
             </Link>

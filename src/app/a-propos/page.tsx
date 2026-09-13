@@ -46,8 +46,8 @@ export default function AProposPage() {
       title: 'Confort Prêt à Vivre',
       desc: 'Des logements entièrement meublés, lumineux, propres et dotés d’un bureau ergonomique pour réviser dans les meilleures conditions.',
       tags: ['Literie neuve', 'Kitchenette équipée'],
-      gradient: 'from-brand-600 to-teal-500',
-      shadowColor: 'shadow-brand-500/20',
+      gradient: 'from-primary-600 to-teal-500',
+      shadowColor: 'shadow-primary-500/20',
     },
     {
       num: '03',
@@ -75,14 +75,14 @@ export default function AProposPage() {
     <div className="relative overflow-hidden pt-28 pb-24 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 min-h-screen transition-colors">
 
       {/* Ambient background lighting */}
-      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-brand-100/40 dark:bg-brand-900/20 rounded-full blur-3xl -z-10" />
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-primary-100/40 dark:bg-primary-900/20 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-950/60 border border-brand-200/80 dark:border-brand-800/80 text-xs font-bold uppercase tracking-wider text-brand-700 dark:text-brand-300 shadow-xs mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200/80 dark:border-primary-800/80 text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300 shadow-xs mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400 animate-pulse" />
             La Marque StudRoom • Student Living au Maroc
           </div>
 
@@ -98,7 +98,7 @@ export default function AProposPage() {
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-slate-200/80 dark:border-slate-800">
             {stats.map((item, idx) => (
               <div key={idx} className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xs text-center">
-                <p className="text-2xl sm:text-3xl font-black text-brand-600 dark:text-brand-400">{item.value}</p>
+                <p className="text-2xl sm:text-3xl font-black text-primary-600 dark:text-primary-400">{item.value}</p>
                 <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">{item.label}</p>
                 <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{item.desc}</p>
               </div>
@@ -123,7 +123,7 @@ export default function AProposPage() {
 
               <div className="absolute bottom-4 left-4 right-4 text-white">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold">
-                  <MapPin className="w-3.5 h-3.5 text-brand-300" />
+                  <MapPin className="w-3.5 h-3.5 text-primary-300" />
                   Selouane • Al Omrane
                 </span>
                 <p className="text-sm font-bold mt-1">Résidences étudiantes haute qualité</p>
@@ -132,7 +132,7 @@ export default function AProposPage() {
 
             {/* Floating secondary badge */}
             <div className="hidden sm:flex absolute -bottom-6 -right-6 bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-xl border border-slate-200/90 dark:border-slate-800 items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">
+              <div className="w-12 h-12 rounded-xl bg-primary-50 dark:bg-primary-950 text-primary-600 dark:text-primary-400 flex items-center justify-center font-bold">
                 <GraduationCap className="w-6 h-6" />
               </div>
               <div>
@@ -144,7 +144,7 @@ export default function AProposPage() {
 
           {/* Text Content */}
           <div className="lg:col-span-6 flex flex-col gap-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 text-xs font-bold uppercase tracking-wider w-fit border border-brand-200/60 dark:border-brand-800/80">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-950/60 text-primary-700 dark:text-primary-300 text-xs font-bold uppercase tracking-wider w-fit border border-primary-200/60 dark:border-primary-800/80">
               <Award className="w-3.5 h-3.5" />
               Notre Philosophie
             </div>
@@ -185,8 +185,8 @@ export default function AProposPage() {
         {/* 4 Pillars Section */}
         <div className="mb-28">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 rounded-full border border-brand-200/80 dark:border-brand-800/80 bg-brand-50 dark:bg-brand-950/60 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-700 dark:text-brand-300 shadow-xs mb-3">
-              <ShieldCheck className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary-200/80 dark:border-primary-800/80 bg-primary-50 dark:bg-primary-950/60 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300 shadow-xs mb-3">
+              <ShieldCheck className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
               Nos Valeurs
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
@@ -203,7 +203,7 @@ export default function AProposPage() {
               return (
                 <div
                   key={idx}
-                  className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs p-7 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-2 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-[0_20px_40px_-12px_rgba(4,108,122,0.18)]"
+                  className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs p-7 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-2 hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-[0_20px_40px_-12px_rgba(4,108,122,0.18)]"
                 >
                   <div>
                     {/* Icon & Num */}
@@ -214,19 +214,19 @@ export default function AProposPage() {
                         <Icon className="h-7 w-7" strokeWidth={2.2} />
                       </div>
 
-                      <span className="text-xs font-mono font-bold text-slate-300 dark:text-slate-700 group-hover:text-brand-400/70 transition-colors">
+                      <span className="text-xs font-mono font-bold text-slate-300 dark:text-slate-700 group-hover:text-primary-400/70 transition-colors">
                         {p.num}
                       </span>
                     </div>
 
                     {/* Category Badge */}
                     <div className="mb-2.5">
-                      <span className="inline-block rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-brand-50 dark:group-hover:bg-brand-950 group-hover:text-brand-700 dark:group-hover:text-brand-300">
+                      <span className="inline-block rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-primary-50 dark:group-hover:bg-primary-950 group-hover:text-primary-700 dark:group-hover:text-primary-300">
                         {p.badge}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors group-hover:text-brand-700 dark:group-hover:text-brand-400">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors group-hover:text-primary-700 dark:group-hover:text-primary-400">
                       {p.title}
                     </h3>
 
@@ -240,7 +240,7 @@ export default function AProposPage() {
                     {p.tags.map((tag, tIdx) => (
                       <span
                         key={tIdx}
-                        className="inline-flex items-center gap-1 rounded-full bg-slate-50 dark:bg-slate-800/80 px-2.5 py-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 group-hover:bg-brand-50/70 dark:group-hover:bg-brand-950/70 group-hover:text-brand-700 dark:group-hover:text-brand-300 transition-colors"
+                        className="inline-flex items-center gap-1 rounded-full bg-slate-50 dark:bg-slate-800/80 px-2.5 py-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 group-hover:bg-primary-50/70 dark:group-hover:bg-primary-950/70 group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors"
                       >
                         <CheckCircle2 className="h-3 w-3 text-emerald-500" />
                         {tag}
@@ -249,7 +249,7 @@ export default function AProposPage() {
                   </div>
 
                   {/* Accent bottom line */}
-                  <div className="absolute inset-x-8 bottom-0 h-1 bg-gradient-to-r from-brand-500 to-teal-400 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
+                  <div className="absolute inset-x-8 bottom-0 h-1 bg-gradient-to-r from-primary-500 to-teal-400 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
                 </div>
               );
             })}
@@ -257,10 +257,10 @@ export default function AProposPage() {
         </div>
 
         {/* Local Anchor Showcase: Selouane & Nador */}
-        <div className="mb-24 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-brand-950 text-white p-8 sm:p-12 lg:p-14 relative overflow-hidden shadow-2xl border border-slate-800">
+        <div className="mb-24 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-primary-950 text-white p-8 sm:p-12 lg:p-14 relative overflow-hidden shadow-2xl border border-slate-800">
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-brand-500/20 text-brand-300 border border-brand-500/30 mb-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary-500/20 text-primary-300 border border-primary-500/30 mb-3">
                 <MapPin className="w-3.5 h-3.5" />
                 Ancrage Territorial
               </span>
@@ -274,7 +274,7 @@ export default function AProposPage() {
 
             <div className="lg:col-span-4 flex flex-col gap-3">
               <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
-                <p className="text-xs font-semibold text-brand-300">Hub Universitaire</p>
+                <p className="text-xs font-semibold text-primary-300">Hub Universitaire</p>
                 <p className="text-base font-bold text-white mt-0.5">Selouane - Al Omrane</p>
                 <p className="text-xs text-slate-400 mt-1">À proximité directe de 5 facultés</p>
               </div>
@@ -289,14 +289,14 @@ export default function AProposPage() {
         </div>
 
         {/* Big Bottom CTA Banner */}
-        <div className="rounded-3xl bg-gradient-to-r from-brand-600 via-brand-600 to-teal-600 text-white p-8 sm:p-12 lg:p-14 text-center flex flex-col items-center gap-6 shadow-xl relative overflow-hidden">
+        <div className="rounded-3xl bg-gradient-to-r from-primary-600 via-primary-600 to-teal-600 text-white p-8 sm:p-12 lg:p-14 text-center flex flex-col items-center gap-6 shadow-xl relative overflow-hidden">
           <div className="pointer-events-none absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/10 blur-2xl" />
 
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight max-w-xl">
             Prêt à vivre l'expérience StudRoom à Selouane ?
           </h2>
 
-          <p className="text-brand-100 max-w-xl text-sm sm:text-base leading-relaxed">
+          <p className="text-primary-100 max-w-xl text-sm sm:text-base leading-relaxed">
             Trouvez une chambre confortable, vérifiée et réservable en 2 minutes pour réussir votre année universitaire.
           </p>
 

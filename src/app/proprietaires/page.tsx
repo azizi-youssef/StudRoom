@@ -33,8 +33,8 @@ export default function ProprietairesPage() {
       title: 'Revenus locatifs réguliers',
       desc: 'Bénéficiez de la demande continue de milliers d’étudiants des facultés de Selouane (FSAN, FEGN, ESTN) pour un taux d’occupation supérieur à 95%.',
       tags: ['Demande étudiante forte', 'Paiement à date fixe'],
-      gradient: 'from-brand-600 to-teal-500',
-      shadowColor: 'shadow-brand-500/20',
+      gradient: 'from-primary-600 to-teal-500',
+      shadowColor: 'shadow-primary-500/20',
     },
     {
       icon: ShieldCheck,
@@ -88,13 +88,13 @@ export default function ProprietairesPage() {
       title: 'Shooting professionnel & Sélection des dossiers',
       desc: 'Nous réalisons un shooting photo HD de votre logement, diffusons l’annonce en priorité auprès des facultés (FPN, EST, ISTA) et sélectionnons des étudiants sérieux avec garants solvables.',
       tags: ['Photos HD & Visite immersive', 'Vérification stricte des garants'],
-      gradient: 'from-brand-500 to-blue-500',
-      accentColor: 'text-brand-300',
-      bgGlow: 'from-brand-500/15 via-brand-500/5 to-transparent',
-      borderColor: 'border-brand-500/30 hover:border-brand-400',
-      badgeBg: 'bg-brand-500/15 text-brand-300 border-brand-500/30',
-      iconBg: 'bg-gradient-to-tr from-brand-600 to-blue-600 text-white shadow-brand-500/30',
-      numberColor: 'text-brand-400/30 group-hover:text-brand-400/50',
+      gradient: 'from-primary-500 to-blue-500',
+      accentColor: 'text-primary-300',
+      bgGlow: 'from-primary-500/15 via-primary-500/5 to-transparent',
+      borderColor: 'border-primary-500/30 hover:border-primary-400',
+      badgeBg: 'bg-primary-500/15 text-primary-300 border-primary-500/30',
+      iconBg: 'bg-gradient-to-tr from-primary-600 to-blue-600 text-white shadow-primary-500/30',
+      numberColor: 'text-primary-400/30 group-hover:text-primary-400/50',
     },
     {
       num: '03',
@@ -117,26 +117,26 @@ export default function ProprietairesPage() {
     <div className="relative overflow-hidden pt-28 pb-24 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 min-h-screen transition-colors">
       
       {/* Background ambient accents */}
-      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-brand-100/40 dark:bg-brand-900/20 rounded-full blur-3xl -z-10" />
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-primary-100/40 dark:bg-primary-900/20 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Hero Banner */}
-        <div className="relative overflow-hidden rounded-4xl bg-gradient-to-br from-slate-950 via-slate-900 to-brand-950 text-white p-8 sm:p-14 lg:p-16 shadow-2xl mb-20 border border-slate-800/80">
+        <div className="relative overflow-hidden rounded-4xl bg-gradient-to-br from-slate-950 via-slate-900 to-primary-950 text-white p-8 sm:p-14 lg:p-16 shadow-2xl mb-20 border border-slate-800/80">
           
           {/* Glowing ambient light */}
-          <div className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-brand-500/20 blur-[100px]" />
+          <div className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-primary-500/20 blur-[100px]" />
           <div className="pointer-events-none absolute -left-20 -bottom-20 h-80 w-80 rounded-full bg-accent-orange/15 blur-[90px]" />
 
           <div className="relative z-10 max-w-3xl flex flex-col gap-5">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/20 text-brand-300 border border-brand-500/30 w-fit shadow-xs">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-primary-500/20 text-primary-300 border border-primary-500/30 w-fit shadow-xs">
               <Sparkles className="w-3.5 h-3.5" />
               Service Dédié aux Bailleurs & Investisseurs • Nador & Selouane
             </div>
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
               Louez votre bien à des étudiants sérieux, <br className="hidden sm:inline" />
-              <span className="bg-gradient-to-r from-teal-400 via-brand-400 to-amber-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-400 via-primary-400 to-amber-400 bg-clip-text text-transparent">
                 sans vacance locative ni imprévu.
               </span>
             </h1>
@@ -148,7 +148,7 @@ export default function ProprietairesPage() {
             {/* Quick KPI stats in Hero */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-800">
               <div className="bg-white/5 backdrop-blur-xs p-3.5 rounded-2xl border border-white/10">
-                <p className="text-2xl font-black text-brand-400">100%</p>
+                <p className="text-2xl font-black text-primary-400">100%</p>
                 <p className="text-xs text-slate-300 font-medium">Baux étudiant légalisés</p>
               </div>
               <div className="bg-white/5 backdrop-blur-xs p-3.5 rounded-2xl border border-white/10">
@@ -215,8 +215,8 @@ export default function ProprietairesPage() {
         {/* Benefits Grid ("Pourquoi nous confier votre bien ?") */}
         <div className="mb-24">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 rounded-full border border-brand-200/80 dark:border-brand-800/80 bg-brand-50 dark:bg-brand-950/60 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-700 dark:text-brand-300 shadow-xs mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary-200/80 dark:border-primary-800/80 bg-primary-50 dark:bg-primary-950/60 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300 shadow-xs mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400 animate-pulse" />
               Sécurité • Rentabilité • Zéro Tracas
             </div>
 
@@ -235,7 +235,7 @@ export default function ProprietairesPage() {
               return (
                 <div
                   key={idx}
-                  className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs p-7 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-2 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-[0_20px_40px_-12px_rgba(4,108,122,0.18)]"
+                  className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs p-7 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-2 hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-[0_20px_40px_-12px_rgba(4,108,122,0.18)]"
                 >
                   <div>
                     {/* Icon Box */}
@@ -246,20 +246,20 @@ export default function ProprietairesPage() {
                         <Icon className="h-7 w-7" strokeWidth={2.2} />
                       </div>
 
-                      <span className="text-xs font-mono font-bold text-slate-300 dark:text-slate-700 group-hover:text-brand-400/70 transition-colors">
+                      <span className="text-xs font-mono font-bold text-slate-300 dark:text-slate-700 group-hover:text-primary-400/70 transition-colors">
                         0{idx + 1}
                       </span>
                     </div>
 
                     {/* Category Badge */}
                     <div className="mb-2.5">
-                      <span className="inline-block rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-brand-50 dark:group-hover:bg-brand-950 group-hover:text-brand-700 dark:group-hover:text-brand-300">
+                      <span className="inline-block rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-primary-50 dark:group-hover:bg-primary-950 group-hover:text-primary-700 dark:group-hover:text-primary-300">
                         {b.badge}
                       </span>
                     </div>
 
                     {/* Title & Desc */}
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors group-hover:text-brand-700 dark:group-hover:text-brand-400">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors group-hover:text-primary-700 dark:group-hover:text-primary-400">
                       {b.title}
                     </h3>
                     <p className="mt-2.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -272,7 +272,7 @@ export default function ProprietairesPage() {
                     {b.tags.map((tag, tIdx) => (
                       <span
                         key={tIdx}
-                        className="inline-flex items-center gap-1 rounded-full bg-slate-50 dark:bg-slate-800/80 px-2.5 py-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 group-hover:bg-brand-50/70 dark:group-hover:bg-brand-950/70 group-hover:text-brand-700 dark:group-hover:text-brand-300 transition-colors"
+                        className="inline-flex items-center gap-1 rounded-full bg-slate-50 dark:bg-slate-800/80 px-2.5 py-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 group-hover:bg-primary-50/70 dark:group-hover:bg-primary-950/70 group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors"
                       >
                         <CheckCircle2 className="h-3 w-3 text-emerald-500" />
                         {tag}
@@ -281,7 +281,7 @@ export default function ProprietairesPage() {
                   </div>
 
                   {/* Accent bottom hover line */}
-                  <div className="absolute inset-x-8 bottom-0 h-1 bg-gradient-to-r from-brand-500 to-teal-400 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
+                  <div className="absolute inset-x-8 bottom-0 h-1 bg-gradient-to-r from-primary-500 to-teal-400 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
                 </div>
               );
             })}
@@ -289,11 +289,11 @@ export default function ProprietairesPage() {
         </div>
 
         {/* 🌟 3 Steps Section: Comment se passe la prise en charge ? */}
-        <div className="mb-24 rounded-4xl bg-gradient-to-br from-slate-950 via-slate-900 to-brand-950 text-white p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl border border-slate-800/80">
+        <div className="mb-24 rounded-4xl bg-gradient-to-br from-slate-950 via-slate-900 to-primary-950 text-white p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl border border-slate-800/80">
           
           {/* Ambient lighting effects */}
           <div className="pointer-events-none absolute -top-24 left-1/4 h-80 w-80 rounded-full bg-cyan-500/15 blur-[100px]" />
-          <div className="pointer-events-none absolute top-1/2 right-10 h-96 w-96 rounded-full bg-brand-500/15 blur-[120px]" />
+          <div className="pointer-events-none absolute top-1/2 right-10 h-96 w-96 rounded-full bg-primary-500/15 blur-[120px]" />
           <div className="pointer-events-none absolute -bottom-20 left-10 h-72 w-72 rounded-full bg-emerald-500/15 blur-[90px]" />
 
           {/* Section Header */}
@@ -305,7 +305,7 @@ export default function ProprietairesPage() {
 
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
               Comment se passe la{' '}
-              <span className="bg-gradient-to-r from-teal-300 via-brand-200 to-emerald-300 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-300 via-primary-200 to-emerald-300 bg-clip-text text-transparent">
                 prise en charge ?
               </span>
             </h2>
@@ -318,7 +318,7 @@ export default function ProprietairesPage() {
           {/* Connected Steps Grid */}
           <div className="relative z-10">
             {/* Desktop connecting progress line */}
-            <div className="hidden lg:block absolute top-[52px] left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-cyan-500/40 via-brand-400/50 to-emerald-500/40 -z-0" />
+            <div className="hidden lg:block absolute top-[52px] left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-cyan-500/40 via-primary-400/50 to-emerald-500/40 -z-0" />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {steps.map((s, idx) => {
@@ -405,7 +405,7 @@ export default function ProprietairesPage() {
 
             <a
               href="#form-proposer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-brand-500 to-teal-500 hover:from-brand-600 hover:to-teal-600 text-white text-xs sm:text-sm font-bold shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all w-full sm:w-auto text-center"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-primary-500 to-teal-500 hover:from-primary-600 hover:to-teal-600 text-white text-xs sm:text-sm font-bold shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 hover:-translate-y-0.5 transition-all w-full sm:w-auto text-center"
             >
               <span>Estimer mon bien gratuitement</span>
               <ArrowRight className="w-4 h-4" />
@@ -417,8 +417,8 @@ export default function ProprietairesPage() {
         {/* Form Section */}
         <div id="form-proposer" className="max-w-4xl mx-auto mb-10">
           <div className="text-center mb-8">
-            <span className="inline-flex items-center gap-2 rounded-full border border-brand-200/80 bg-brand-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-700 shadow-xs mb-3">
-              <FileCheck className="w-3.5 h-3.5 text-brand-600" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary-200/80 bg-primary-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-700 shadow-xs mb-3">
+              <FileCheck className="w-3.5 h-3.5 text-primary-600" />
               Estimation Gratuite & Sans Engagement
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">

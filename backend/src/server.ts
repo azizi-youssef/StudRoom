@@ -15,7 +15,24 @@ import apiRoutes from './routes/index';
 const app = express();
 
 // ── Security ──────────────────────────────────────────────────────────────────
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc:  ["'self'"],
+        styleSrc:   ["'self'"],
+        imgSrc:     ["'self'", 'data:', 'https://images.unsplash.com'],
+        connectSrc: ["'self'"],
+        fontSrc:    ["'self'"],
+        objectSrc:  ["'none'"],
+        frameAncestors: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+    crossOriginEmbedderPolicy: false, // allow embedding for map iframes
+  })
+);
 app.use(cors(corsOptions));
 app.use(cookieParser(env.COOKIE_SECRET));
 

@@ -61,14 +61,14 @@ export function SupportedUniversitiesBanner() {
         <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3.5 sm:gap-4">
             {/* Icon */}
-            <div className="flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-2xl border border-brand-100 dark:border-brand-800/80 bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 shadow-2xs">
+            <div className="flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-2xl border border-primary-100 dark:border-primary-800/80 bg-primary-50 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 shadow-2xs">
               <GraduationCap className="h-5.5 w-5.5 sm:h-6 sm:w-6" strokeWidth={2.2} />
             </div>
 
             {/* Text Hierarchy */}
             <div className="min-w-0">
               <div className="mb-1.5 flex flex-wrap items-center gap-2 sm:gap-2.5">
-                <span className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-600 dark:text-brand-400">
+                <span className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-primary-600 dark:text-primary-400">
                   Campus partenaires
                 </span>
 
@@ -94,7 +94,7 @@ export function SupportedUniversitiesBanner() {
           {/* CTA Button */}
           <Link
             href="/logements"
-            className="group inline-flex shrink-0 items-center justify-center gap-2 self-start sm:self-auto rounded-xl border border-brand-200/90 dark:border-brand-800/90 bg-brand-50/80 dark:bg-brand-950/60 px-4.5 py-2.5 text-xs sm:text-sm font-bold text-brand-700 dark:text-brand-300 shadow-2xs transition-all duration-200 hover:border-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900/60 hover:-translate-y-0.5"
+            className="group inline-flex shrink-0 items-center justify-center gap-2 self-start sm:self-auto rounded-xl border border-primary-200/90 dark:border-primary-800/90 bg-primary-50/80 dark:bg-primary-950/60 px-4.5 py-2.5 text-xs sm:text-sm font-bold text-primary-700 dark:text-primary-300 shadow-2xs transition-all duration-200 hover:border-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/60 hover:-translate-y-0.5"
           >
             <span>Voir les logements</span>
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -147,8 +147,8 @@ export function SupportedUniversitiesBanner() {
                   duration-250
                   ease-out
                   hover:-translate-y-1
-                  hover:border-brand-300
-                  dark:hover:border-brand-600/70
+                  hover:border-primary-300
+                  dark:hover:border-primary-600/70
                   hover:shadow-[0_10px_25px_-4px_rgba(4,108,122,0.12)]
                 "
               >
@@ -174,8 +174,8 @@ export function SupportedUniversitiesBanner() {
                     p-2
                     shadow-2xs
                     transition-transform
-                    duration-250
-                    group-hover:scale-103
+                    duration-300
+                    group-hover:scale-105
                   "
                 >
                   <Image

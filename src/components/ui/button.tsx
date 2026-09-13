@@ -15,7 +15,7 @@ const baseStyles = cn(
   'select-none',
   'focus-visible:outline-none',
   'focus-visible:ring-2',
-  'focus-visible:ring-brand-500',
+  'focus-visible:ring-primary-500',
   'focus-visible:ring-offset-2',
   'disabled:pointer-events-none',
   'disabled:cursor-not-allowed',
@@ -25,17 +25,17 @@ const baseStyles = cn(
 
 const variants = {
   primary: cn(
-    'bg-gradient-to-r from-brand-600 via-brand-600 to-brand-500 text-white',
-    'shadow-sm shadow-brand-600/25',
-    'hover:shadow-md hover:shadow-brand-600/35 hover:-translate-y-0.5 hover:brightness-105',
+    'bg-gradient-to-r from-primary-600 via-primary-600 to-primary-500 text-white',
+    'shadow-sm shadow-primary-600/25',
+    'hover:shadow-md hover:shadow-primary-600/35 hover:-translate-y-0.5 hover:brightness-105',
     'active:translate-y-0 active:scale-[0.98]'
   ),
 
   secondary: cn(
-    'bg-brand-50/90 text-brand-700',
-    'border border-brand-200/80',
-    'hover:bg-brand-100 hover:border-brand-300 hover:text-brand-800 hover:shadow-xs',
-    'active:bg-brand-100 active:scale-[0.98]'
+    'bg-primary-50/90 text-primary-700',
+    'border border-primary-200/80',
+    'hover:bg-primary-100 hover:border-primary-300 hover:text-primary-800 hover:shadow-xs',
+    'active:bg-primary-100 active:scale-[0.98]'
   ),
 
   accent: cn(

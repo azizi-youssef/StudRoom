@@ -88,7 +88,7 @@ function LogementsContent() {
       {universities.length > 0 && (
         <div className="mb-8 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5 mr-1">
-            <GraduationCap className="w-4 h-4 text-brand-600" />
+            <GraduationCap className="w-4 h-4 text-primary-600" />
             Campus :
           </span>
           <button
@@ -96,7 +96,7 @@ function LogementsContent() {
             onClick={() => setFilters((prev) => ({ ...prev, universityId: 'all' }))}
             className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
               filters.universityId === 'all'
-                ? 'bg-brand-600 text-white shadow-soft font-bold'
+                ? 'bg-primary-600 text-white shadow-soft font-bold'
                 : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80 shadow-xs'
             }`}
           >
@@ -109,7 +109,7 @@ function LogementsContent() {
               onClick={() => setFilters((prev) => ({ ...prev, universityId: uni.id }))}
               className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
                 filters.universityId === uni.id
-                  ? 'bg-brand-600 text-white shadow-soft font-bold'
+                  ? 'bg-primary-600 text-white shadow-soft font-bold'
                   : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80 shadow-xs'
               }`}
             >
@@ -174,13 +174,13 @@ export default function LogementsPage() {
         
         {/* Page Title */}
         <div className="mb-10 max-w-3xl">
-          <span className="inline-flex items-center gap-2 text-xs font-black text-brand-700 uppercase tracking-wider bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full border border-brand-200/80 shadow-xs">
+          <span className="inline-flex items-center gap-2 text-xs font-black text-primary-700 uppercase tracking-wider bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full border border-primary-200/80 shadow-xs">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Catalogue Logements · Rentrée Universitaire
           </span>
           <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mt-3">
             Trouve ton logement étudiant à{' '}
-            <span className="bg-gradient-to-r from-brand-600 to-accent-teal bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-600 to-accent-teal bg-clip-text text-transparent">
               Selouane / Nador
             </span>
           </h1>
@@ -192,7 +192,7 @@ export default function LogementsPage() {
         <Suspense
           fallback={
             <div className="flex items-center justify-center py-20">
-              <Loader2 className="w-8 h-8 text-brand-600 animate-spin" />
+              <Loader2 className="w-8 h-8 text-primary-600 animate-spin" />
             </div>
           }
         >
