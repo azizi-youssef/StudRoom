@@ -9,18 +9,19 @@ export class PropertyController {
     try {
       const q = req.query;
       const filters: Partial<PropertyFilterState> = {
-        searchQuery: (q.q as string) || '',
-        citySlug: (q.city as string) || 'all',
+        searchQuery:  (q.q         as string) || '',
+        citySlug:     (q.city      as string) || 'all',
         universityId: (q.university as string) || 'all',
-        maxPrice: q.maxPrice ? Number(q.maxPrice) : 0,
-        propertyType: (q.type as string) || 'all',
-        sortBy: (q.sort as PropertyFilterState['sortBy']) || 'featured',
-        page: q.page ? Number(q.page) : 1,
-        limit: q.limit ? Number(q.limit) : 12,
+        maxPrice:     q.maxPrice  ? Number(q.maxPrice)  : 0,
+        minPrice:     q.minPrice  ? Number(q.minPrice)  : 0,
+        propertyType: (q.type     as string) || 'all',
+        sortBy:       (q.sort as PropertyFilterState['sortBy']) || 'featured',
+        page:         q.page  ? Number(q.page)  : 1,
+        limit:        q.limit ? Number(q.limit) : 12,
       };
 
-      const properties = await propertyService.searchProperties(filters);
-      res.json(successResponse(properties));
+      const { properties, meta } = await propertyService.searchProperties(filters);
+      res.json(successResponse({ properties, meta }));
     } catch (err) {
       next(err);
     }

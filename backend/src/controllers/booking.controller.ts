@@ -37,6 +37,16 @@ export class BookingController {
       next(err);
     }
   }
+
+  async getReservations(_req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const reservations = await bookingService.getAllReservations();
+      res.json(successResponse(reservations));
+    } catch (err) {
+      next(err);
+    }
+  }
 }
+
 
 export const bookingController = new BookingController();

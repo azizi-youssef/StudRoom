@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { Maximize2, ChevronLeft, ChevronRight, X, Camera } from 'lucide-react';
 import { DbPropertyImage } from '@/shared/types/database';
+import { sanitizeImageUrl } from '@/lib/utils';
 
 interface PropertyGalleryProps {
   images: DbPropertyImage[];
@@ -14,9 +15,14 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
-  const safeImages = images && images.length > 0 ? images : [
+  const rawList = images && images.length > 0 ? images : [
     { id: 'default', property_id: '', image_url: '/images/studroom_hero.jpg', alt_text: title, is_primary: true, display_order: 0 }
   ];
+
+  const safeImages = rawList.map((img) => ({
+    ...img,
+    image_url: sanitizeImageUrl(img.image_url),
+  }));
 
   const mainImage = safeImages[selectedImageIndex] || safeImages[0];
 

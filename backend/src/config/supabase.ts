@@ -17,12 +17,17 @@ const baseOptions = {
  * Returns null if Supabase is not configured (fallback to mock in dev).
  */
 export function getSupabase(): SupabaseClient | null {
+  if (process.env.NODE_ENV === 'test') {
+    return null;
+  }
+
   if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) {
     if (env.isDev()) {
       console.warn('[SUPABASE] URL or ANON_KEY missing — falling back to static data.');
     }
     return null;
   }
+
 
   if (!supabaseAnonClient) {
     supabaseAnonClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, baseOptions);
@@ -39,7 +44,12 @@ export function getSupabase(): SupabaseClient | null {
  * Throws in production if SERVICE_ROLE_KEY is missing.
  */
 export function getSupabaseAdmin(): SupabaseClient | null {
+  if (process.env.NODE_ENV === 'test') {
+    return null;
+  }
+
   if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
+
     if (env.isProd()) {
       throw new Error('[SUPABASE] SUPABASE_SERVICE_ROLE_KEY is required in production.');
     }

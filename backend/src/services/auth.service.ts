@@ -83,6 +83,7 @@ export class AuthService {
 
     let verifiedEmail = data.email?.toLowerCase().trim();
     let verifiedFullName = data.fullName;
+    let verifiedId: string | undefined;
 
     // Cryptographic verification of OAuth access token via Supabase Auth
     if (data.accessToken && supabase) {
@@ -90,9 +91,10 @@ export class AuthService {
       if (error || !userData.user?.email) {
         throw new AppError(401, 'UNAUTHORIZED', 'Jeton d’authentification Google / Supabase invalide ou expiré.');
       }
-      // Use cryptographically verified email from Supabase Auth
+      // Use cryptographically verified email & ID from Supabase Auth
       verifiedEmail = userData.user.email.toLowerCase().trim();
       verifiedFullName = userData.user.user_metadata?.full_name || userData.user.user_metadata?.name || verifiedFullName;
+      verifiedId = userData.user.id;
     } else if (env.isProd()) {
       // In production, an access token is strictly required
       throw new AppError(401, 'UNAUTHORIZED', 'Jeton d’authentification OAuth requis en environnement de production.');
@@ -108,12 +110,14 @@ export class AuthService {
 
     if (!user) {
       user = await authRepository.createOAuthUser({
+        id: verifiedId,
         email: verifiedEmail,
         full_name: verifiedFullName || verifiedEmail.split('@')[0],
         phone: data.phone,
         role: 'student',
       });
     }
+
 
     const token = jwt.sign(
       {

@@ -2,7 +2,31 @@ import { BookingFormValues } from '../shared/schemas/booking.schema';
 import { LandlordFormValues } from '../shared/schemas/landlord.schema';
 import { ContactFormValues } from '../shared/schemas/contact.schema';
 import { getSupabaseAdmin } from '../config/supabase';
-import { DbBookingRequest, DbLandlordSubmission, DbContactRequest, BookingStatus } from '../shared/types/database';
+import {
+  DbBookingRequest,
+  DbLandlordSubmission,
+  DbContactRequest,
+  BookingStatus,
+  DbReservation,
+} from '../shared/types/database';
+import { AppError } from '../lib/response';
+
+// Mock in-memory storage for reservations
+const mockReservations: DbReservation[] = [
+  {
+    id: 'res-mock-001',
+    room_id: 'room-1-2',
+    student_id: 'student-demo-01',
+    start_date: '2026-09-01',
+    end_date: '2027-06-30',
+    monthly_price_dh: 2300,
+    deposit_dh: 2300,
+    status: 'CONFIRMED',
+    notes: 'Contrat étudiant régulier',
+    created_at: new Date(Date.now() - 86400000).toISOString(),
+    updated_at: new Date(Date.now() - 86400000).toISOString(),
+  },
+];
 
 
 // In-memory fallbacks for development / demo
@@ -255,6 +279,168 @@ export class BookingRepository {
     }
     return mockContactRequests;
   }
+
+  async updateContactRequestStatus(id: string, status: string): Promise<any> {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      const { data, error } = await supabase
+        .from('contact_requests')
+        .update({ status, read_at: new Date().toISOString() })
+        .eq('id', id)
+        .select()
+        .single();
+      if (!error && data) return data;
+    }
+
+    const item = mockContactRequests.find((c) => c.id === id);
+    if (item) {
+      item.status = status;
+      return item;
+    }
+    return null;
+  }
+
+
+  // ─── Reservations (Official Leases) ──────────────────────────────────────────
+
+  async createReservation(payload: {
+    room_id: string;
+    student_id: string;
+    booking_request_id?: string;
+    start_date: string;
+    end_date?: string;
+    monthly_price_dh: number;
+    deposit_dh: number;
+    notes?: string;
+  }): Promise<DbReservation> {
+    const supabase = getSupabaseAdmin();
+
+    if (supabase) {
+      try {
+        const dbPayload = {
+          room_id: payload.room_id,
+          student_id: payload.student_id,
+          booking_request_id: payload.booking_request_id || null,
+          start_date: payload.start_date,
+          end_date: payload.end_date || null,
+          monthly_price_dh: payload.monthly_price_dh,
+          deposit_dh: payload.deposit_dh,
+          status: 'CONFIRMED',
+          notes: payload.notes || null,
+        };
+
+        const { data, error } = await supabase
+          .from('reservations')
+          .insert([dbPayload])
+          .select()
+          .single();
+
+        if (error) {
+          // Handle PostgreSQL 23P01 exclusion violation (double booking)
+          if (
+            error.code === '23P01' ||
+            error.message?.includes('no_overlapping_active_reservations')
+          ) {
+            throw new AppError(
+              409,
+              'DOUBLE_BOOKING_CONFLICT',
+              'Cette chambre fait déjà l’objet d’une réservation active pour cette période.'
+            );
+          }
+          console.error('[SUPABASE ERROR] createReservation failed:', error.message);
+        } else if (data) {
+          return data as DbReservation;
+        }
+      } catch (err: any) {
+        if (err instanceof AppError) throw err;
+        // Network / environment fallback (unit tests / offline dev)
+      }
+    }
+
+
+    // In-memory fallback with concurrency check
+    const start = new Date(payload.start_date).getTime();
+    const end = payload.end_date ? new Date(payload.end_date).getTime() : Infinity;
+
+    const hasOverlap = mockReservations.some((res) => {
+      if (res.room_id !== payload.room_id) return false;
+      if (res.status !== 'CONFIRMED' && res.status !== 'ACTIVE') return false;
+
+      const resStart = new Date(res.start_date).getTime();
+      const resEnd = res.end_date ? new Date(res.end_date).getTime() : Infinity;
+
+      // Overlap condition: start <= resEnd && end >= resStart
+      return start <= resEnd && end >= resStart;
+    });
+
+    if (hasOverlap) {
+      throw new AppError(
+        409,
+        'DOUBLE_BOOKING_CONFLICT',
+        'Cette chambre fait déjà l’objet d’une réservation active pour cette période.'
+      );
+    }
+
+    const newReservation: DbReservation = {
+      id: 'res-' + Math.floor(100000 + Math.random() * 900000),
+      room_id: payload.room_id,
+      student_id: payload.student_id,
+      booking_request_id: payload.booking_request_id,
+      start_date: payload.start_date,
+      end_date: payload.end_date,
+      monthly_price_dh: payload.monthly_price_dh,
+      deposit_dh: payload.deposit_dh,
+      status: 'CONFIRMED',
+      notes: payload.notes,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+
+    mockReservations.unshift(newReservation);
+    return newReservation;
+  }
+
+  async findAllReservations(): Promise<DbReservation[]> {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      const { data, error } = await supabase
+        .from('reservations')
+        .select('*, room:rooms(*, property:properties(title, neighborhood, city_id)), student:students(*)')
+        .order('created_at', { ascending: false });
+
+      if (!error && data) return data as unknown as DbReservation[];
+    }
+    return mockReservations;
+  }
+
+  async findReservationsByStudent(studentId: string): Promise<DbReservation[]> {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      const { data, error } = await supabase
+        .from('reservations')
+        .select('*, room:rooms(*, property:properties(title, neighborhood, city_id))')
+        .eq('student_id', studentId)
+        .order('created_at', { ascending: false });
+
+      if (!error && data) return data as unknown as DbReservation[];
+    }
+    return mockReservations.filter((r) => r.student_id === studentId);
+  }
+
+  async findReservationsByRoom(roomId: string): Promise<DbReservation[]> {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      const { data, error } = await supabase
+        .from('reservations')
+        .select('*')
+        .eq('room_id', roomId)
+        .order('created_at', { ascending: false });
+
+      if (!error && data) return data as DbReservation[];
+    }
+    return mockReservations.filter((r) => r.room_id === roomId);
+  }
 }
 
 export const bookingRepository = new BookingRepository();
+

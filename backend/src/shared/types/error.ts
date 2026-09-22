@@ -3,10 +3,13 @@ export type ErrorCode =
   | 'NOT_FOUND'
   | 'ROOM_NOT_AVAILABLE'
   | 'BOOKING_ALREADY_EXISTS'
+  | 'DOUBLE_BOOKING_CONFLICT'
+  | 'DATABASE_ERROR'
   | 'INTERNAL_ERROR'
   | 'UNAUTHORIZED'
   | 'FORBIDDEN'
   | 'TOO_MANY_REQUESTS';
+
 
 
 export interface ApiErrorDetail {

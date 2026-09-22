@@ -18,14 +18,61 @@ interface BookingFormProps {
   onSuccess?: () => void;
 }
 
+export const UNIVERSITY_OPTIONS = [
+  {
+    value: 'FSAN Nador (Faculté des Sciences Appliquées)',
+    label: 'FSAN Nador — Sciences Appliquées',
+  },
+  {
+    value: 'FEG Nador (Faculté des Économiques et de Gestion)',
+    label: 'FEG Nador — Économie & Gestion',
+  },
+  {
+    value: 'FSJP Nador (Faculté des Sciences Juridiques et Politiques)',
+    label: 'FSJP Nador — Droit & Sciences Politiques',
+  },
+  {
+    value: 'FLAA Nador (Faculté des Langues, Lettres et Arts)',
+    label: 'FLAA Nador — Langues, Lettres & Arts',
+  },
+  {
+    value: 'EST Nador (École Supérieure de Technologie)',
+    label: 'EST Nador — École Supérieure de Technologie',
+  },
+  {
+    value: 'ISTA Selouane (OFPPT)',
+    label: 'ISTA Selouane — Institut Spécialisé (OFPPT)',
+  },
+  {
+    value: 'Autre établissement',
+    label: 'Autre établissement (préciser ci-dessous)',
+  },
+];
+
+export const STUDY_LEVEL_OPTIONS = [
+  { value: 'Licence 1ère année', label: 'Licence 1ère année (L1)' },
+  { value: 'Licence 2ème année', label: 'Licence 2ème année (L2)' },
+  { value: 'Licence 3ème année / LP', label: 'Licence 3ème année / LP (L3)' },
+  { value: 'DUT 1ère année', label: 'DUT 1ère année (EST)' },
+  { value: 'DUT 2ème année', label: 'DUT 2ème année (EST)' },
+  { value: 'Technicien Spécialisé 1ère année', label: 'TS 1ère année (ISTA / OFPPT)' },
+  { value: 'Technicien Spécialisé 2ème année', label: 'TS 2ème année (ISTA / OFPPT)' },
+  { value: "Cycle d'Ingénieur", label: "Cycle d'Ingénieur" },
+  { value: 'Master 1ère / 2ème année', label: 'Master (M1 / M2)' },
+  { value: 'Doctorat', label: 'Doctorat' },
+  { value: 'Autre cursus', label: 'Autre cursus' },
+];
+
 export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState('');
+  const [customUniversity, setCustomUniversity] = useState('');
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingFormSchema),
@@ -33,18 +80,26 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
       propertySlug: property?.slug || 'studroom-al-omrane-01',
       roomId: room?.id,
       roomName: room?.name,
-      university: 'Faculté Pluridisciplinaire de Nador (FPN Nador)',
-      studyLevel: 'Licence 1ère année',
+      university: UNIVERSITY_OPTIONS[0].value,
+      studyLevel: STUDY_LEVEL_OPTIONS[0].value,
       durationMonths: 10,
       desiredArrivalDate: new Date().toISOString().split('T')[0],
     },
   });
 
+  const selectedUniversity = watch('university');
+
   const onSubmit = async (data: BookingFormValues) => {
     setIsSubmitting(true);
     try {
+      const finalUniversity =
+        data.university === 'Autre établissement' && customUniversity.trim()
+          ? customUniversity.trim()
+          : data.university;
+
       const payload: BookingFormValues = {
         ...data,
+        university: finalUniversity,
         ...(room ? { roomId: room.id, roomName: room.name } : {}),
       };
       const resData = await clientBookingService.submitBooking(payload);
@@ -159,16 +214,22 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
         <Select
           label="Niveau d'étude *"
           error={errors.studyLevel?.message}
-          options={[
-            { value: 'Licence 1ère année', label: 'Licence 1ère année' },
-            { value: 'Licence 2ème année', label: 'Licence 2ème année' },
-            { value: 'Licence 3ème année / LP', label: 'Licence 3ème année / LP' },
-            { value: 'DUT 1ère année', label: 'DUT 1ère année' },
-            { value: 'DUT 2ème année', label: 'DUT 2ème année' },
-            { value: 'Master / Doctorat', label: 'Master / Doctorat' },
-          ]}
+          options={STUDY_LEVEL_OPTIONS}
           {...register('studyLevel')}
         />
+
+        {selectedUniversity === 'Autre établissement' && (
+          <div className="sm:col-span-2">
+            <Input
+              label="Précisez votre établissement ou école *"
+              placeholder="ex: IFMIA Nador, CPGE, BTS, Faculté de Médecine..."
+              icon={<GraduationCap className="w-4 h-4" />}
+              value={customUniversity}
+              onChange={(e) => setCustomUniversity(e.target.value)}
+              required
+            />
+          </div>
+        )}
       </div>
 
       {/* Dates & Duration row */}

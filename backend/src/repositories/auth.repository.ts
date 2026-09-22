@@ -48,6 +48,7 @@ export class AuthRepository {
   }
 
   async createUser(userData: {
+    id?: string;
     email: string;
     role: UserRole;
     full_name: string;
@@ -58,26 +59,32 @@ export class AuthRepository {
     const cleanEmail = userData.email.toLowerCase().trim();
 
     if (supabase) {
-      const dbPayload = {
+      const dbPayload: Record<string, any> = {
         email: cleanEmail,
         role: userData.role,
         full_name: userData.full_name,
         phone: userData.phone,
         password_hash: userData.password_hash,
       };
+      if (userData.id) {
+        dbPayload.id = userData.id;
+      }
 
       const { data, error } = await supabase.from('users').insert([dbPayload]).select().single();
       if (error) {
         console.error('[SUPABASE ERROR] createUser failed:', error.message, error.details);
       } else if (data) {
         console.log('[SUPABASE SUCCESS] User created in database with ID:', data.id);
+        
+        // Auto-create role profile
+        await this.ensureUserProfile(data.id, data.role, data.full_name, cleanEmail, data.phone);
         return data as DbUser;
       }
     }
 
     // In-memory fallback if Supabase table isn't created yet
     const newUser: DbUser = {
-      id: 'user-' + Math.floor(100000 + Math.random() * 900000),
+      id: userData.id || 'user-' + Math.floor(100000 + Math.random() * 900000),
       email: cleanEmail,
       role: userData.role,
       full_name: userData.full_name,
@@ -91,6 +98,7 @@ export class AuthRepository {
   }
 
   async createOAuthUser(data: {
+    id?: string;
     email: string;
     full_name: string;
     role?: UserRole;
@@ -102,25 +110,31 @@ export class AuthRepository {
     const phone = data.phone || '+212 600 000 000';
 
     if (supabase) {
-      const dbPayload = {
+      const dbPayload: Record<string, any> = {
         email: cleanEmail,
         role,
         full_name: data.full_name || 'Utilisateur StudRoom',
         phone,
         password_hash: null,
       };
+      if (data.id) {
+        dbPayload.id = data.id;
+      }
 
       const { data: dbUser, error } = await supabase.from('users').insert([dbPayload]).select().single();
       if (error) {
         console.error('[SUPABASE ERROR] createOAuthUser failed:', error.message, error.details);
       } else if (dbUser) {
         console.log('[SUPABASE SUCCESS] OAuth User created in database with ID:', dbUser.id);
+        
+        // Auto-create role profile
+        await this.ensureUserProfile(dbUser.id, role, dbPayload.full_name, cleanEmail, phone);
         return dbUser as DbUser;
       }
     }
 
     const newUser: DbUser = {
-      id: 'user-' + Math.floor(100000 + Math.random() * 900000),
+      id: data.id || 'user-' + Math.floor(100000 + Math.random() * 900000),
       email: cleanEmail,
       role,
       full_name: data.full_name || 'Utilisateur StudRoom',
@@ -132,6 +146,52 @@ export class AuthRepository {
     mockUsers.push(newUser);
     return newUser;
   }
+
+  /**
+   * Assure la création du profil étudiant ou propriétaire associé
+   */
+  private async ensureUserProfile(
+    userId: string,
+    role: UserRole,
+    fullName: string,
+    email: string,
+    phone: string
+  ): Promise<void> {
+    const supabase = getSupabaseAdmin();
+    if (!supabase) return;
+
+    try {
+      if (role === 'student') {
+        const parts = fullName.trim().split(/\s+/);
+        const firstName = parts[0] || 'Étudiant';
+        const lastName = parts.slice(1).join(' ') || 'StudRoom';
+
+        await supabase.from('students').upsert(
+          {
+            user_id: userId,
+            first_name: firstName,
+            last_name: lastName,
+            email,
+            phone,
+          },
+          { onConflict: 'user_id' }
+        );
+      } else if (role === 'landlord') {
+        await supabase.from('landlords').upsert(
+          {
+            user_id: userId,
+            name: fullName,
+            email,
+            phone,
+          },
+          { onConflict: 'user_id' }
+        );
+      }
+    } catch (err: any) {
+      console.warn('[AUTH] ensureUserProfile error (non-fatal):', err?.message);
+    }
+  }
+
 }
 
 export const authRepository = new AuthRepository();

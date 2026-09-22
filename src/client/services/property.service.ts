@@ -1,9 +1,14 @@
 import { ApiClient } from './api-client';
 import { PropertyDetail, PropertyFilterState, PaginationMeta } from '@/shared/types';
 
+export interface PropertySearchResult {
+  properties: PropertyDetail[];
+  meta: PaginationMeta;
+}
+
 export interface PropertySearchResponse {
   success: boolean;
-  data: PropertyDetail[];
+  data: PropertySearchResult;
   pagination?: PaginationMeta;
 }
 
@@ -22,6 +27,7 @@ export class ClientPropertyService {
     if (filters?.citySlug && filters.citySlug !== 'all') params.city = filters.citySlug;
     if (filters?.universityId && filters.universityId !== 'all') params.university = filters.universityId;
     if (filters?.maxPrice && filters.maxPrice > 0) params.maxPrice = filters.maxPrice;
+    if (filters?.minPrice && filters.minPrice > 0) params.minPrice = filters.minPrice;
     if (filters?.propertyType && filters.propertyType !== 'all') params.type = filters.propertyType;
     if (filters?.sortBy) params.sort = filters.sortBy;
     if (filters?.page) params.page = filters.page;

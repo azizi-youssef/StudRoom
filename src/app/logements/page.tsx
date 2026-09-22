@@ -20,6 +20,7 @@ function LogementsContent() {
   const [cities, setCities] = useState<DbCity[]>([]);
   const [properties, setProperties] = useState<PropertyDetail[]>([]);
   const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState({ total: 0, page: 1, totalPages: 1 });
 
   const [filters, setFilters] = useState<PropertyFilterState>({
     searchQuery: searchParams.get('q') || '',
@@ -57,8 +58,15 @@ function LogementsContent() {
     setLoading(true);
     try {
       const res = await clientPropertyService.searchProperties(filters);
-      if (res.success) {
-        setProperties(res.data);
+      if (res.success && res.data) {
+        setProperties(res.data.properties ?? []);
+        if (res.data.meta) {
+          setPagination({
+            total:      res.data.meta.total,
+            page:       res.data.meta.page,
+            totalPages: res.data.meta.totalPages,
+          });
+        }
       }
     } catch (err) {
       console.error('Error loading properties:', err);
@@ -161,6 +169,32 @@ function LogementsContent() {
           >
             Réinitialiser tous les filtres
           </Button>
+        </div>
+      )}
+
+      {/* Pagination */}
+      {!loading && pagination.totalPages > 1 && (
+        <div className="flex items-center justify-center gap-3 mt-10">
+          <button
+            type="button"
+            disabled={pagination.page <= 1}
+            onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page ?? 1) - 1 }))}
+            className="px-5 py-2.5 rounded-full text-sm font-bold border border-slate-200 bg-white shadow-xs hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          >
+            ← Précédent
+          </button>
+          <span className="text-sm font-semibold text-slate-500">
+            Page {pagination.page} / {pagination.totalPages}
+            <span className="ml-2 text-xs text-slate-400">({pagination.total} logements)</span>
+          </span>
+          <button
+            type="button"
+            disabled={pagination.page >= pagination.totalPages}
+            onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page ?? 1) + 1 }))}
+            className="px-5 py-2.5 rounded-full text-sm font-bold border border-slate-200 bg-white shadow-xs hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          >
+            Suivant →
+          </button>
         </div>
       )}
     </>

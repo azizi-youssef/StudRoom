@@ -25,10 +25,13 @@ export type BookingStatus =
   | 'REJECTED'
   | 'CANCELLED';
 
+export type UserStatus = 'ACTIVE' | 'SUSPENDED' | 'BLOCKED';
+
 export interface DbUser {
   id: string;
   email: string;
   role: UserRole;
+  status?: UserStatus;
   full_name: string;
   phone: string;
   password_hash?: string;
@@ -155,6 +158,7 @@ export interface DbPropertyImage {
   alt_text: string;
   is_primary: boolean;
   display_order: number;
+  created_at?: string;
 }
 
 export interface DbUniversityProximity {
@@ -181,7 +185,31 @@ export interface DbBookingRequest {
   status: BookingStatus;
   notes?: string;
   message?: string;
+  visit_date?: string;
+  visit_notes?: string;
   requested_at: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type ReservationStatus =
+  | 'PENDING'
+  | 'CONFIRMED'
+  | 'ACTIVE'
+  | 'COMPLETED'
+  | 'CANCELLED';
+
+export interface DbReservation {
+  id: string;
+  room_id: string;
+  student_id: string;
+  booking_request_id?: string;
+  start_date: string;
+  end_date?: string;
+  monthly_price_dh: number;
+  deposit_dh: number;
+  status: ReservationStatus;
+  notes?: string;
   created_at: string;
   updated_at: string;
 }
@@ -193,7 +221,11 @@ export interface DbContactRequest {
   phone: string;
   subject: string;
   message: string;
+  status?: 'new' | 'in_progress' | 'resolved' | 'closed';
+  read_at?: string;
+  handled_by?: string;
   created_at: string;
+  updated_at?: string;
 }
 
 export interface DbLandlordSubmission {
@@ -212,3 +244,17 @@ export interface DbLandlordSubmission {
   status: 'new' | 'contacted' | 'approved' | 'declined';
   created_at: string;
 }
+
+export interface DbAuditLog {
+  id: string;
+  actor_user_id?: string | null;
+  action: string;
+  entity_type: string;
+  entity_id: string;
+  old_value?: Record<string, unknown> | null;
+  new_value?: Record<string, unknown> | null;
+  ip_address?: string | null;
+  created_at: string;
+}
+
+

@@ -2,6 +2,115 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Default StudRoom Moroccan Coastal Teal (RGB components) */
+  --color-primary-50: 240 253 250;
+  --color-primary-100: 204 251 241;
+  --color-primary-200: 153 246 228;
+  --color-primary-300: 94 234 212;
+  --color-primary-400: 45 212 191;
+  --color-primary-500: 8 145 178;
+  --color-primary-600: 4 108 122;
+  --color-primary-700: 5 88 100;
+  --color-primary-800: 7 69 79;
+  --color-primary-900: 4 42 48;
+  --color-primary-950: 1 23 27;
+}
+
+/* ── StudRoom Admin Dashboard — Modern Premium SaaS Tokens ── */
+.dashboard-theme {
+  --bg-main: #07090F;
+  --bg-sidebar: #080A10;
+  --bg-surface: #0B0E16;
+  --bg-surface-hover: #101421;
+
+  --border-subtle: #151B29;
+  --border-default: #1B2233;
+  --border-strong: #293247;
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+
+  --brand-primary: #0891B2;
+  --brand-light: #22D3EE;
+
+  --action-primary: #6D4AFF;
+  --action-hover: #7C5CFF;
+
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #22D3EE;
+
+  /* Primary Action: Violet Administrative (#6D4AFF / #7C5CFF) */
+  --color-primary-50: 238 242 255;
+  --color-primary-100: 224 231 255;
+  --color-primary-200: 199 210 254;
+  --color-primary-300: 165 180 252;
+  --color-primary-400: 165 140 255;
+  --color-primary-500: 124 92 255;
+  --color-primary-600: 109 74 255;
+  --color-primary-700: 90 55 220;
+  --color-primary-800: 70 40 180;
+  --color-primary-900: 50 25 140;
+  --color-primary-950: 16 11 36;
+
+  background-color: var(--bg-main) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Dashboard Obsidian & Surface utilities */
+.dashboard-theme .bg-slate-900 {
+  background-color: var(--bg-surface) !important;
+}
+
+.dashboard-theme .bg-slate-950 {
+  background-color: var(--bg-main) !important;
+}
+
+.dashboard-theme .bg-slate-950\/60,
+.dashboard-theme .bg-slate-950\/70,
+.dashboard-theme .bg-slate-950\/80,
+.dashboard-theme .bg-slate-950\/90,
+.dashboard-theme .bg-slate-950\/95 {
+  background-color: var(--bg-surface) !important;
+}
+
+.dashboard-theme .border-slate-800,
+.dashboard-theme .border-slate-800\/60,
+.dashboard-theme .border-slate-800\/80,
+.dashboard-theme .border-slate-800\/90 {
+  border-color: var(--border-default) !important;
+}
+
+.dashboard-theme .border-slate-700,
+.dashboard-theme .border-slate-700\/80 {
+  border-color: var(--border-strong) !important;
+}
+
+.dashboard-theme .text-slate-400 {
+  color: var(--text-secondary) !important;
+}
+
+.dashboard-theme .text-slate-500 {
+  color: var(--text-muted) !important;
+}
+
+.dashboard-theme .hover\:bg-slate-800:hover,
+.dashboard-theme .hover\:bg-slate-900:hover,
+.dashboard-theme .hover\:bg-slate-900\/80:hover {
+  background-color: var(--bg-surface-hover) !important;
+}
+
+/* Float glassmorphism utility (header, dropdown, popover) */
+.admin-glass-float {
+  background: rgba(11, 14, 22, 0.82) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 @layer base {
   body {
     @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased selection:bg-primary-600 selection:text-white transition-colors duration-200;
@@ -71,6 +180,14 @@
   background-image: 
     radial-gradient(at 0% 0%, rgba(8, 145, 178, 0.18) 0px, transparent 60%),
     radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.12) 0px, transparent 60%);
+}
+
+.bg-mesh-dashboard {
+  background-color: var(--bg-main, #07090F);
+  background-image: 
+    radial-gradient(at 10% 0%, rgba(109, 74, 255, 0.08) 0px, transparent 40%),
+    radial-gradient(at 95% 5%, rgba(8, 145, 178, 0.06) 0px, transparent 35%),
+    radial-gradient(at 50% 100%, rgba(109, 74, 255, 0.04) 0px, transparent 50%);
 }
 
 /* Shimmer animation for highlights */

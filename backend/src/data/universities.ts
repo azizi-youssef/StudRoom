@@ -2,9 +2,9 @@ import { DbUniversity } from '../shared/types/database';
 
 export const UNIVERSITIES_DATA: DbUniversity[] = [
   {
-    id: 'uni-fsan-selouane',
+    id: 'uni-fsan-Nador',
     city_id: 'city-selouane',
-    name: 'Faculté des sciences appliquées de Nador (FSAN Selouane)',
+    name: 'Faculté des Sciences Appliquées de Nador (FSAN Selouane)',
     short_name: 'FSAN Selouane',
     address: 'Route Nationale 19, Selouane, Nador',
     location_lat: 35.0741,
@@ -31,7 +31,7 @@ export const UNIVERSITIES_DATA: DbUniversity[] = [
   {
     id: 'uni-fsjp-nador',
     city_id: 'city-selouane',
-    name: 'Faculté des Sciences Juridiques et politiques de Nador (FSJP Nador)',
+    name: 'Faculté des Sciences Juridiques et Politiques de Nador (FSJP Nador)',
     short_name: 'FSJP Nador',
     address: 'Quartier Universitaire, Selouane',
     location_lat: 35.0758,

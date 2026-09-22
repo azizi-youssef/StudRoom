@@ -12,7 +12,11 @@ router.get('/', ...requireAdmin, bookingController.getBookings.bind(bookingContr
 // POST /api/v1/booking-requests — Public (students submit without account)
 router.post('/', validate(bookingFormSchema), bookingController.createBooking.bind(bookingController));
 
+// GET /api/v1/booking-requests/reservations — Admin only
+router.get('/reservations', ...requireAdmin, bookingController.getReservations.bind(bookingController));
+
 // PATCH /api/v1/booking-requests/:id/status — Admin only
 router.patch('/:id/status', ...requireAdmin, bookingController.updateStatus.bind(bookingController));
+
 
 export default router;
