@@ -4,22 +4,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { clientAdminService } from '@/client/services/admin.service';
-import { PropertyDetail, RoomDetail } from '@/shared/types';
+import { PropertyDetail } from '@/shared/types';
 import { RoomStatus } from '@/shared/types/database';
 import {
   DoorOpen,
   ArrowLeft,
   Plus,
   Trash2,
-  Edit2,
-  Check,
   X,
-  RefreshCw,
   Bed,
-  ShieldCheck,
-  Sparkles,
   Loader2,
-  Calendar,
   Image as ImageIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -27,11 +21,11 @@ import { formatCurrencyDH } from '@/lib/utils';
 import { ImageSourcePicker } from '@/components/admin/image-source-picker';
 
 const ROOM_STATUS_LABELS: Record<RoomStatus, { label: string; badgeClass: string }> = {
-  AVAILABLE: { label: 'Disponible', badgeClass: 'bg-emerald-950/80 text-emerald-400 border-emerald-800/80' },
-  RESERVED: { label: 'Réservée', badgeClass: 'bg-primary-950/80 text-primary-400 border-primary-800/80' },
-  OCCUPIED: { label: 'Occupée', badgeClass: 'bg-slate-900 text-slate-400 border-slate-700/80' },
-  MAINTENANCE: { label: 'Maintenance', badgeClass: 'bg-rose-950/80 text-rose-400 border-rose-800/80' },
-  UNAVAILABLE: { label: 'Indisponible', badgeClass: 'bg-slate-900 text-slate-500 border-slate-800' },
+  AVAILABLE: { label: 'Disponible', badgeClass: 'badge-success' },
+  RESERVED: { label: 'Réservée', badgeClass: 'badge-primary' },
+  OCCUPIED: { label: 'Occupée', badgeClass: 'badge-neutral' },
+  MAINTENANCE: { label: 'Maintenance', badgeClass: 'badge-danger' },
+  UNAVAILABLE: { label: 'Indisponible', badgeClass: 'badge-neutral' },
 };
 
 export default function AdminLogementChambresPage() {
@@ -172,8 +166,8 @@ export default function AdminLogementChambresPage() {
 
   if (loading) {
     return (
-      <div className="p-16 flex items-center justify-center text-slate-400 text-xs">
-        <Loader2 className="w-6 h-6 animate-spin mr-2 text-primary-400" />
+      <div className="dash-card p-16 flex items-center justify-center text-xs" style={{ color: 'var(--text-muted)' }}>
+        <Loader2 className="w-6 h-6 animate-spin mr-2" style={{ color: 'var(--brand-primary)' }} />
         Chargement des chambres du logement…
       </div>
     );
@@ -181,9 +175,9 @@ export default function AdminLogementChambresPage() {
 
   if (!property) {
     return (
-      <div className="p-16 text-center text-slate-400 text-xs">
+      <div className="dash-card p-16 text-center text-xs" style={{ color: 'var(--text-muted)' }}>
         Logement introuvable.{' '}
-        <Link href="/dashboard/logements" className="text-primary-400 underline ml-1">
+        <Link href="/dashboard/logements" className="underline ml-1" style={{ color: 'var(--brand-primary)' }}>
           Retour à la liste
         </Link>
       </div>
@@ -193,103 +187,131 @@ export default function AdminLogementChambresPage() {
   const rooms = property.rooms || [];
 
   return (
-    <div className="max-w-6xl w-full mx-auto flex flex-col gap-8">
-      {/* ── Breadcrumb ── */}
+    <div className="max-w-6xl w-full mx-auto flex flex-col gap-6 animate-fade-in">
+      {/* Breadcrumb */}
       <div className="flex items-center justify-between">
         <Link
           href="/dashboard/logements"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-white transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold hover:underline transition-colors"
+          style={{ color: 'var(--text-secondary)' }}
         >
           <ArrowLeft className="w-4 h-4" />
           Retour aux logements
         </Link>
         <Link
           href={`/dashboard/logements/${property.id}/photos`}
-          className="text-xs font-bold text-primary-400 hover:underline"
+          className="text-xs font-semibold hover:underline"
+          style={{ color: 'var(--brand-primary)' }}
         >
-          Gérer les photos de ce logement $\rightarrow$
+          Gérer les photos de ce logement →
         </Link>
       </div>
 
-      {/* ── Header ── */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      {/* Header */}
+      <div
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-5 border-b"
+        style={{ borderColor: 'var(--border-subtle)' }}
+      >
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <DoorOpen className="w-4 h-4 text-primary-400" />
-            <span className="text-[11px] font-extrabold text-primary-400 uppercase tracking-widest">
+          <div className="flex items-center gap-2 mb-1.5">
+            <DoorOpen className="w-4 h-4" style={{ color: 'var(--brand-primary)' }} />
+            <span
+              className="text-[11px] font-bold uppercase tracking-wider"
+              style={{ color: 'var(--brand-primary)' }}
+            >
               Découpage en Chambres
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
             Chambres — {property.title}
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>
             {rooms.length} chambre{rooms.length > 1 ? 's' : ''} configurée{rooms.length > 1 ? 's' : ''} · Quartier {property.neighborhood} ({property.city?.name})
           </p>
         </div>
 
         <Button
-          variant="primary"
-          size="sm"
           onClick={() => setShowAddModal(true)}
-          className="font-bold shadow-soft"
+          className="btn-brand font-semibold text-xs text-white shadow-sm flex items-center gap-1.5"
         >
-          <Plus className="w-4 h-4 mr-1.5" />
+          <Plus className="w-4 h-4" />
           Ajouter une chambre
         </Button>
       </div>
 
-      {/* ── Rooms Table / List ── */}
+      {/* Rooms Table / List */}
       {rooms.length === 0 ? (
-        <div className="bg-slate-950/60 p-16 rounded-3xl border border-slate-800/80 text-center flex flex-col items-center gap-4">
-          <DoorOpen className="w-12 h-12 text-slate-600" />
-          <p className="text-base font-bold text-white">Aucune chambre configurée</p>
-          <p className="text-xs text-slate-500 max-w-sm">
+        <div
+          className="dash-card p-16 text-center flex flex-col items-center gap-3"
+          style={{ backgroundColor: 'var(--bg-card)' }}
+        >
+          <DoorOpen className="w-12 h-12" style={{ color: 'var(--text-muted)' }} />
+          <p className="text-base font-bold" style={{ color: 'var(--text-primary)' }}>Aucune chambre configurée</p>
+          <p className="text-xs max-w-sm" style={{ color: 'var(--text-secondary)' }}>
             Ce logement n&apos;a pas encore de chambres. Ajoutez les chambres pour permettre aux étudiants de réserver.
           </p>
-          <Button variant="primary" size="sm" onClick={() => setShowAddModal(true)} className="font-bold">
+          <Button onClick={() => setShowAddModal(true)} className="btn-brand text-xs font-semibold text-white shadow-sm mt-2">
             <Plus className="w-4 h-4 mr-1.5" />
             Ajouter la première chambre
           </Button>
         </div>
       ) : (
-        <div className="bg-slate-950/80 rounded-3xl border border-slate-800/80 overflow-hidden shadow-soft">
+        <div className="dash-card overflow-hidden shadow-sm" style={{ backgroundColor: 'var(--bg-card)' }}>
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/90 text-slate-400 font-extrabold uppercase tracking-wider border-b border-slate-800">
-                <tr>
-                  <th className="px-6 py-4">Nom de la chambre</th>
-                  <th className="px-6 py-4">Type</th>
-                  <th className="px-6 py-4">Loyer mensuel</th>
-                  <th className="px-6 py-4">Caution</th>
-                  <th className="px-6 py-4">Superficie</th>
-                  <th className="px-6 py-4">Statut</th>
-                  <th className="px-6 py-4 text-right">Actions</th>
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr
+                  className="border-b text-[11px] font-semibold uppercase tracking-wider"
+                  style={{
+                    borderColor: 'var(--border-subtle)',
+                    backgroundColor: 'var(--bg-subtle)',
+                    color: 'var(--text-muted)',
+                  }}
+                >
+                  <th className="px-5 py-3.5">Nom de la chambre</th>
+                  <th className="px-5 py-3.5">Type</th>
+                  <th className="px-5 py-3.5">Loyer mensuel</th>
+                  <th className="px-5 py-3.5">Caution</th>
+                  <th className="px-5 py-3.5">Superficie</th>
+                  <th className="px-5 py-3.5">Statut</th>
+                  <th className="px-5 py-3.5 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y" style={{ borderColor: 'var(--border-subtle)' }}>
                 {rooms.map((room) => {
                   const statusConfig = ROOM_STATUS_LABELS[room.status] || {
                     label: room.status,
-                    badgeClass: 'bg-slate-800 text-slate-300',
+                    badgeClass: 'badge-neutral',
                   };
 
                   return (
-                    <tr key={room.id} className="hover:bg-slate-900/50 transition-colors">
-                      <td className="px-6 py-4 font-bold text-white">
+                    <tr
+                      key={room.id}
+                      className="hover:bg-[var(--bg-subtle)] transition-colors"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
+                      <td className="px-5 py-3.5 font-semibold">
                         <div className="flex items-center gap-3">
                           {room.images && room.images.length > 0 ? (
                             <img
                               src={room.images[0]}
                               alt={room.name}
-                              className="w-10 h-10 rounded-xl object-cover border border-slate-700 shrink-0"
+                              className="w-10 h-10 rounded-xl object-cover border shrink-0"
+                              style={{ borderColor: 'var(--border-subtle)' }}
                               onError={(e) => {
                                 (e.target as HTMLImageElement).src =
                                   'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400';
                               }}
                             />
                           ) : (
-                            <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-primary-400 shrink-0">
+                            <div
+                              className="w-10 h-10 rounded-xl border flex items-center justify-center shrink-0"
+                              style={{
+                                backgroundColor: 'var(--brand-bg)',
+                                borderColor: 'var(--brand-bg-strong)',
+                                color: 'var(--brand-primary)',
+                              }}
+                            >
                               <Bed className="w-4 h-4" />
                             </div>
                           )}
@@ -297,42 +319,56 @@ export default function AdminLogementChambresPage() {
                             <div className="flex items-center gap-2">
                               <span>{room.name}</span>
                               {room.images && room.images.length > 0 && (
-                                <span className="text-[10px] px-1.5 py-0.2 rounded bg-primary-950 text-primary-400 border border-primary-800/60 font-mono">
+                                <span
+                                  className="text-[10px] px-1.5 py-0.2 rounded font-mono font-medium"
+                                  style={{
+                                    backgroundColor: 'var(--brand-bg)',
+                                    color: 'var(--brand-primary)',
+                                    border: '1px solid var(--brand-bg-strong)',
+                                  }}
+                                >
                                   {room.images.length} photo{room.images.length > 1 ? 's' : ''}
                                 </span>
                               )}
                             </div>
-                            <span className="text-[10px] text-slate-500 font-mono block mt-0.5">
+                            <span className="text-[10px] font-mono block mt-0.5" style={{ color: 'var(--text-muted)' }}>
                               Étage {room.floor} · {room.furnished ? 'Meublée' : 'Non meublée'}
                             </span>
                           </div>
                         </div>
                       </td>
 
-                      <td className="px-6 py-4">
-                        <span className="px-2 py-0.5 rounded-md bg-slate-900 text-slate-300 font-bold border border-slate-800">
+                      <td className="px-5 py-3.5">
+                        <span
+                          className="px-2 py-0.5 rounded-md font-medium border text-[11px]"
+                          style={{
+                            backgroundColor: 'var(--bg-subtle)',
+                            borderColor: 'var(--border-subtle)',
+                            color: 'var(--text-secondary)',
+                          }}
+                        >
                           {room.room_type}
                         </span>
                       </td>
 
-                      <td className="px-6 py-4 font-black text-primary-400">
+                      <td className="px-5 py-3.5 font-bold" style={{ color: 'var(--brand-primary)' }}>
                         {formatCurrencyDH(room.price_monthly)}
                       </td>
 
-                      <td className="px-6 py-4 text-slate-300">
+                      <td className="px-5 py-3.5" style={{ color: 'var(--text-secondary)' }}>
                         {formatCurrencyDH(room.deposit_dh)}
                       </td>
 
-                      <td className="px-6 py-4 text-slate-300">
+                      <td className="px-5 py-3.5" style={{ color: 'var(--text-secondary)' }}>
                         {room.surface_sqm} m²
                       </td>
 
-                      <td className="px-6 py-4">
+                      <td className="px-5 py-3.5">
                         <select
                           value={room.status}
                           disabled={actionLoadingId === room.id}
                           onChange={(e) => handleStatusChange(room.id, e.target.value as RoomStatus)}
-                          className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-xl border focus:outline-none cursor-pointer ${statusConfig.badgeClass}`}
+                          className={`text-[11px] font-semibold px-2.5 py-1 rounded-xl focus:outline-none cursor-pointer ${statusConfig.badgeClass}`}
                         >
                           <option value="AVAILABLE">Disponible</option>
                           <option value="RESERVED">Réservée</option>
@@ -342,15 +378,16 @@ export default function AdminLogementChambresPage() {
                         </select>
                       </td>
 
-                      <td className="px-6 py-4 text-right">
+                      <td className="px-5 py-3.5 text-right">
                         <button
                           type="button"
                           onClick={() => handleDeleteRoom(room.id, room.name)}
                           disabled={actionLoadingId === room.id}
                           title="Supprimer cette chambre"
-                          className="p-1.5 rounded-xl text-rose-400 hover:bg-rose-950/60 transition-colors"
+                          className="p-1.5 rounded-lg transition-colors"
+                          style={{ color: 'var(--error-fg)' }}
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-4 h-4 hover:opacity-75" />
                         </button>
                       </td>
                     </tr>
@@ -362,47 +399,71 @@ export default function AdminLogementChambresPage() {
         </div>
       )}
 
-      {/* ── Modal : Ajouter une chambre ── */}
+      {/* Modal : Ajouter une chambre */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl flex flex-col gap-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <h3 className="text-base font-black text-white">Ajouter une chambre</h3>
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+          <div
+            className="dash-card border rounded-2xl p-6 sm:p-7 max-w-lg w-full shadow-2xl flex flex-col gap-4 max-h-[90vh] overflow-y-auto"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              borderColor: 'var(--border-strong)',
+            }}
+          >
+            <div className="flex items-center justify-between pb-3 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+              <h3 className="text-base font-bold" style={{ color: 'var(--text-primary)' }}>Ajouter une chambre</h3>
               <button
                 type="button"
                 onClick={() => setShowAddModal(false)}
-                className="text-slate-400 hover:text-white"
+                className="p-1 rounded-lg"
+                style={{ color: 'var(--text-muted)' }}
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {errorMsg && (
-              <div className="p-3 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs font-bold">
+              <div
+                className="p-3 rounded-xl border text-xs font-semibold"
+                style={{
+                  backgroundColor: 'var(--error-bg)',
+                  borderColor: 'var(--error-border)',
+                  color: 'var(--error-fg)',
+                }}
+              >
                 {errorMsg}
               </div>
             )}
 
-            <form onSubmit={handleAddRoom} className="flex flex-col gap-4">
+            <form onSubmit={handleAddRoom} className="flex flex-col gap-3.5">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-300">Nom de la chambre</label>
+                <label className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Nom de la chambre</label>
                 <input
                   type="text"
                   required
                   placeholder="ex: Chambre A — Balcon privatif"
                   value={roomName}
                   onChange={(e) => setRoomName(e.target.value)}
-                  className="bg-slate-950 border border-slate-800 rounded-2xl px-4 py-2 text-xs text-white focus:outline-none focus:border-primary-500"
+                  className="rounded-xl px-3 py-2 text-xs focus:outline-none transition-all"
+                  style={{
+                    backgroundColor: 'var(--bg-subtle)',
+                    border: '1px solid var(--border-subtle)',
+                    color: 'var(--text-primary)',
+                  }}
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-slate-300">Type</label>
+                  <label className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Type</label>
                   <select
                     value={roomType}
                     onChange={(e) => setRoomType(e.target.value)}
-                    className="bg-slate-950 border border-slate-800 rounded-2xl px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-500"
+                    className="rounded-xl px-3 py-2 text-xs focus:outline-none cursor-pointer"
+                    style={{
+                      backgroundColor: 'var(--bg-subtle)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-primary)',
+                    }}
                   >
                     <option value="PRIVATE">Chambre Privée</option>
                     <option value="STUDIO">Studio</option>
@@ -412,60 +473,85 @@ export default function AdminLogementChambresPage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-slate-300">Superficie (m²)</label>
+                  <label className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Superficie (m²)</label>
                   <input
                     type="number"
                     min="5"
                     value={surfaceSqm}
                     onChange={(e) => setSurfaceSqm(Number(e.target.value))}
-                    className="bg-slate-950 border border-slate-800 rounded-2xl px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-500"
+                    className="rounded-xl px-3 py-2 text-xs focus:outline-none"
+                    style={{
+                      backgroundColor: 'var(--bg-subtle)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-primary)',
+                    }}
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-slate-300">Loyer mensuel (DH)</label>
+                  <label className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Loyer mensuel (DH)</label>
                   <input
                     type="number"
                     min="0"
                     step="50"
                     value={priceMonthly}
                     onChange={(e) => setPriceMonthly(Number(e.target.value))}
-                    className="bg-slate-950 border border-slate-800 rounded-2xl px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-500 font-bold text-primary-400"
+                    className="rounded-xl px-3 py-2 text-xs font-bold focus:outline-none"
+                    style={{
+                      backgroundColor: 'var(--bg-subtle)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--brand-primary)',
+                    }}
                   />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-slate-300">Caution (DH)</label>
+                  <label className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Caution (DH)</label>
                   <input
                     type="number"
                     min="0"
                     step="50"
                     value={depositDh}
                     onChange={(e) => setDepositDh(Number(e.target.value))}
-                    className="bg-slate-950 border border-slate-800 rounded-2xl px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-500"
+                    className="rounded-xl px-3 py-2 text-xs focus:outline-none"
+                    style={{
+                      backgroundColor: 'var(--bg-subtle)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-primary)',
+                    }}
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-slate-300">Étage</label>
+                  <label className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Étage</label>
                   <input
                     type="number"
                     value={floor}
                     onChange={(e) => setFloor(Number(e.target.value))}
-                    className="bg-slate-950 border border-slate-800 rounded-2xl px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-500"
+                    className="rounded-xl px-3 py-2 text-xs focus:outline-none"
+                    style={{
+                      backgroundColor: 'var(--bg-subtle)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-primary)',
+                    }}
                   />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-slate-300">Statut initial</label>
+                  <label className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>Statut initial</label>
                   <select
                     value={initialStatus}
                     onChange={(e) => setInitialStatus(e.target.value as RoomStatus)}
-                    className="bg-slate-950 border border-slate-800 rounded-2xl px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-500"
+                    className="rounded-xl px-3 py-2 text-xs focus:outline-none cursor-pointer"
+                    style={{
+                      backgroundColor: 'var(--bg-subtle)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-primary)',
+                    }}
                   >
                     <option value="AVAILABLE">Disponible</option>
                     <option value="OCCUPIED">Occupée</option>
@@ -474,27 +560,27 @@ export default function AdminLogementChambresPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 pt-2">
+              <div className="flex items-center gap-2 pt-1">
                 <input
                   type="checkbox"
                   id="furnCheck"
                   checked={furnished}
                   onChange={(e) => setFurnished(e.target.checked)}
-                  className="w-4 h-4 rounded text-primary-600 bg-slate-950 border-slate-800"
+                  className="w-4 h-4 rounded cursor-pointer"
+                  style={{ accentColor: 'var(--brand-primary)' }}
                 />
-                <label htmlFor="furnCheck" className="text-xs font-bold text-slate-300 cursor-pointer">
+                <label htmlFor="furnCheck" className="text-xs font-semibold cursor-pointer" style={{ color: 'var(--text-primary)' }}>
                   Chambre entièrement meublée (Lit, bureau, armoire)
                 </label>
               </div>
 
               {/* Room Photos */}
-              <div className="flex flex-col gap-2.5 pt-3 border-t border-slate-800/80">
+              <div className="flex flex-col gap-2 pt-3 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                    <ImageIcon className="w-3.5 h-3.5 text-primary-400" />
+                  <label className="text-xs font-semibold flex items-center gap-1.5" style={{ color: 'var(--text-primary)' }}>
+                    <ImageIcon className="w-3.5 h-3.5" style={{ color: 'var(--brand-primary)' }} />
                     Photos de la chambre ({roomImages.length})
                   </label>
-                  <span className="text-[11px] text-slate-500">Local PC, Bibliothèque ou URL</span>
                 </div>
 
                 <ImageSourcePicker
@@ -503,17 +589,17 @@ export default function AdminLogementChambresPage() {
                   }}
                 />
 
-                {/* Previews & remove */}
                 {roomImages.length > 0 && (
                   <div className="mt-1">
-                    <p className="text-[11px] font-semibold text-slate-400 mb-2">
-                      Photos configurées pour cette chambre :
-                    </p>
-                    <div className="grid grid-cols-3 gap-2.5">
+                    <div className="grid grid-cols-3 gap-2">
                       {roomImages.map((url, idx) => (
                         <div
                           key={idx}
-                          className="relative aspect-[4/3] rounded-xl overflow-hidden border border-slate-800 bg-slate-950 group shadow-soft"
+                          className="relative aspect-[4/3] rounded-xl overflow-hidden border group"
+                          style={{
+                            borderColor: 'var(--border-subtle)',
+                            backgroundColor: 'var(--bg-subtle)',
+                          }}
                         >
                           <img
                             src={url}
@@ -524,14 +610,14 @@ export default function AdminLogementChambresPage() {
                                 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&auto=format&fit=crop&q=80';
                             }}
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 opacity-0 group-hover:opacity-100 transition flex items-end justify-between p-1.5">
-                            <span className="text-[9px] px-1.5 py-0.5 rounded bg-black/80 text-slate-300">
+                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-end justify-between p-1.5">
+                            <span className="text-[9px] px-1.5 py-0.5 rounded bg-black/80 text-white">
                               #{idx + 1}
                             </span>
                             <button
                               type="button"
                               onClick={() => handleRemoveRoomImage(idx)}
-                              className="p-1 rounded-lg bg-rose-600/90 text-white hover:bg-rose-500 transition"
+                              className="p-1 rounded-lg bg-red-600 text-white hover:bg-red-500 transition"
                               title="Supprimer photo"
                             >
                               <Trash2 className="w-3 h-3" />
@@ -544,23 +630,22 @@ export default function AdminLogementChambresPage() {
                 )}
               </div>
 
-
-              <div className="flex items-center justify-end gap-2 pt-4 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => setShowAddModal(false)}
-                  className="border-slate-800 text-slate-400"
+                  className="dash-card text-xs font-medium"
+                  style={{ color: 'var(--text-secondary)' }}
                 >
                   Annuler
                 </Button>
                 <Button
                   type="submit"
-                  variant="primary"
                   size="sm"
                   disabled={submittingRoom}
-                  className="font-bold"
+                  className="btn-brand text-xs font-semibold text-white shadow-sm"
                 >
                   {submittingRoom ? 'Création…' : 'Ajouter la chambre'}
                 </Button>

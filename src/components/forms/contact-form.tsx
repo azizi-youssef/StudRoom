@@ -68,7 +68,7 @@ export function ContactForm() {
   if (isSubmitted) {
     return (
       <div className="bg-gradient-to-b from-emerald-50/80 via-white to-emerald-50/30 dark:from-emerald-950/40 dark:via-slate-900 dark:to-emerald-950/20 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-8 sm:p-12 text-center flex flex-col items-center gap-6 animate-fade-in shadow-sm">
-        
+
         {/* Celebration Icon */}
         <div className="relative">
           <div className="w-20 h-20 rounded-3xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30">
@@ -180,11 +180,10 @@ export function ContactForm() {
               key={subj}
               type="button"
               onClick={() => setValue('subject', subj, { shouldValidate: true })}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                selectedSubject === subj
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${selectedSubject === subj
                   ? 'bg-primary-600 text-white shadow-xs'
                   : 'bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700'
-              }`}
+                }`}
             >
               {subj}
             </button>

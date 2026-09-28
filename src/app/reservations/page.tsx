@@ -328,9 +328,9 @@ export default function ReservationsPage() {
 
             <BookingForm
               onSuccess={() => {
-                setShowForm(false);
                 fetchBookings();
               }}
+              onClose={() => setShowForm(false)}
             />
           </div>
         )}

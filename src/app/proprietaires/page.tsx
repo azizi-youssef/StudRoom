@@ -86,7 +86,7 @@ export default function ProprietairesPage() {
       stepBadge: 'Étape 2 • 3 à 5 jours',
       icon: Camera,
       title: 'Shooting professionnel & Sélection des dossiers',
-      desc: 'Nous réalisons un shooting photo HD de votre logement, diffusons l’annonce en priorité auprès des facultés (FPN, EST, ISTA) et sélectionnons des étudiants sérieux avec garants solvables.',
+      desc: 'Nous réalisons un shooting photo HD de votre logement, diffusons l’annonce en priorité auprès des facultés (FSAN, FSJPN, FEGN, FLLAN, EST et ISTA ) et sélectionnons des étudiants sérieux avec garants solvables.',
       tags: ['Photos HD & Visite immersive', 'Vérification stricte des garants'],
       gradient: 'from-primary-500 to-blue-500',
       accentColor: 'text-primary-300',
@@ -115,15 +115,15 @@ export default function ProprietairesPage() {
 
   return (
     <div className="relative overflow-hidden pt-28 pb-24 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 min-h-screen transition-colors">
-      
+
       {/* Background ambient accents */}
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-primary-100/40 dark:bg-primary-900/20 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Hero Banner */}
         <div className="relative overflow-hidden rounded-4xl bg-gradient-to-br from-slate-950 via-slate-900 to-primary-950 text-white p-8 sm:p-14 lg:p-16 shadow-2xl mb-20 border border-slate-800/80">
-          
+
           {/* Glowing ambient light */}
           <div className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-primary-500/20 blur-[100px]" />
           <div className="pointer-events-none absolute -left-20 -bottom-20 h-80 w-80 rounded-full bg-accent-orange/15 blur-[90px]" />
@@ -290,7 +290,7 @@ export default function ProprietairesPage() {
 
         {/* 🌟 3 Steps Section: Comment se passe la prise en charge ? */}
         <div className="mb-24 rounded-4xl bg-gradient-to-br from-slate-950 via-slate-900 to-primary-950 text-white p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl border border-slate-800/80">
-          
+
           {/* Ambient lighting effects */}
           <div className="pointer-events-none absolute -top-24 left-1/4 h-80 w-80 rounded-full bg-cyan-500/15 blur-[100px]" />
           <div className="pointer-events-none absolute top-1/2 right-10 h-96 w-96 rounded-full bg-primary-500/15 blur-[120px]" />

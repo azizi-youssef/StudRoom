@@ -31,6 +31,7 @@ export class AuthService {
         email: user.email,
         role: user.role,
         full_name: user.full_name,
+        avatar_url: user.avatar_url,
       },
       env.JWT_SECRET,
       { expiresIn: '7d' }
@@ -63,6 +64,7 @@ export class AuthService {
         email: user.email,
         role: user.role,
         full_name: user.full_name,
+        avatar_url: user.avatar_url,
       },
       env.JWT_SECRET,
       { expiresIn: '7d' }
@@ -115,6 +117,7 @@ export class AuthService {
         full_name: verifiedFullName || verifiedEmail.split('@')[0],
         phone: data.phone,
         role: 'student',
+        avatar_url: data.avatarUrl,
       });
     }
 
@@ -125,6 +128,7 @@ export class AuthService {
         email: user.email,
         role: user.role,
         full_name: user.full_name,
+        avatar_url: user.avatar_url,
       },
       env.JWT_SECRET,
       { expiresIn: '7d' }

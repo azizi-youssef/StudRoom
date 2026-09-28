@@ -80,6 +80,10 @@ export class LandlordConversionService {
         ? sub.property_type
         : 'apartment') as any,
       surface_sqm: surfaceSqm,
+      min_price_dh: roomPrice,
+      max_price_dh: roomPrice,
+      total_rooms: roomsCount,
+      available_rooms: roomsCount,
       status: 'AVAILABLE',
       featured: false,
       is_available: true,

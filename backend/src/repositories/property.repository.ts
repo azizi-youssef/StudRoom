@@ -38,6 +38,16 @@ function sanitizeBackendImageUrl(url?: string | null): string {
   const trimmed = url.trim();
   if (!trimmed) return fallback;
 
+  // Support des data URLs (ex: data:image/jpeg;base64,... issus de l'upload local)
+  if (trimmed.startsWith('data:image/')) {
+    return trimmed;
+  }
+
+  // Support des blobs
+  if (trimmed.startsWith('blob:')) {
+    return trimmed;
+  }
+
   // Si un chemin absolu Windows / Linux contenant public/images a été injecté
   const match = trimmed.match(/[/\\]public([/\\]images[/\\].*)$/i);
   if (match && match[1]) {
@@ -73,12 +83,12 @@ function mapSupabaseProperty(raw: any): PropertyDetail {
     image_url: sanitizeBackendImageUrl(img.image_url),
   }));
 
+  const primaryFromImages = images.find((i: any) => i.is_primary)?.image_url || images[0]?.image_url;
   const primaryImage =
-    raw.primary_image && !raw.primary_image.match(/^[a-zA-Z]:[/\\]/i)
+    primaryFromImages ||
+    (raw.primary_image && !raw.primary_image.match(/^[a-zA-Z]:[/\\]/i)
       ? sanitizeBackendImageUrl(raw.primary_image)
-      : images.find((i: any) => i.is_primary)?.image_url ||
-        images[0]?.image_url ||
-        '/images/studroom_hero.jpg';
+      : '/images/studroom_hero.jpg');
 
   return {
     ...raw,
@@ -331,15 +341,15 @@ export class PropertyRepository {
   }
 
   async findFeaturedProperties(): Promise<PropertyDetail[]> {
-
     const supabase = getSupabaseAdmin();
     if (supabase) {
       try {
         const { data, error } = await supabase
           .from('properties')
           .select('*, city:cities(*), rooms(*), amenities:property_amenities(amenity:amenities(*)), images:property_images(*), proximities:university_proximities(*, university:universities(*))')
-          .eq('featured', true)
           .eq('is_available', true)
+          .order('featured', { ascending: false })
+          .order('created_at', { ascending: false })
           .limit(12);
         if (!error && data && data.length > 0) {
           return data.map(mapSupabaseProperty);
@@ -348,7 +358,10 @@ export class PropertyRepository {
         // Fallback transparent to local dataset
       }
     }
-    return PROPERTIES_DATA.filter((p) => p.featured);
+    return PROPERTIES_DATA.filter((p) => p.is_available !== false).sort((a, b) => {
+      if (b.featured !== a.featured) return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+      return new Date(b.created_at || '').getTime() - new Date(a.created_at || '').getTime();
+    });
   }
 
   async findRooms(
@@ -557,10 +570,10 @@ export class PropertyRepository {
       location_lat: data.location_lat ?? 0,
       location_lng: data.location_lng ?? 0,
       landlord_id: data.landlord_id ?? null,
-      min_price_dh: 0,
-      max_price_dh: 0,
-      total_rooms: 0,
-      available_rooms: 0,
+      min_price_dh: data.min_price_dh ?? 0,
+      max_price_dh: data.max_price_dh && data.max_price_dh > 0 ? data.max_price_dh : (data.min_price_dh ?? 0),
+      total_rooms: data.total_rooms ?? 1,
+      available_rooms: data.available_rooms ?? data.total_rooms ?? 1,
       created_at: now,
       updated_at: now,
     };

@@ -93,7 +93,7 @@ export default function ContactPage() {
       category: 'dossier',
       categoryLabel: 'Dossier & Contrat',
       q: 'Quels documents obligatoires faut-il préparer pour le dossier ?',
-      a: 'Pour valider votre réservation, seuls 3 éléments sont nécessaires : 1. Une copie de votre pièce d’identité (CIN ou Passeport valide). 2. Une attestation d’inscription ou pré-inscription universitaire (FPN Selouane, EST Nador...). 3. La pièce d’identité et les coordonnées du garant (parent ou tuteur).',
+      a: 'Pour valider votre réservation, seuls 3 éléments sont nécessaires : 1. Une copie de votre pièce d’identité (CIN ou Passeport valide). 2. Une attestation d’inscription ou pré-inscription universitaire (FSAN, FLLAN, FEGN, FSJPN, EST Nador...). 3. La pièce d’identité et les coordonnées du garant (parent ou tuteur).',
       tip: 'Aucun justificatif de salaire complexe n’est exigé : les formalités sont simplifiées pour les étudiants.',
     },
     {
@@ -126,7 +126,7 @@ export default function ContactPage() {
       category: 'services',
       categoryLabel: 'Emplacement & Sécurité',
       q: 'À quelle distance se trouvent les facultés et grandes écoles ?',
-      a: 'Nos résidences à Selouane sont situées à seulement 3 minutes à pied de la Faculté Polydisciplinaire de Nador (FPN) et à 4 minutes de l’École Supérieure de Technologie (EST). Vous évitez les frais de taxi quotidien et gagnez un temps précieux de révision.',
+      a: 'Nos résidences à Selouane sont situées à seulement 3 minutes à pied des facultés (FSAN, FLLAN, FEGN, FSJPN) et à 4 minutes de l’École Supérieure de Technologie (EST). Vous évitez les frais de taxi quotidien et gagnez un temps précieux de révision.',
       tip: 'Des supérettes, pharmacies, boulangeries et restaurants étudiants sont situés au pied des immeubles.',
       badge: 'Campus 3 min',
     },
@@ -158,13 +158,13 @@ export default function ContactPage() {
 
   return (
     <div className="relative overflow-hidden pt-28 pb-24 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 min-h-screen transition-colors">
-      
+
       {/* Background ambient lighting */}
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[380px] bg-primary-500/10 dark:bg-primary-600/15 rounded-full blur-3xl -z-10" />
       <div className="pointer-events-none absolute top-60 right-0 w-[400px] h-[400px] bg-emerald-500/10 dark:bg-emerald-600/10 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Top Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-18">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200/80 dark:border-primary-800/80 text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300 shadow-xs mb-4">
@@ -239,10 +239,10 @@ export default function ContactPage() {
 
         {/* Main Grid: Direct Channels Cards + Form */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-24">
-          
+
           {/* Left Column: Direct Info Cards */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            
+
             {/* 1. WHATSAPP DIRECT CARD (VIP Featured) */}
             <div className="relative group overflow-hidden bg-gradient-to-br from-emerald-50/90 via-white to-teal-50/60 dark:from-emerald-950/40 dark:via-slate-900 dark:to-slate-900 rounded-3xl p-6 sm:p-7 border-2 border-emerald-500/30 dark:border-emerald-500/40 shadow-[0_8px_30px_-6px_rgba(16,185,129,0.15)] hover:shadow-[0_12px_40px_-6px_rgba(16,185,129,0.25)] transition-all">
               <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/10 rounded-full blur-2xl pointer-events-none" />
@@ -401,7 +401,7 @@ export default function ContactPage() {
                     Secteur 3, Résidence Al Omrane, Selouane, Nador
                   </p>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    À 3 minutes à pied de la Faculté Polydisciplinaire & EST.
+                    À 3 minutes à pied des facultés (FSAN, FLLAN, FEGN, FSJPN) & EST.
                   </p>
 
                   <div className="mt-3 flex items-center gap-3 text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
@@ -439,7 +439,7 @@ export default function ContactPage() {
               <div className="grid grid-cols-2 gap-2 text-[11px]">
                 <div className="bg-white/10 rounded-xl p-2.5 border border-white/10 flex items-center gap-2">
                   <Building2 className="w-3.5 h-3.5 text-primary-300 shrink-0" />
-                  <span>FPN Selouane : 3 min</span>
+                  <span>FSAN Selouane : 3 min</span>
                 </div>
                 <div className="bg-white/10 rounded-xl p-2.5 border border-white/10 flex items-center gap-2">
                   <Building2 className="w-3.5 h-3.5 text-primary-300 shrink-0" />
@@ -459,7 +459,7 @@ export default function ContactPage() {
 
         {/* 🌟 ENHANCED FAQ SECTION: "Tout ce qu'il faut savoir avant de nous contacter" */}
         <section id="faq-section" className="border-t border-slate-200/80 dark:border-slate-800 pt-20">
-          
+
           {/* Section Heading */}
           <div className="text-center max-w-3xl mx-auto mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200/80 dark:border-primary-800/80 text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300 shadow-xs mb-3">
@@ -509,11 +509,10 @@ export default function ContactPage() {
                     key={cat.id}
                     type="button"
                     onClick={() => setSelectedCategory(cat.id as any)}
-                    className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
-                      isActive
+                    className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${isActive
                         ? 'bg-primary-600 text-white shadow-xs scale-102'
                         : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800'
-                    }`}
+                      }`}
                   >
                     <IconComponent className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-primary-500'}`} />
                     <span>{cat.label}</span>
@@ -549,11 +548,10 @@ export default function ContactPage() {
                 return (
                   <div
                     key={faq.id}
-                    className={`group rounded-2xl sm:rounded-3xl border transition-all duration-200 overflow-hidden ${
-                      isOpen
+                    className={`group rounded-2xl sm:rounded-3xl border transition-all duration-200 overflow-hidden ${isOpen
                         ? 'bg-white dark:bg-slate-900 border-primary-300 dark:border-primary-700/80 shadow-[0_8px_25px_-5px_rgba(37,99,235,0.08)]'
                         : 'bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 border-slate-200/90 dark:border-slate-800 shadow-2xs'
-                    }`}
+                      }`}
                   >
                     {/* Header / Trigger */}
                     <button
@@ -563,11 +561,10 @@ export default function ContactPage() {
                     >
                       <div className="flex items-center gap-3.5 min-w-0">
                         <div
-                          className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
-                            isOpen
+                          className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isOpen
                               ? 'bg-primary-600 text-white shadow-xs'
                               : 'bg-primary-50 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 group-hover:bg-primary-100'
-                          }`}
+                            }`}
                         >
                           <CheckCircle2 className="w-4 h-4" />
                         </div>
@@ -591,11 +588,10 @@ export default function ContactPage() {
                       </div>
 
                       <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-transform duration-300 ${
-                          isOpen
+                        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-transform duration-300 ${isOpen
                             ? 'rotate-180 bg-primary-50 dark:bg-primary-950/60 border-primary-200 dark:border-primary-800 text-primary-600 dark:text-primary-400'
                             : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 group-hover:text-slate-700'
-                        }`}
+                          }`}
                       >
                         <ChevronDown className="w-4 h-4" />
                       </div>

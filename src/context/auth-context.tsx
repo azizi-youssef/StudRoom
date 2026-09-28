@@ -20,6 +20,7 @@ interface AuthContextType {
   authModalTab: 'login' | 'register';
   openAuthModal: (tab?: 'login' | 'register') => void;
   closeAuthModal: () => void;
+  updateUserAvatar: (avatarUrl: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -36,6 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
    * 2. Re-validation silencieuse de la session via le cookie HttpOnly (/auth/me)
    *    - Si valide → met à jour l'état utilisateur
    *    - Si invalide → logout propre (cookie expiré ou révoqué)
+   * 3. Récupération des métadonnées Supabase pour l'avatar Google si connecté via OAuth
    *
    * Note : le JWT lui-même n'est JAMAIS lu depuis localStorage. Seul l'objet user
    * (données non sensibles) y est mis en cache pour l'affichage UI instantané.
@@ -52,8 +54,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Re-validation cryptographique via le cookie HttpOnly (envoyé automatiquement)
         const res = await clientAuthService.getMe();
         if (res.success && res.data) {
-          setUser(res.data as DbUser);
-          localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(res.data));
+          const backendUser = res.data as DbUser;
+          
+          // Si l'utilisateur n'a pas d'avatar dans le backend mais est connecté via Supabase
+          // essayer de récupérer l'avatar depuis les métadonnées Supabase
+          if (!backendUser.avatar_url) {
+            try {
+              const supabase = getSupabaseBrowserClient();
+              const { data: { user: supabaseUser } } = await supabase.auth.getUser();
+              if (supabaseUser?.user_metadata) {
+                const googleAvatar = supabaseUser.user_metadata.avatar_url || supabaseUser.user_metadata.picture;
+                if (googleAvatar) {
+                  backendUser.avatar_url = googleAvatar;
+                }
+              }
+            } catch (supabaseError) {
+              // Ignorer les erreurs Supabase, continuer avec l'utilisateur backend
+              console.warn('Could not fetch Supabase metadata:', supabaseError);
+            }
+          }
+          
+          setUser(backendUser);
+          localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(backendUser));
         } else {
           // Cookie expiré ou révoqué — nettoyer l'état
           clearLocalState();
@@ -163,6 +185,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthModalOpen(false);
   }, []);
 
+  const updateUserAvatar = React.useCallback((avatarUrl: string) => {
+    if (user) {
+      const updatedUser = { ...user, avatar_url: avatarUrl };
+      setUser(updatedUser);
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(updatedUser));
+    }
+  }, [user]);
+
   return (
     <AuthContext.Provider
       value={{
@@ -178,6 +208,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         authModalTab,
         openAuthModal,
         closeAuthModal,
+        updateUserAvatar,
       }}
     >
       {children}

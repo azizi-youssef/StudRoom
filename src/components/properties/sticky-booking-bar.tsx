@@ -89,7 +89,11 @@ export function StickyBookingBar({ property }: StickyBookingBarProps) {
 
       {/* Modal Dialog for Form */}
       <Dialog isOpen={modalOpen} onClose={() => setModalOpen(false)} maxWidth="lg">
-        <BookingForm property={property} onSuccess={() => {}} />
+        <BookingForm
+          property={property}
+          onSuccess={() => {}}
+          onClose={() => setModalOpen(false)}
+        />
       </Dialog>
     </>
   );

@@ -70,7 +70,7 @@ export function ImageSourcePicker({ onImageSelected, className = '' }: ImageSour
   const [manualUrl, setManualUrl] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // 1. Gestion de l'upload local depuis le PC
+  // 1. Gestion de l'upload local depuis le PC avec optimisation & compression automatique
   const handleFileChange = (file: File) => {
     if (!file.type.startsWith('image/')) {
       alert('Veuillez sélectionner un fichier image valide (JPG, PNG, WebP).');
@@ -81,9 +81,41 @@ export function ImageSourcePicker({ onImageSelected, className = '' }: ImageSour
     const reader = new FileReader();
     reader.onload = (e) => {
       const result = e.target?.result as string;
-      if (result) {
+      if (!result) return;
+
+      const img = new Image();
+      img.onload = () => {
+        const MAX_WIDTH = 1600;
+        const MAX_HEIGHT = 1200;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > MAX_WIDTH || height > MAX_HEIGHT) {
+          if (width / height > MAX_WIDTH / MAX_HEIGHT) {
+            height = Math.round((height * MAX_WIDTH) / width);
+            width = MAX_WIDTH;
+          } else {
+            width = Math.round((width * MAX_HEIGHT) / height);
+            height = MAX_HEIGHT;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressed = canvas.toDataURL('image/jpeg', 0.85);
+          setPreviewUrl(compressed);
+        } else {
+          setPreviewUrl(result);
+        }
+      };
+      img.onerror = () => {
         setPreviewUrl(result);
-      }
+      };
+      img.src = result;
     };
     reader.readAsDataURL(file);
   };

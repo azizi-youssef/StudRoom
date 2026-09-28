@@ -36,7 +36,7 @@ const mockBookings: any[] = [
     student_name: 'Karim El Amrani',
     student_email: 'karim.amrani@gmail.com',
     student_phone: '+212 634 536 286',
-    university_name: 'Faculté Pluridisciplinaire de Nador (FPN Selouane)',
+    university_name: 'FSAN Nador (Faculté des Sciences Appliquées)',
     study_level: 'Licence 1ère année',
     preferred_move_in_date: '2026-09-01',
     preferred_duration_months: 10,

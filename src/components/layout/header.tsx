@@ -6,15 +6,18 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Home, Building2, HelpCircle, Info, Key, ArrowRight, User, LogOut, LogIn, Calendar, LayoutDashboard, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Avatar } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/auth-context';
 
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuClosing, setIsMenuClosing] = useState(false);
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
   const pathname = usePathname();
 
   const closeMobileMenu = useCallback(() => {
@@ -25,6 +28,25 @@ export function Header() {
     }, 200);
   }, []);
   const { user, isAuthenticated, logout, openAuthModal } = useAuth();
+
+  // Déterminer l'URL de l'avatar selon la priorité spécifiée
+  const getAvatarUrl = () => {
+    if (!user) return null;
+    
+    // 1. Photo personnalisée enregistrée dans le profil utilisateur
+    if (user.avatar_url) return user.avatar_url;
+    
+    // 2-3. Pour les utilisateurs Google, on pourrait vérifier les métadonnées Supabase
+    // mais cette logique est déjà gérée dans le contexte d'authentification
+    // qui synchronise avatar_url depuis user_metadata lors de la restauration de session
+    
+    return null; // Fallback vers l'initiale
+  };
+
+  const getInitials = () => {
+    if (!user?.full_name) return 'U';
+    return user.full_name.charAt(0).toUpperCase();
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,6 +85,10 @@ export function Header() {
     { label: 'Contact', href: '/contact', icon: Phone },
   ];
 
+  if (pathname?.startsWith('/dashboard')) {
+    return null;
+  }
+
   return (
     <header
       className={cn(
@@ -77,7 +103,7 @@ export function Header() {
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative h-11 sm:h-13 w-48 sm:w-56 flex items-center">
             <Image
-              src="/images/logo_studroom.png"
+              src="/images/logo_StudRoom1.png"
               alt="StudRoom Logo"
               width={350}
               height={140}
@@ -124,9 +150,12 @@ export function Header() {
                   title="Accéder au tableau de bord administrateur"
                   className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-primary-50/90 dark:bg-primary-950/60 hover:bg-primary-100/90 dark:hover:bg-primary-900/60 border border-primary-200/90 dark:border-primary-800/80 text-slate-800 dark:text-slate-100 shadow-xs transition-colors"
                 >
-                  <div className="w-7 h-7 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                    {user.full_name.charAt(0).toUpperCase()}
-                  </div>
+                  <Avatar
+                    src={getAvatarUrl()}
+                    alt={user.full_name}
+                    fallback={getInitials()}
+                    size="md"
+                  />
                   <div className="flex flex-col text-left pr-1">
                     <span className="text-xs font-bold leading-tight">{user.full_name}</span>
                     <span className="text-[10px] text-primary-600 dark:text-primary-400 font-semibold uppercase tracking-wider">
@@ -136,9 +165,12 @@ export function Header() {
                 </Link>
               ) : (
                 <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-primary-50/90 dark:bg-primary-950/60 border border-primary-100/90 dark:border-primary-800/80 text-slate-800 dark:text-slate-100 shadow-xs">
-                  <div className="w-7 h-7 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                    {user.full_name.charAt(0).toUpperCase()}
-                  </div>
+                  <Avatar
+                    src={getAvatarUrl()}
+                    alt={user.full_name}
+                    fallback={getInitials()}
+                    size="md"
+                  />
                   <div className="flex flex-col text-left pr-1">
                     <span className="text-xs font-bold leading-tight">{user.full_name}</span>
                     <span className="text-[10px] text-primary-600 dark:text-primary-400 font-semibold uppercase tracking-wider">
@@ -150,7 +182,7 @@ export function Header() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={logout}
+                onClick={() => setLogoutConfirmOpen(true)}
                 title="Se déconnecter"
                 className="text-xs rounded-full border-slate-200/90 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-500 dark:text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-200/90 px-3 shadow-xs hover:shadow-sm hover:-translate-y-0.5 active:scale-95 transition-all"
               >
@@ -189,7 +221,7 @@ export function Header() {
           {isAuthenticated ? (
             <button
               type="button"
-              onClick={logout}
+              onClick={() => setLogoutConfirmOpen(true)}
               title="Se déconnecter"
               className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 shadow-xs hover:border-rose-300 hover:bg-rose-50 dark:hover:bg-rose-950/50 hover:text-rose-600 active:scale-95 transition-all"
             >
@@ -293,6 +325,22 @@ export function Header() {
           </div>
         </div>
       )}
+
+      {/* Confirmation Dialog Déconnexion */}
+      <ConfirmDialog
+        open={logoutConfirmOpen}
+        title="Confirmer la déconnexion"
+        description="Êtes-vous sûr de vouloir vous déconnecter de votre compte StudRoom ?"
+        confirmLabel="Se déconnecter"
+        cancelLabel="Rester connecté"
+        variant="danger"
+        icon="logout"
+        onConfirm={() => {
+          setLogoutConfirmOpen(false);
+          logout();
+        }}
+        onCancel={() => setLogoutConfirmOpen(false)}
+      />
     </header>
   );
 }

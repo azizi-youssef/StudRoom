@@ -53,7 +53,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
   // Proximity label from first proximity entry
   const proximityLabel = featuredProperty?.proximities?.[0]
     ? `${featuredProperty.proximities[0].walking_time_min} min à pied · ${featuredProperty.proximities[0].university?.short_name ?? 'Campus'}`
-    : '5 min à pied FPN / EST';
+    : '5 min à pied FSAN / ESTN';
 
   return (
     <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-mesh-light dark:bg-mesh-dark">
@@ -88,7 +88,7 @@ export function HeroSection({ universities, featuredProperty }: HeroSectionProps
                 </span>
               </h1>
               <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
-                Studios et appartements meublés, ultra-connectés avec Wi-Fi Fibre, situés à quelques minutes à pied de la FPN, EST et ISTA.
+                Studios et appartements meublés, ultra-connectés avec Wi-Fi Fibre, situés à quelques minutes à pied de FSAN, FEGN, FSJPN, FLLAN, EST et ISTA.
               </p>
             </div>
 

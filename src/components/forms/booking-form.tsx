@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { bookingFormSchema, BookingFormValues } from '@/shared/validation/booking.schema';
@@ -8,14 +8,16 @@ import { clientBookingService } from '@/client/services/booking.service';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { CheckCircle2, Loader2, Calendar, User, Phone, Mail, GraduationCap, Clock, Send } from 'lucide-react';
+import { Loader2, Calendar, User, Phone, Mail, GraduationCap, Clock, Send } from 'lucide-react';
 import { PropertyDetail } from '@/shared/types';
 import { DbRoom } from '@/shared/types/database';
+import { BookingSuccessContent } from './booking-success-modal';
 
 interface BookingFormProps {
   property?: PropertyDetail;
   room?: DbRoom;
   onSuccess?: () => void;
+  onClose?: () => void;
 }
 
 export const UNIVERSITY_OPTIONS = [
@@ -24,20 +26,20 @@ export const UNIVERSITY_OPTIONS = [
     label: 'FSAN Nador — Sciences Appliquées',
   },
   {
-    value: 'FEG Nador (Faculté des Économiques et de Gestion)',
-    label: 'FEG Nador — Économie & Gestion',
+    value: "FEGN Nador (Faculté d'Économie et de Gestion)",
+    label: 'FEGN Nador — Économie & Gestion',
   },
   {
-    value: 'FSJP Nador (Faculté des Sciences Juridiques et Politiques)',
-    label: 'FSJP Nador — Droit & Sciences Politiques',
+    value: 'ESTN Nador (École Supérieure de Technologie)',
+    label: 'ESTN Nador — École Supérieure de Technologie',
   },
   {
-    value: 'FLAA Nador (Faculté des Langues, Lettres et Arts)',
-    label: 'FLAA Nador — Langues, Lettres & Arts',
+    value: 'FSJPN Nador (Faculté des Sciences Juridiques et Politiques)',
+    label: 'FSJPN Nador — Droit & Sciences Politiques',
   },
   {
-    value: 'EST Nador (École Supérieure de Technologie)',
-    label: 'EST Nador — École Supérieure de Technologie',
+    value: 'FLLAN Nador (Faculté des Langues, Lettres et Arts)',
+    label: 'FLLAN Nador — Langues, Lettres & Arts',
   },
   {
     value: 'ISTA Selouane (OFPPT)',
@@ -63,11 +65,13 @@ export const STUDY_LEVEL_OPTIONS = [
   { value: 'Autre cursus', label: 'Autre cursus' },
 ];
 
-export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
+export function BookingForm({ property, room, onSuccess, onClose }: BookingFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState('');
+  const [submittedData, setSubmittedData] = useState<BookingFormValues | null>(null);
   const [customUniversity, setCustomUniversity] = useState('');
+  const [customUniversityError, setCustomUniversityError] = useState('');
 
   const {
     register,
@@ -89,7 +93,18 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
 
   const selectedUniversity = watch('university');
 
+  useEffect(() => {
+    if (selectedUniversity !== 'Autre établissement') {
+      setCustomUniversityError('');
+    }
+  }, [selectedUniversity]);
+
   const onSubmit = async (data: BookingFormValues) => {
+    if (data.university === 'Autre établissement' && !customUniversity.trim()) {
+      setCustomUniversityError('Veuillez préciser votre établissement ou école');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const finalUniversity =
@@ -104,8 +119,9 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
       };
       const resData = await clientBookingService.submitBooking(payload);
       if (resData.success) {
-        setIsSubmitted(true);
+        setSubmittedData(payload);
         if (resData.data?.bookingId) setBookingRef(resData.data.bookingId);
+        setIsSubmitted(true);
         if (onSuccess) onSuccess();
       }
     } catch (err) {
@@ -117,20 +133,16 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
 
   if (isSubmitted) {
     return (
-      <div className="bg-emerald-50 border border-emerald-200 rounded-3xl p-8 text-center flex flex-col items-center gap-4 animate-fade-in">
-        <div className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg">
-          <CheckCircle2 className="w-10 h-10" />
-        </div>
-        <h3 className="text-2xl font-black text-slate-900">Demande envoyée !</h3>
-        <p className="text-slate-700 text-base max-w-md leading-relaxed font-medium">
-          Merci ! Notre équipe StudRoom vous contactera très prochainement par téléphone ou WhatsApp pour finaliser votre dossier.
-        </p>
-        {bookingRef && (
-          <span className="inline-block bg-white px-4 py-2 rounded-xl text-xs font-mono font-bold text-slate-700 border border-emerald-200 shadow-sm">
-            Référence : {bookingRef}
-          </span>
-        )}
-      </div>
+      <BookingSuccessContent
+        bookingRef={bookingRef}
+        property={property}
+        room={room}
+        bookingData={submittedData}
+        onClose={() => {
+          setIsSubmitted(false);
+          if (onClose) onClose();
+        }}
+      />
     );
   }
 
@@ -202,12 +214,7 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
           label="Université / Établissement *"
           icon={<GraduationCap className="w-4 h-4" />}
           error={errors.university?.message}
-          options={[
-            { value: 'Faculté Pluridisciplinaire de Nador (FPN Selouane)', label: 'FPN Selouane' },
-            { value: 'École Supérieure de Technologie de Nador (EST Nador)', label: 'EST Nador' },
-            { value: 'ISTA Selouane', label: 'ISTA Selouane' },
-            { value: 'Autre établissement Nador', label: 'Autre établissement' },
-          ]}
+          options={UNIVERSITY_OPTIONS}
           {...register('university')}
         />
 
@@ -225,7 +232,11 @@ export function BookingForm({ property, room, onSuccess }: BookingFormProps) {
               placeholder="ex: IFMIA Nador, CPGE, BTS, Faculté de Médecine..."
               icon={<GraduationCap className="w-4 h-4" />}
               value={customUniversity}
-              onChange={(e) => setCustomUniversity(e.target.value)}
+              onChange={(e) => {
+                setCustomUniversity(e.target.value);
+                if (customUniversityError) setCustomUniversityError('');
+              }}
+              error={customUniversityError}
               required
             />
           </div>

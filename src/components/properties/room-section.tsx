@@ -157,7 +157,12 @@ export function RoomSection({ rooms, property }: RoomSectionProps) {
       {/* Booking Dialog Modal for selected room */}
       {selectedRoom && (
         <Dialog isOpen={!!selectedRoom} onClose={() => setSelectedRoom(null)} maxWidth="lg">
-          <BookingForm property={property} room={selectedRoom} onSuccess={() => {}} />
+          <BookingForm
+            property={property}
+            room={selectedRoom}
+            onSuccess={() => {}}
+            onClose={() => setSelectedRoom(null)}
+          />
         </Dialog>
       )}
     </div>

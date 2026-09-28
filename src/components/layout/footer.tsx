@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin } from 'lucide-react';
 
 function Tiktok({ className }: { className?: string }) {
@@ -17,6 +20,12 @@ function Tiktok({ className }: { className?: string }) {
 }
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname?.startsWith('/dashboard')) {
+    return null;
+  }
+
   return (
     <footer className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-300 pt-20 pb-12 border-t border-slate-800/80 relative overflow-hidden">
       {/* Ambient background glow */}
@@ -30,7 +39,7 @@ export function Footer() {
             <Link href="/" className="flex items-center group">
               <div className="relative h-14 sm:h-16 w-60 sm:w-72 flex items-center">
                 <Image
-                  src="/images/logo_studroom.png"
+                  src="/images/logo_StudRoom1.png"
                   alt="StudRoom Logo"
                   width={420}
                   height={160}

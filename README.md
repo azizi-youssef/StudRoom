@@ -31,7 +31,7 @@
 
 ## ✨ Fonctionnalités Clés
 
-- 🎓 **Focalisation Campus Selouane** : Logements vérifiés à 3–5 minutes à pied de la **Faculté Pluridisciplinaire de Nador (FPN)** et de l'**École Supérieure de Technologie (EST Nador)**.
+- 🎓 **Focalisation Campus Selouane** : Logements vérifiés à 3–5 minutes à pied des facultés (**FSAN, FEGN, FSJPN, FLLAN**) et de l'**École Supérieure de Technologie (EST Nador)**.
 - 🌓 **Mode Sombre / Mode Clair** : Bascule de thème instantanée avec mémorisation des préférences utilisateur (`localStorage` + détection système OS).
 - 📲 **Intégration WhatsApp & Gmail Directe** :
   - Discussion WhatsApp instantanée avec message pré-rempli (`+212 634 536 286`).

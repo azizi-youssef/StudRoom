@@ -54,6 +54,7 @@ export class AuthRepository {
     full_name: string;
     phone: string;
     password_hash: string;
+    avatar_url?: string;
   }): Promise<DbUser> {
     const supabase = getSupabaseAdmin() ?? getSupabase();
     const cleanEmail = userData.email.toLowerCase().trim();
@@ -68,6 +69,9 @@ export class AuthRepository {
       };
       if (userData.id) {
         dbPayload.id = userData.id;
+      }
+      if (userData.avatar_url) {
+        dbPayload.avatar_url = userData.avatar_url;
       }
 
       const { data, error } = await supabase.from('users').insert([dbPayload]).select().single();
@@ -90,6 +94,7 @@ export class AuthRepository {
       full_name: userData.full_name,
       phone: userData.phone,
       password_hash: userData.password_hash,
+      avatar_url: userData.avatar_url,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     };
@@ -103,6 +108,7 @@ export class AuthRepository {
     full_name: string;
     role?: UserRole;
     phone?: string;
+    avatar_url?: string;
   }): Promise<DbUser> {
     const supabase = getSupabaseAdmin() ?? getSupabase();
     const cleanEmail = data.email.toLowerCase().trim();
@@ -119,6 +125,9 @@ export class AuthRepository {
       };
       if (data.id) {
         dbPayload.id = data.id;
+      }
+      if (data.avatar_url) {
+        dbPayload.avatar_url = data.avatar_url;
       }
 
       const { data: dbUser, error } = await supabase.from('users').insert([dbPayload]).select().single();
@@ -140,6 +149,7 @@ export class AuthRepository {
       full_name: data.full_name || 'Utilisateur StudRoom',
       phone,
       password_hash: '',
+      avatar_url: data.avatar_url,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     };

@@ -2,10 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/auth-context';
+import { useTheme } from '@/context/theme-context';
 import { AccessDenied } from './_components/access-denied';
 import { clientAdminService, DashboardMetrics } from '@/client/services/admin.service';
+import { Avatar } from '@/components/ui/avatar';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import {
   LayoutDashboard,
   Calendar,
@@ -21,7 +25,13 @@ import {
   ExternalLink,
   LogOut,
   Clock,
+  Bell,
+  HelpCircle,
+  ChevronRight,
+  ChevronDown,
+  User,
 } from 'lucide-react';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 
 interface NavItem {
   label: string;
@@ -37,11 +47,64 @@ interface NavSection {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { user, isAuthenticated, isLoading, logout } = useAuth();
+  const { resolvedTheme } = useTheme();
+
+  const getAvatarUrl = () => {
+    if (!user) return null;
+    if (user.avatar_url) return user.avatar_url;
+    return null;
+  };
+
+  const getInitials = () => {
+    if (!user?.full_name) return 'AD';
+    const parts = user.full_name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  };
+
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [navMetrics, setNavMetrics] = useState<Pick<DashboardMetrics, 'pendingBookings' | 'unresolvedContacts'> | null>(null);
+  const [navMetrics, setNavMetrics] = useState<Pick<DashboardMetrics, 'pendingBookings' | 'unresolvedContacts' | 'newProposals'> | null>(null);
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const userDropdownRef = React.useRef<HTMLDivElement>(null);
 
-  // Fetch lightweight metrics for sidebar badges
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (userDropdownRef.current && !userDropdownRef.current.contains(e.target as Node)) {
+        setUserDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Breadcrumb label from pathname
+  const getBreadcrumb = () => {
+    const map: Record<string, string> = {
+      '/dashboard': "Vue d'ensemble",
+      '/dashboard/reservations': 'Réservations',
+      '/dashboard/visites': 'Visites programmées',
+      '/dashboard/logements': 'Logements',
+      '/dashboard/logements/nouveau': 'Nouveau logement',
+      '/dashboard/bailleurs': 'Propositions propriétaires',
+      '/dashboard/utilisateurs': 'Gestion des comptes',
+      '/dashboard/support': 'Support & Messages',
+      '/dashboard/audit': "Journal d'audit",
+      '/dashboard/parametres': 'Paramètres',
+    };
+    return map[pathname] ?? 'Tableau de bord';
+  };
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
   useEffect(() => {
     if (!isAuthenticated) return;
     clientAdminService.getDashboardData().then((res) => {
@@ -49,238 +112,394 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         setNavMetrics({
           pendingBookings: res.data.metrics.pendingBookings,
           unresolvedContacts: res.data.metrics.unresolvedContacts,
+          newProposals: res.data.metrics.newProposals,
         });
       }
-    }).catch(() => { /* silent — badges are non-critical */ });
+    }).catch(() => { /* silent */ });
   }, [isAuthenticated]);
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6 text-slate-400">
+      <div className="min-h-screen bg-[var(--bg-main)] flex items-center justify-center p-6">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 border-4 border-primary-500 border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm font-semibold tracking-wide">Vérification des accès administrateur…</p>
+          <div className="w-9 h-9 border-[3px] border-[var(--brand-primary)] border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm font-medium text-[var(--text-secondary)] tracking-wide">
+            Vérification des accès…
+          </p>
         </div>
       </div>
     );
   }
 
-  if (!isAuthenticated) {
-    return <AccessDenied reason="unauthenticated" />;
-  }
-
-  if (user?.role !== 'admin') {
-    return <AccessDenied reason="forbidden" />;
-  }
+  if (!isAuthenticated) return <AccessDenied reason="unauthenticated" />;
+  if (user?.role !== 'admin') return <AccessDenied reason="forbidden" />;
 
   const navSections: NavSection[] = [
     {
       title: 'VUE GLOBALE',
       items: [
-        { label: "Vue d'ensemble", href: '/dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
+        { label: "Vue d'ensemble", href: '/dashboard', icon: <LayoutDashboard className="w-[18px] h-[18px]" /> },
       ],
     },
     {
       title: 'GESTION LOCATIVE',
       items: [
-        { label: 'Réservations', href: '/dashboard/reservations', icon: <Calendar className="w-4 h-4" />, badge: navMetrics?.pendingBookings },
-        { label: 'Visites programmées', href: '/dashboard/visites', icon: <Clock className="w-4 h-4" /> },
+        { label: 'Réservations', href: '/dashboard/reservations', icon: <Calendar className="w-[18px] h-[18px]" />, badge: navMetrics?.pendingBookings },
+        { label: 'Visites programmées', href: '/dashboard/visites', icon: <Clock className="w-[18px] h-[18px]" /> },
       ],
     },
     {
       title: 'PARC IMMOBILIER',
       items: [
-        { label: 'Tous les logements', href: '/dashboard/logements', icon: <Building2 className="w-4 h-4" /> },
-        { label: 'Ajouter un logement', href: '/dashboard/logements/nouveau', icon: <PlusCircle className="w-4 h-4" /> },
+        { label: 'Tous les logements', href: '/dashboard/logements', icon: <Building2 className="w-[18px] h-[18px]" /> },
+        { label: 'Ajouter un logement', href: '/dashboard/logements/nouveau', icon: <PlusCircle className="w-[18px] h-[18px]" /> },
       ],
     },
     {
-      title: 'RELATION BAILLEURS',
+      title: 'RELATION PROPRIÉTAIRES',
       items: [
-        { label: 'Propositions reçues', href: '/dashboard/bailleurs', icon: <UserCheck className="w-4 h-4" /> },
+        { label: 'Propositions', href: '/dashboard/bailleurs', icon: <UserCheck className="w-[18px] h-[18px]" />, badge: navMetrics?.newProposals },
       ],
     },
     {
       title: 'UTILISATEURS & SUPPORT',
       items: [
-        { label: 'Gestion des comptes', href: '/dashboard/utilisateurs', icon: <Users className="w-4 h-4" /> },
-        { label: 'Messages support', href: '/dashboard/support', icon: <Mail className="w-4 h-4" />, badge: navMetrics?.unresolvedContacts },
+        { label: 'Gestion des comptes', href: '/dashboard/utilisateurs', icon: <Users className="w-[18px] h-[18px]" /> },
+        { label: 'Messages support', href: '/dashboard/support', icon: <Mail className="w-[18px] h-[18px]" />, badge: navMetrics?.unresolvedContacts },
       ],
     },
     {
       title: 'SYSTÈME',
       items: [
-        { label: "Journal d'audit", href: '/dashboard/audit', icon: <ShieldAlert className="w-4 h-4" /> },
-        { label: 'Paramètres & Villes', href: '/dashboard/parametres', icon: <Settings className="w-4 h-4" /> },
+        { label: "Journal d'audit", href: '/dashboard/audit', icon: <ShieldAlert className="w-[18px] h-[18px]" /> },
+        { label: 'Paramètres', href: '/dashboard/parametres', icon: <Settings className="w-[18px] h-[18px]" /> },
       ],
     },
   ];
 
   return (
-    <div className="dashboard-theme min-h-screen bg-[var(--bg-main)] text-[var(--text-primary)] flex antialiased selection:bg-[var(--action-primary)] selection:text-white">
-      {/* ── Sidebar Navigation ── */}
-      <aside
-        className={`fixed md:sticky top-0 self-start left-0 h-screen w-64 bg-[var(--bg-sidebar)] border-r border-[var(--border-subtle)] flex flex-col justify-between z-40 transition-transform duration-200 ease-in-out shrink-0 ${
-          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-        }`}
-      >
-        <div className="p-5 overflow-y-auto scrollbar-none flex-grow">
-          {/* Logo & Platform Info */}
-          <div className="flex items-center justify-between mb-7 pb-4 border-b border-[var(--border-subtle)]">
-            <Link href="/dashboard" className="flex items-center gap-2.5 group">
-              <span className="w-2.5 h-2.5 rounded-full bg-[var(--brand-primary)] shadow-[0_0_10px_#0891b2] transition-transform group-hover:scale-125" />
-              <span className="font-bold text-lg text-white tracking-tight">
-                StudRoom
-              </span>
-            </Link>
-            <span className="text-[10px] font-semibold text-[var(--text-muted)] px-2 py-0.5 rounded-full border border-[var(--border-default)]">
-              v2.0
-            </span>
-          </div>
+    <div className={`dashboard-theme min-h-screen flex antialiased ${resolvedTheme === 'light' ? 'light' : ''}`}
+      style={{ backgroundColor: 'var(--bg-main)', color: 'var(--text-primary)' }}>
 
-          {/* Navigation Sections */}
-          <nav className="flex flex-col gap-5">
-            {navSections.map((section, idx) => (
-              <div key={idx}>
-                <p className="text-[11px] font-semibold tracking-wider text-[var(--text-muted)] uppercase mb-2 px-3">
-                  {section.title}
-                </p>
-                <div className="flex flex-col gap-1">
-                  {section.items.map((item) => {
-                    const isActive = pathname === item.href;
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`flex items-center justify-between px-3 py-2 rounded-xl text-[13px] font-medium transition-all duration-150 group ${
-                          isActive
-                            ? 'bg-[var(--action-primary)] text-white shadow-[0_0_20px_rgba(109,74,255,0.20)]'
-                            : 'text-[var(--text-secondary)] hover:text-white hover:bg-[var(--bg-surface-hover)]'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <span className={`w-[18px] h-[18px] flex items-center justify-center shrink-0 ${
-                            isActive ? 'text-white' : 'text-[var(--text-muted)] group-hover:text-[var(--text-secondary)]'
-                          }`}>
-                            {item.icon}
-                          </span>
-                          <span className="truncate">{item.label}</span>
-                        </div>
-                        {item.badge !== undefined && item.badge > 0 && (
-                          <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                            isActive
-                              ? 'bg-white/20 text-white'
-                              : 'bg-[var(--border-default)] text-[var(--text-secondary)]'
-                          }`}>
-                            {item.badge}
-                          </span>
-                        )}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </nav>
+      {/* ── Sidebar ── */}
+      <aside
+        id="admin-sidebar"
+        role="navigation"
+        aria-label="Menu principal"
+        className={`sidebar fixed md:sticky top-0 self-start left-0 h-screen flex flex-col z-40 transition-transform duration-200 ease-in-out shrink-0
+          ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+        style={{ width: '248px' }}
+      >
+        {/* Logo */}
+        <div className="px-5 pt-5 pb-4 flex items-center justify-between"
+          style={{ borderBottom: '1px solid var(--border-default)' }}>
+          <Link href="/dashboard" className="flex items-center group">
+            <div className="relative h-10 w-40">
+              <Image
+                src="/images/logo_StudRoom1.png"
+                alt="StudRoom"
+                width={400}
+                height={140}
+                priority
+                className="h-10 w-auto object-contain transition-opacity group-hover:opacity-80"
+              />
+            </div>
+          </Link>
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md"
+            style={{
+              background: 'var(--brand-bg)',
+              color: 'var(--brand-primary)',
+              border: '1px solid rgba(14,165,198,0.2)',
+            }}>
+            v2.0
+          </span>
         </div>
 
-        {/* Sidebar Footer: Compact Account Preview */}
-        <div className="p-3.5 mx-3 mb-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex items-center justify-between">
-          <div className="flex items-center gap-2.5 overflow-hidden">
-            <div className="w-8 h-8 rounded-full bg-[var(--action-primary)]/20 border border-[var(--action-primary)]/40 text-[var(--action-hover)] flex items-center justify-center font-bold text-xs shrink-0">
-              {user?.full_name?.slice(0, 2).toUpperCase() || 'AD'}
+        {/* Nav */}
+        <div className="flex-1 overflow-y-auto scrollbar-none px-3 py-4 flex flex-col gap-6">
+          {navSections.map((section, idx) => (
+            <div key={idx}>
+              <p className="px-3 mb-1.5 text-[10px] font-semibold uppercase tracking-widest"
+                style={{ color: 'var(--text-muted)' }}>
+                {section.title}
+              </p>
+              <div className="flex flex-col gap-0.5">
+                {section.items.map((item) => {
+                  const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-[13.5px] font-medium transition-all duration-150 group
+                        ${isActive ? 'sidebar-active' : 'sidebar-hover text-[var(--text-secondary)]'}`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <span className={`flex items-center justify-center shrink-0 transition-colors
+                          ${isActive ? 'text-[var(--brand-primary)]' : 'text-[var(--text-muted)] group-hover:text-[var(--text-primary)]'}`}>
+                          {item.icon}
+                        </span>
+                        <span>{item.label}</span>
+                      </div>
+                      {item.badge !== undefined && item.badge > 0 && (
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold tabular-nums
+                          ${isActive
+                            ? 'bg-[var(--brand-primary)] text-white'
+                            : 'badge-warning'}`}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-            <div className="overflow-hidden">
-              <p className="text-xs font-semibold text-white truncate">{user?.full_name || 'Administrateur'}</p>
-              <p className="text-[10px] text-[var(--text-muted)] font-mono truncate">{user?.email}</p>
+          ))}
+        </div>
+
+        {/* Sidebar Footer */}
+        <div className="p-3" style={{ borderTop: '1px solid var(--border-default)' }}>
+          <div className="flex items-center gap-3 px-2 py-2.5 rounded-lg" style={{ background: 'var(--bg-surface-hover)' }}>
+            <Avatar
+              src={getAvatarUrl()}
+              alt={user?.full_name || 'Admin'}
+              fallback={getInitials()}
+              size="sm"
+              className="shrink-0"
+              fallbackBgClass="bg-[var(--brand-bg)]"
+              fallbackClassName="text-[var(--brand-primary)] font-bold"
+            />
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold truncate" style={{ color: 'var(--text-primary)' }}>
+                {user?.full_name || 'Administrateur'}
+              </p>
+              <p className="text-[10px] truncate font-mono" style={{ color: 'var(--text-muted)' }}>
+                {user?.email}
+              </p>
             </div>
+            <button
+              onClick={() => setLogoutConfirmOpen(true)}
+              title="Déconnexion"
+              aria-label="Déconnexion"
+              className="p-1.5 rounded-md transition-colors hover:bg-red-50 dark:hover:bg-red-950/40"
+              style={{ color: 'var(--text-muted)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#EF4444'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = 'var(--text-muted)'; }}
+            >
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
           </div>
-          <button
-            onClick={() => logout()}
-            title="Déconnexion"
-            aria-label="Déconnexion"
-            className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-[var(--danger)] hover:bg-[var(--danger)]/10 transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-          </button>
         </div>
       </aside>
 
-      {/* ── Main Layout Column ── */}
+      {/* ── Main column ── */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* ── Sticky Top Header ── */}
-        <header className="sticky top-0 z-30 h-16 w-full admin-glass-float border-b border-[var(--border-subtle)] px-4 sm:px-8 flex items-center justify-between shrink-0">
+
+        {/* ── Header ── */}
+        <header className="admin-header sticky top-0 z-30 h-[60px] w-full px-6 flex items-center justify-between shrink-0">
+          {/* Left: hamburger + breadcrumb */}
           <div className="flex items-center gap-3">
-            {/* Mobile Menu Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Menu de navigation"
-              className="md:hidden p-2 rounded-xl bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-white border border-[var(--border-subtle)]"
+              aria-label={mobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="admin-sidebar"
+              className="md:hidden p-2 rounded-lg transition-colors"
+              style={{ color: 'var(--text-secondary)', background: 'var(--bg-surface-hover)' }}
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
 
-            {/* Context breadcrumb / status indicator */}
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[var(--success)] animate-pulse" />
-              <span className="text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider hidden sm:inline">
-                StudRoom Back-Office · Selouane / Nador
+            {/* Breadcrumb */}
+            <nav aria-label="Breadcrumb" className="hidden sm:flex items-center gap-1.5 text-[13px]">
+              <span style={{ color: 'var(--text-muted)' }}>StudRoom</span>
+              <ChevronRight className="w-3.5 h-3.5" style={{ color: 'var(--text-muted)' }} />
+              <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                {getBreadcrumb()}
               </span>
-              <span className="text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider sm:hidden">
-                Admin StudRoom
-              </span>
-            </div>
+            </nav>
           </div>
 
-          {/* Right actions */}
-          <div className="flex items-center gap-3">
+          {/* Right: actions */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle className="border-0 bg-transparent" />
+
+            {/* Site public */}
             <Link
               href="/"
               target="_blank"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[var(--border-strong)] text-xs font-medium text-[var(--text-secondary)] hover:text-white hover:border-[var(--text-muted)] transition-colors"
+              title="Voir le site public"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12.5px] font-medium transition-colors"
+              style={{
+                color: 'var(--text-secondary)',
+                background: 'var(--bg-surface-hover)',
+                border: '1px solid var(--border-default)',
+              }}
             >
-              <span>Site public</span>
               <ExternalLink className="w-3.5 h-3.5" />
+              Site public
             </Link>
 
-            <div className="h-4 w-px bg-[var(--border-default)] hidden sm:block" />
+            {/* Help */}
+            <button
+              title="Aide"
+              className="p-2 rounded-lg transition-colors"
+              style={{ color: 'var(--text-secondary)', background: 'var(--bg-surface-hover)', border: '1px solid var(--border-default)' }}
+            >
+              <HelpCircle className="w-4 h-4" />
+            </button>
 
-            <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-full bg-[var(--action-primary)] text-white flex items-center justify-center font-bold text-[11px] shrink-0 shadow-[0_0_10px_rgba(109,74,255,0.30)]">
-                {user?.full_name?.slice(0, 2).toUpperCase() || 'AD'}
-              </div>
-              <span className="text-xs font-semibold text-white hidden md:inline truncate max-w-[140px]">
-                {user?.full_name || 'Admin'}
-              </span>
+            {/* Notifications */}
+            <div className="relative">
+              <button
+                title="Notifications"
+                className="p-2 rounded-lg transition-colors"
+                style={{ color: 'var(--text-secondary)', background: 'var(--bg-surface-hover)', border: '1px solid var(--border-default)' }}
+              >
+                <Bell className="w-4 h-4" />
+              </button>
+              {(navMetrics?.pendingBookings ?? 0) + (navMetrics?.unresolvedContacts ?? 0) + (navMetrics?.newProposals ?? 0) > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[var(--warning)]" />
+              )}
             </div>
 
-            <button
-              onClick={() => logout()}
-              title="Déconnexion"
-              aria-label="Déconnexion"
-              className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-[var(--danger)] hover:bg-[var(--danger)]/10 transition-colors"
-            >
-              <LogOut className="w-4 h-4" />
-            </button>
+            <div className="w-px h-5 mx-1" style={{ background: 'var(--border-default)' }} />
+
+            {/* User Dropdown */}
+            <div className="relative" ref={userDropdownRef}>
+              <button
+                type="button"
+                onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                className="flex items-center gap-2.5 p-1 rounded-xl hover:bg-[var(--bg-subtle)] transition-all cursor-pointer"
+                aria-expanded={userDropdownOpen}
+                aria-haspopup="true"
+              >
+                <div className="rounded-full border-2" style={{ borderColor: 'var(--brand-bg-strong)' }}>
+                  <Avatar
+                    src={getAvatarUrl()}
+                    alt={user?.full_name || 'Admin'}
+                    fallback={getInitials()}
+                    size="sm"
+                    fallbackBgClass="bg-[var(--brand-bg)]"
+                    fallbackClassName="text-[var(--brand-primary)] font-bold"
+                  />
+                </div>
+                <span className="hidden md:block text-[13px] font-semibold truncate max-w-[140px]"
+                  style={{ color: 'var(--text-primary)' }}>
+                  {user?.full_name || 'Admin'}
+                </span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 hidden md:block ${
+                    userDropdownOpen ? 'rotate-180' : ''
+                  }`}
+                  style={{ color: 'var(--text-muted)' }}
+                />
+              </button>
+
+              {/* Dropdown Menu Panel */}
+              {userDropdownOpen && (
+                <div
+                  className="absolute right-0 mt-2 w-60 dash-card rounded-2xl shadow-xl border overflow-hidden animate-fade-in z-50"
+                  style={{
+                    backgroundColor: 'var(--bg-card)',
+                    borderColor: 'var(--border-subtle)',
+                  }}
+                >
+                  {/* User Info Header */}
+                  <div
+                    className="p-3.5 border-b"
+                    style={{
+                      backgroundColor: 'var(--bg-subtle)',
+                      borderColor: 'var(--border-subtle)',
+                    }}
+                  >
+                    <p className="text-xs font-bold truncate" style={{ color: 'var(--text-primary)' }}>
+                      {user?.full_name || 'Administrateur'}
+                    </p>
+                    <p className="text-[11px] truncate font-mono mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                      {user?.email}
+                    </p>
+                    <span className="inline-block mt-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider badge-primary">
+                      {user?.role === 'admin' ? '🛡️ Administrateur' : user?.role === 'landlord' ? '🏠 Bailleur' : '🎓 Étudiant'}
+                    </span>
+                  </div>
+
+                  {/* Menu Items */}
+                  <div className="p-1.5 flex flex-col gap-0.5">
+                    <Link
+                      href="/dashboard/parametres"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="px-3 py-2 text-xs font-medium rounded-xl hover:bg-[var(--bg-subtle)] transition-colors flex items-center gap-2"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
+                      <Settings className="w-3.5 h-3.5" style={{ color: 'var(--brand-primary)' }} />
+                      Paramètres & Données
+                    </Link>
+
+                    <Link
+                      href="/"
+                      target="_blank"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="px-3 py-2 text-xs font-medium rounded-xl hover:bg-[var(--bg-subtle)] transition-colors flex items-center gap-2"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" style={{ color: 'var(--brand-primary)' }} />
+                      Voir le site public
+                    </Link>
+
+                    <div className="my-1 border-t" style={{ borderColor: 'var(--border-subtle)' }} />
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setUserDropdownOpen(false);
+                        setLogoutConfirmOpen(true);
+                      }}
+                      className="w-full text-left px-3 py-2 text-xs font-semibold rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors flex items-center gap-2"
+                      style={{ color: 'var(--error-fg)' }}
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      Se déconnecter
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </header>
 
-        {/* ── Main Workspace Content ── */}
-        <main className="flex-1 min-w-0 bg-mesh-dashboard flex flex-col pt-6 sm:pt-8 pb-16 px-4 sm:px-8 lg:px-10 overflow-y-auto">
-          <div className="w-full max-w-7xl mx-auto">
+        {/* ── Main content ── */}
+        <main className="flex-1 min-w-0 bg-mesh-dashboard overflow-y-auto"
+          style={{ padding: '32px 40px' }}>
+          <div className="w-full max-w-[1400px] mx-auto">
             {children}
           </div>
         </main>
       </div>
 
-      {/* ── Backdrop for Mobile Drawer ── */}
+      {/* Backdrop */}
       {mobileMenuOpen && (
         <div
           onClick={() => setMobileMenuOpen(false)}
-          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-xs md:hidden"
+          className="fixed inset-0 z-30 bg-black/40 md:hidden"
         />
       )}
+
+      {/* Confirmation Dialog pour la Déconnexion */}
+      <ConfirmDialog
+        open={logoutConfirmOpen}
+        title="Confirmer la déconnexion"
+        description="Êtes-vous sûr de vouloir vous déconnecter de votre session d'administration StudRoom ?"
+        confirmLabel="Se déconnecter"
+        cancelLabel="Rester connecté"
+        variant="danger"
+        icon="logout"
+        onConfirm={() => {
+          setLogoutConfirmOpen(false);
+          logout();
+        }}
+        onCancel={() => setLogoutConfirmOpen(false)}
+      />
     </div>
   );
 }

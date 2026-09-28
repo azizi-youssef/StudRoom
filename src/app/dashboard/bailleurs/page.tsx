@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { clientAdminService } from '@/client/services/admin.service';
 import { PropertyDetail } from '@/shared/types';
 import {
@@ -9,22 +10,11 @@ import {
   Phone,
   Mail,
   MapPin,
-  Calendar,
-  DollarSign,
-  Layers,
-  Sparkles,
   CheckCircle2,
-  Clock,
-  Check,
-  X,
   Search,
-  Filter,
-  ArrowRight,
-  ExternalLink,
+  Sparkles,
   Loader2,
-  AlertCircle,
-  HelpCircle,
-  Eye,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { formatCurrencyDH } from '@/lib/utils';
@@ -47,20 +37,28 @@ export interface LandlordSubmission {
   created_at: string;
 }
 
-const STATUS_CONFIG: Record<string, { label: string; badge: string; color: string }> = {
-  new: { label: 'Nouveau', badge: 'bg-primary-950/80 text-primary-400 border-primary-800/80', color: 'primary' },
-  contacted: { label: 'Contacté', badge: 'bg-amber-950/80 text-amber-400 border-amber-800/80', color: 'amber' },
-  visited: { label: 'Visité', badge: 'bg-indigo-950/80 text-indigo-400 border-indigo-800/80', color: 'indigo' },
-  approved: { label: 'Converti / Approuvé', badge: 'bg-emerald-950/80 text-emerald-400 border-emerald-800/80', color: 'emerald' },
-  rejected: { label: 'Refusé', badge: 'bg-rose-950/80 text-rose-400 border-rose-800/80', color: 'rose' },
+const STATUS_CONFIG: Record<string, { label: string; badgeClass: string }> = {
+  new: { label: 'Nouveau', badgeClass: 'badge-primary' },
+  contacted: { label: 'Contacté', badgeClass: 'badge-warning' },
+  visited: { label: 'Visité', badgeClass: 'badge-info' },
+  approved: { label: 'Converti / Approuvé', badgeClass: 'badge-success' },
+  rejected: { label: 'Refusé', badgeClass: 'badge-danger' },
 };
 
-export default function AdminBailleursPage() {
+function AdminBailleursContent() {
+  const searchParams = useSearchParams();
   const [submissions, setSubmissions] = useState<LandlordSubmission[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [statusFilter, setStatusFilter] = useState<string>(searchParams?.get('status') || 'all');
+
+  useEffect(() => {
+    const s = searchParams?.get('status');
+    if (s) {
+      setStatusFilter(s);
+    }
+  }, [searchParams]);
 
   // Conversion modal
   const [selectedSubmission, setSelectedSubmission] = useState<LandlordSubmission | null>(null);
@@ -159,24 +157,38 @@ export default function AdminBailleursPage() {
     submissions.filter((s) => (status === 'all' ? true : s.status === status)).length;
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-800 pb-5">
+      <div
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b"
+        style={{ borderColor: 'var(--border-subtle)' }}
+      >
         <div>
-          <div className="flex items-center gap-2 text-sm text-slate-400 mb-1">
-            <Link href="/dashboard" className="hover:text-primary-400 transition-colors text-xs">
+          <div className="flex items-center gap-2 text-xs mb-1.5" style={{ color: 'var(--text-muted)' }}>
+            <Link href="/dashboard" className="hover:underline transition-colors">
               Tableau de bord
             </Link>
             <span>/</span>
-            <span className="text-primary-400 font-medium text-xs">Propositions Bailleurs</span>
+            <span className="font-medium" style={{ color: 'var(--brand-primary)' }}>
+              Propositions Bailleurs
+            </span>
           </div>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-950/80 border border-amber-800/80 flex items-center justify-center text-amber-400">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+              style={{
+                backgroundColor: 'var(--warning-bg)',
+                border: '1px solid var(--warning-border)',
+                color: 'var(--warning-fg)',
+              }}
+            >
               <Building2 className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white tracking-tight">Propositions des Bailleurs</h1>
-              <p className="text-xs text-slate-400">
+              <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+                Propositions des Bailleurs
+              </h1>
+              <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>
                 Gérez les candidatures propriétaires et convertissez en 1 clic leurs appartements en logements réels avec chambres.
               </p>
             </div>
@@ -187,7 +199,8 @@ export default function AdminBailleursPage() {
           <Button
             onClick={fetchSubmissions}
             variant="outline"
-            className="flex items-center gap-2 px-3 py-2 text-xs border-slate-800 text-slate-300 hover:bg-slate-800"
+            className="dash-card flex items-center gap-2 px-3.5 py-2 text-xs font-medium"
+            style={{ color: 'var(--text-primary)' }}
           >
             Actualiser
           </Button>
@@ -195,7 +208,7 @@ export default function AdminBailleursPage() {
       </div>
 
       {/* Filter Tabs & Search Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         {/* Tabs */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
           {[
@@ -205,80 +218,115 @@ export default function AdminBailleursPage() {
             { id: 'visited', label: 'Visités' },
             { id: 'approved', label: 'Convertis' },
             { id: 'rejected', label: 'Refusés' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setStatusFilter(tab.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition flex items-center gap-1.5 ${
-                statusFilter === tab.id
-                  ? 'bg-primary-600 text-white shadow-md shadow-primary-900/40'
-                  : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700'
-              }`}
-            >
-              {tab.label}
-              <span
-                className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                  statusFilter === tab.id ? 'bg-primary-800 text-white' : 'bg-slate-800 text-slate-400'
+          ].map((tab) => {
+            const isActive = statusFilter === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setStatusFilter(tab.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                  isActive ? 'btn-brand text-white shadow-sm' : 'dash-card'
                 }`}
+                style={
+                  !isActive
+                    ? {
+                        backgroundColor: 'var(--bg-card)',
+                        color: 'var(--text-secondary)',
+                      }
+                    : undefined
+                }
               >
-                {countByStatus(tab.id)}
-              </span>
-            </button>
-          ))}
+                {tab.label}
+                <span
+                  className="text-[10px] px-1.5 py-0.5 rounded-full font-semibold"
+                  style={{
+                    backgroundColor: isActive ? 'rgba(255, 255, 255, 0.25)' : 'var(--bg-subtle)',
+                    color: isActive ? '#FFFFFF' : 'var(--text-muted)',
+                  }}
+                >
+                  {countByStatus(tab.id)}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Search */}
         <div className="relative min-w-[240px]">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+          <Search
+            className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ color: 'var(--text-muted)' }}
+          />
           <input
             type="text"
-            placeholder="Rechercher propriétaire, ville, téléphone..."
+            placeholder="Rechercher propriétaire, ville..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-slate-900/90 border border-slate-800 rounded-xl pl-9 pr-4 py-1.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-primary-500"
+            className="w-full rounded-xl pl-9 pr-4 py-2 text-xs focus:outline-none transition-all"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--text-primary)',
+            }}
           />
         </div>
       </div>
 
       {/* Submissions List */}
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-20 bg-slate-900/40 rounded-2xl border border-slate-800/60">
-          <Loader2 className="w-8 h-8 text-primary-400 animate-spin mb-3" />
-          <p className="text-xs text-slate-400">Chargement des propositions bailleurs...</p>
+        <div
+          className="dash-card flex flex-col items-center justify-center py-20"
+          style={{ backgroundColor: 'var(--bg-card)' }}
+        >
+          <Loader2 className="w-8 h-8 animate-spin mb-3" style={{ color: 'var(--brand-primary)' }} />
+          <p className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
+            Chargement des propositions bailleurs...
+          </p>
         </div>
       ) : filteredSubmissions.length === 0 ? (
-        <div className="text-center py-16 bg-slate-900/40 border border-slate-800/60 rounded-2xl">
-          <Building2 className="w-10 h-10 text-slate-600 mx-auto mb-3" />
-          <p className="text-sm font-semibold text-slate-300">Aucune proposition trouvée</p>
-          <p className="text-xs text-slate-500 mt-1">Modifiez vos critères de recherche ou vos filtres.</p>
+        <div
+          className="dash-card text-center py-16"
+          style={{ backgroundColor: 'var(--bg-card)' }}
+        >
+          <Building2 className="w-10 h-10 mx-auto mb-3" style={{ color: 'var(--text-muted)' }} />
+          <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+            Aucune proposition trouvée
+          </p>
+          <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>
+            Modifiez vos critères de recherche ou vos filtres.
+          </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredSubmissions.map((sub) => {
             const statusMeta = STATUS_CONFIG[sub.status] || {
               label: sub.status,
-              badge: 'bg-slate-800 text-slate-400 border-slate-700',
+              badgeClass: 'badge-neutral',
             };
 
             return (
               <div
                 key={sub.id}
-                className="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 hover:border-slate-700 transition flex flex-col justify-between backdrop-blur-sm relative group shadow-lg shadow-black/20"
+                className="dash-card p-5 flex flex-col justify-between transition-all relative group"
+                style={{ backgroundColor: 'var(--bg-card)' }}
               >
                 <div>
                   {/* Top Bar */}
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <div>
-                      <h3 className="text-base font-bold text-white group-hover:text-primary-300 transition">
+                      <h3 className="text-base font-bold transition-colors" style={{ color: 'var(--text-primary)' }}>
                         {sub.first_name} {sub.last_name}
                       </h3>
-                      <div className="flex items-center gap-2 mt-1 text-xs text-slate-400">
+                      <div
+                        className="flex items-center gap-2 mt-1 text-xs"
+                        style={{ color: 'var(--text-secondary)' }}
+                      >
                         <span className="flex items-center gap-1">
-                          <MapPin className="w-3.5 h-3.5 text-primary-400" />
+                          <MapPin className="w-3.5 h-3.5" style={{ color: 'var(--brand-primary)' }} />
                           {sub.city} • {sub.neighborhood || 'Centre'}
                         </span>
                         <span>•</span>
-                        <span className="text-[11px] text-slate-500">
+                        <span className="text-[11px]" style={{ color: 'var(--text-muted)' }}>
                           {new Date(sub.created_at).toLocaleDateString('fr-FR', {
                             day: 'numeric',
                             month: 'short',
@@ -288,7 +336,7 @@ export default function AdminBailleursPage() {
                       </div>
                     </div>
 
-                    <span className={`px-2.5 py-1 text-[11px] font-semibold rounded-lg border ${statusMeta.badge}`}>
+                    <span className={`px-2.5 py-1 text-[11px] font-semibold rounded-lg ${statusMeta.badgeClass}`}>
                       {statusMeta.label}
                     </span>
                   </div>
@@ -297,55 +345,98 @@ export default function AdminBailleursPage() {
                   <div className="flex flex-wrap items-center gap-2 mb-4">
                     <a
                       href={`tel:${sub.phone}`}
-                      className="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 text-xs flex items-center gap-1.5 border border-slate-700/60 transition"
+                      className="px-2.5 py-1 rounded-lg text-xs flex items-center gap-1.5 transition-all"
+                      style={{
+                        backgroundColor: 'var(--bg-subtle)',
+                        border: '1px solid var(--border-subtle)',
+                        color: 'var(--text-primary)',
+                      }}
                     >
-                      <Phone className="w-3 h-3 text-primary-400" />
+                      <Phone className="w-3 h-3" style={{ color: 'var(--brand-primary)' }} />
                       {sub.phone}
                     </a>
                     <a
                       href={`mailto:${sub.email}`}
-                      className="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 text-xs flex items-center gap-1.5 border border-slate-700/60 transition"
+                      className="px-2.5 py-1 rounded-lg text-xs flex items-center gap-1.5 transition-all"
+                      style={{
+                        backgroundColor: 'var(--bg-subtle)',
+                        border: '1px solid var(--border-subtle)',
+                        color: 'var(--text-primary)',
+                      }}
                     >
-                      <Mail className="w-3 h-3 text-primary-400" />
+                      <Mail className="w-3 h-3" style={{ color: 'var(--brand-primary)' }} />
                       {sub.email}
                     </a>
                   </div>
 
                   {/* Property specs badge row */}
-                  <div className="grid grid-cols-3 gap-2.5 p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-center mb-4">
+                  <div
+                    className="grid grid-cols-3 gap-2.5 p-3 rounded-xl text-center mb-4 border"
+                    style={{
+                      backgroundColor: 'var(--bg-subtle)',
+                      borderColor: 'var(--border-subtle)',
+                    }}
+                  >
                     <div>
-                      <span className="text-[10px] text-slate-500 block uppercase font-medium">Loyer Souhaité</span>
-                      <span className="text-xs font-bold text-amber-400">
+                      <span className="text-[10px] block uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
+                        Loyer Souhaité
+                      </span>
+                      <span className="text-xs font-bold" style={{ color: 'var(--brand-primary)' }}>
                         {formatCurrencyDH(sub.expected_rent_dh)}
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-slate-500 block uppercase font-medium">Chambres</span>
-                      <span className="text-xs font-bold text-white">{sub.rooms_count} pièces</span>
+                      <span className="text-[10px] block uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
+                        Chambres
+                      </span>
+                      <span className="text-xs font-bold" style={{ color: 'var(--text-primary)' }}>
+                        {sub.rooms_count} pièces
+                      </span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-slate-500 block uppercase font-medium">Superficie</span>
-                      <span className="text-xs font-bold text-white">{sub.surface_sqm} m²</span>
+                      <span className="text-[10px] block uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
+                        Superficie
+                      </span>
+                      <span className="text-xs font-bold" style={{ color: 'var(--text-primary)' }}>
+                        {sub.surface_sqm} m²
+                      </span>
                     </div>
                   </div>
 
                   {/* Landlord notes / message */}
                   {sub.message && (
-                    <div className="text-xs text-slate-300 bg-slate-800/40 p-3 rounded-xl border border-slate-800/80 mb-4 line-clamp-3">
-                      <span className="font-semibold text-slate-400 block text-[11px] mb-0.5">Note bailleur :</span>
+                    <div
+                      className="text-xs p-3 rounded-xl mb-4 line-clamp-3 border"
+                      style={{
+                        backgroundColor: 'var(--bg-subtle)',
+                        borderColor: 'var(--border-subtle)',
+                        color: 'var(--text-secondary)',
+                      }}
+                    >
+                      <span className="font-semibold block text-[11px] mb-0.5" style={{ color: 'var(--text-primary)' }}>
+                        Note bailleur :
+                      </span>
                       "{sub.message}"
                     </div>
                   )}
                 </div>
 
                 {/* Actions Footer */}
-                <div className="pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div
+                  className="pt-3 border-t flex flex-wrap items-center justify-between gap-2"
+                  style={{ borderColor: 'var(--border-subtle)' }}
+                >
                   <div className="flex items-center gap-1.5">
                     {sub.status !== 'contacted' && sub.status !== 'approved' && (
                       <button
                         disabled={actionLoadingId === sub.id}
                         onClick={() => handleStatusChange(sub.id, 'contacted')}
-                        className="px-2.5 py-1 text-[11px] rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition"
+                        className="px-2.5 py-1 text-[11px] rounded-lg transition-all font-medium border"
+                        style={{
+                          backgroundColor: 'var(--bg-subtle)',
+                          borderColor: 'var(--border-subtle)',
+                          color: 'var(--text-secondary)',
+                        }}
                       >
                         Marquer contacté
                       </button>
@@ -354,7 +445,12 @@ export default function AdminBailleursPage() {
                       <button
                         disabled={actionLoadingId === sub.id}
                         onClick={() => handleStatusChange(sub.id, 'visited')}
-                        className="px-2.5 py-1 text-[11px] rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition"
+                        className="px-2.5 py-1 text-[11px] rounded-lg transition-all font-medium border"
+                        style={{
+                          backgroundColor: 'var(--bg-subtle)',
+                          borderColor: 'var(--border-subtle)',
+                          color: 'var(--text-secondary)',
+                        }}
                       >
                         Marquer visité
                       </button>
@@ -363,7 +459,11 @@ export default function AdminBailleursPage() {
                       <button
                         disabled={actionLoadingId === sub.id}
                         onClick={() => handleStatusChange(sub.id, 'rejected')}
-                        className="px-2.5 py-1 text-[11px] rounded-lg text-rose-400 hover:bg-rose-950/40 border border-transparent hover:border-rose-900/50 transition"
+                        className="px-2.5 py-1 text-[11px] rounded-lg transition-all font-medium"
+                        style={{
+                          color: 'var(--error-fg)',
+                          backgroundColor: 'var(--error-bg)',
+                        }}
                       >
                         Refuser
                       </button>
@@ -371,13 +471,13 @@ export default function AdminBailleursPage() {
                   </div>
 
                   {sub.status === 'approved' ? (
-                    <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1 bg-emerald-950/60 px-3 py-1 rounded-lg border border-emerald-800/60">
+                    <span className="text-xs font-semibold flex items-center gap-1 px-3 py-1 rounded-lg badge-success">
                       <CheckCircle2 className="w-3.5 h-3.5" /> Déjà converti
                     </span>
                   ) : (
                     <Button
                       onClick={() => openConversionModal(sub)}
-                      className="px-3 py-1.5 text-xs font-semibold rounded-xl bg-gradient-to-r from-primary-600 to-teal-500 hover:from-primary-500 hover:to-teal-400 text-white shadow-md shadow-primary-900/30 flex items-center gap-1.5"
+                      className="btn-brand px-3 py-1.5 text-xs font-semibold rounded-xl text-white shadow-sm flex items-center gap-1.5"
                     >
                       <Sparkles className="w-3.5 h-3.5" />
                       Convertir en Logement
@@ -392,23 +492,45 @@ export default function AdminBailleursPage() {
 
       {/* CONVERSION MODAL */}
       {conversionModalOpen && selectedSubmission && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
-            <div className="flex items-center justify-between p-5 border-b border-slate-800 bg-slate-950/40">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
+          <div
+            className="dash-card rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl border"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              borderColor: 'var(--border-strong)',
+            }}
+          >
+            <div
+              className="flex items-center justify-between p-5 border-b"
+              style={{
+                borderColor: 'var(--border-subtle)',
+                backgroundColor: 'var(--bg-subtle)',
+              }}
+            >
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-primary-950 text-primary-400 border border-primary-800 flex items-center justify-center">
+                <div
+                  className="w-9 h-9 rounded-xl flex items-center justify-center"
+                  style={{
+                    backgroundColor: 'var(--brand-bg)',
+                    color: 'var(--brand-primary)',
+                    border: '1px solid var(--brand-bg-strong)',
+                  }}
+                >
                   <Sparkles className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white">Conversion Automatisée en Logement</h3>
-                  <p className="text-[11px] text-slate-400">
+                  <h3 className="text-base font-bold" style={{ color: 'var(--text-primary)' }}>
+                    Conversion Automatisée en Logement
+                  </h3>
+                  <p className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
                     Bailleur : {selectedSubmission.first_name} {selectedSubmission.last_name}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setConversionModalOpen(false)}
-                className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800"
+                className="p-1 rounded-lg transition-colors"
+                style={{ color: 'var(--text-muted)' }}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -416,11 +538,20 @@ export default function AdminBailleursPage() {
 
             {conversionResult ? (
               <div className="p-6 text-center space-y-4">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-950/80 border border-emerald-800 text-emerald-400 flex items-center justify-center mx-auto shadow-xl">
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto shadow-md"
+                  style={{
+                    backgroundColor: 'var(--success-bg)',
+                    color: 'var(--success-fg)',
+                    border: '1px solid var(--success-border)',
+                  }}
+                >
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h4 className="text-lg font-bold text-white">Logement créé avec succès !</h4>
-                <p className="text-xs text-slate-300 max-w-sm mx-auto">
+                <h4 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
+                  Logement créé avec succès !
+                </h4>
+                <p className="text-xs max-w-sm mx-auto" style={{ color: 'var(--text-secondary)' }}>
                   Le logement "{conversionResult.title}" a été généré avec {conversionResult.total_rooms} chambres
                   prêtes à la location.
                 </p>
@@ -428,13 +559,14 @@ export default function AdminBailleursPage() {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
                   <Link
                     href={`/dashboard/logements/${conversionResult.id}/chambres`}
-                    className="w-full sm:w-auto px-4 py-2 text-xs font-semibold rounded-xl bg-primary-600 hover:bg-primary-500 text-white shadow-lg transition"
+                    className="btn-brand w-full sm:w-auto px-4 py-2 text-xs font-semibold rounded-xl text-white shadow-md transition"
                   >
                     Gérer les Chambres
                   </Link>
                   <Link
                     href={`/dashboard/logements/${conversionResult.id}/photos`}
-                    className="w-full sm:w-auto px-4 py-2 text-xs font-semibold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
+                    className="dash-card w-full sm:w-auto px-4 py-2 text-xs font-semibold rounded-xl transition"
+                    style={{ color: 'var(--text-primary)' }}
                   >
                     Ajouter les Photos
                   </Link>
@@ -443,14 +575,30 @@ export default function AdminBailleursPage() {
             ) : (
               <div className="p-5 space-y-4">
                 {errorMessage && (
-                  <div className="p-3 text-xs bg-rose-950/60 border border-rose-800/80 text-rose-300 rounded-xl">
+                  <div
+                    className="p-3 text-xs rounded-xl border"
+                    style={{
+                      backgroundColor: 'var(--error-bg)',
+                      borderColor: 'var(--error-border)',
+                      color: 'var(--error-fg)',
+                    }}
+                  >
                     {errorMessage}
                   </div>
                 )}
 
-                <div className="p-3 bg-primary-950/40 border border-primary-900/60 rounded-xl text-xs text-primary-200">
-                  <p className="font-semibold mb-1">Processus de conversion automatique :</p>
-                  <ul className="list-disc list-inside space-y-0.5 text-primary-300/80 text-[11px]">
+                <div
+                  className="p-3.5 rounded-xl text-xs border"
+                  style={{
+                    backgroundColor: 'var(--brand-bg)',
+                    borderColor: 'var(--brand-bg-strong)',
+                    color: 'var(--text-primary)',
+                  }}
+                >
+                  <p className="font-semibold mb-1" style={{ color: 'var(--brand-primary)' }}>
+                    Processus de conversion automatique :
+                  </p>
+                  <ul className="list-disc list-inside space-y-0.5 text-[11px]" style={{ color: 'var(--text-secondary)' }}>
                     <li>Crée la fiche logement dans la base de données</li>
                     <li>Génère automatiquement {overrideRooms} chambres individuelles prêtes</li>
                     <li>Lie le logement au compte propriétaire s'il existe</li>
@@ -459,62 +607,92 @@ export default function AdminBailleursPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">
+                  <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-primary)' }}>
                     Titre public de la résidence
                   </label>
                   <input
                     type="text"
                     value={overrideTitle}
                     onChange={(e) => setOverrideTitle(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-500"
+                    className="w-full rounded-xl px-3 py-2 text-xs focus:outline-none transition-all"
+                    style={{
+                      backgroundColor: 'var(--bg-subtle)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-primary)',
+                    }}
                   />
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Loyer (DH/mois)</label>
+                    <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-primary)' }}>
+                      Loyer (DH/mois)
+                    </label>
                     <input
                       type="number"
                       value={overrideRent}
                       onChange={(e) => setOverrideRent(Number(e.target.value))}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-500"
+                      className="w-full rounded-xl px-3 py-2 text-xs focus:outline-none transition-all"
+                      style={{
+                        backgroundColor: 'var(--bg-subtle)',
+                        border: '1px solid var(--border-subtle)',
+                        color: 'var(--text-primary)',
+                      }}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Chambres</label>
+                    <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-primary)' }}>
+                      Chambres
+                    </label>
                     <input
                       type="number"
                       min={1}
                       max={20}
                       value={overrideRooms}
                       onChange={(e) => setOverrideRooms(Number(e.target.value))}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-500"
+                      className="w-full rounded-xl px-3 py-2 text-xs focus:outline-none transition-all"
+                      style={{
+                        backgroundColor: 'var(--bg-subtle)',
+                        border: '1px solid var(--border-subtle)',
+                        color: 'var(--text-primary)',
+                      }}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Surface (m²)</label>
+                    <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-primary)' }}>
+                      Surface (m²)
+                    </label>
                     <input
                       type="number"
                       value={overrideSurface}
                       onChange={(e) => setOverrideSurface(Number(e.target.value))}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-primary-500"
+                      className="w-full rounded-xl px-3 py-2 text-xs focus:outline-none transition-all"
+                      style={{
+                        backgroundColor: 'var(--bg-subtle)',
+                        border: '1px solid var(--border-subtle)',
+                        color: 'var(--text-primary)',
+                      }}
                     />
                   </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+                <div
+                  className="flex items-center justify-end gap-3 pt-4 border-t"
+                  style={{ borderColor: 'var(--border-subtle)' }}
+                >
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setConversionModalOpen(false)}
-                    className="text-xs border-slate-700 text-slate-300 hover:bg-slate-800"
+                    className="dash-card text-xs font-medium"
+                    style={{ color: 'var(--text-secondary)' }}
                   >
                     Annuler
                   </Button>
                   <Button
                     onClick={handleConvert}
                     disabled={converting}
-                    className="text-xs bg-primary-600 hover:bg-primary-500 text-white font-semibold flex items-center gap-1.5 shadow-lg shadow-primary-900/30"
+                    className="btn-brand text-xs font-semibold flex items-center gap-1.5 text-white shadow-md"
                   >
                     {converting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
                     Confirmer la conversion
@@ -526,5 +704,13 @@ export default function AdminBailleursPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function AdminBailleursPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center" style={{ color: 'var(--text-muted)' }}>Chargement des propositions de propriétaires...</div>}>
+      <AdminBailleursContent />
+    </Suspense>
   );
 }

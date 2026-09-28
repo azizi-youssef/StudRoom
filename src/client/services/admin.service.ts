@@ -15,6 +15,7 @@ export interface DashboardMetrics {
   contactedBookings: number;
   visitScheduledBookings: number;
   approvedBookings: number;
+  rejectedBookings: number;
   totalProperties: number;
   totalRooms: number;
   availableRooms: number;

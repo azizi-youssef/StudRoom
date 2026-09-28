@@ -10,7 +10,7 @@ export const corsOptions: CorsOptions = {
     // Allow requests with no origin (server-to-server, curl, Postman in dev)
     if (!origin && env.isDev()) return callback(null, true);
 
-    const allowed = [env.FRONTEND_URL];
+    const allowed = [env.FRONTEND_URL, 'http://127.0.0.1:63636']; // Added preview port for testing
     if (!origin || allowed.includes(origin)) {
       callback(null, true);
     } else {

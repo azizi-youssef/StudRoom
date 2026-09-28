@@ -1,5 +1,8 @@
-import React from 'react';
-import { MapPin, Navigation, Compass } from 'lucide-react';
+'use client';
+
+import React, { useEffect, useRef } from 'react';
+import { MapPin, Navigation, Compass, Footprints } from 'lucide-react';
+import 'leaflet/dist/leaflet.css';
 
 interface PropertyLocationMapProps {
   address: string;
@@ -7,41 +10,112 @@ interface PropertyLocationMapProps {
   city: string;
   lat: number;
   lng: number;
+  universityName?: string;
+  walkingMinutes?: number;
 }
 
-export function PropertyLocationMap({ address, neighborhood, city, lat, lng }: PropertyLocationMapProps) {
-  const mapUrl = `https://www.google.com/maps/embed/v1/place?key=MOCK_KEY&q=${lat},${lng}`;
+export function PropertyLocationMap({
+  address,
+  neighborhood,
+  city,
+  lat,
+  lng,
+  universityName,
+  walkingMinutes,
+}: PropertyLocationMapProps) {
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (!mapContainerRef.current || mapInstanceRef.current) return;
+
+    let L: any;
+    try {
+      L = require('leaflet');
+    } catch {
+      return;
+    }
+
+    const map = L.map(mapContainerRef.current, {
+      center: [lat, lng],
+      zoom: 16,
+      zoomControl: false,
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+      maxZoom: 19,
+    }).addTo(map);
+
+    L.control.zoom({ position: 'topright' }).addTo(map);
+
+    // Pin stylisé pour le logement
+    const pinIcon = L.divIcon({
+      className: 'property-pin-detail',
+      html: `
+        <div class="relative flex items-center justify-center">
+          <div class="w-10 h-10 rounded-full bg-emerald-500/20 animate-ping absolute"></div>
+          <div class="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center shadow-xl border-2 border-white text-sm font-black">
+            🏠
+          </div>
+          <div class="w-2 h-2 bg-primary-600 rotate-45 mx-auto -mt-1 border-r border-b border-white"></div>
+        </div>
+      `,
+      iconSize: [40, 40],
+      iconAnchor: [20, 36],
+    });
+
+    L.marker([lat, lng], { icon: pinIcon })
+      .addTo(map)
+      .bindPopup(`<b>${address}</b><br>${neighborhood}, ${city}`)
+      .openPopup();
+
+    mapInstanceRef.current = map;
+
+    return () => {
+      map.remove();
+      mapInstanceRef.current = null;
+    };
+  }, [lat, lng, address, neighborhood, city]);
 
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-        <MapPin className="w-5 h-5 text-primary-600" />
-        Localisation du logement
-      </h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-xl font-black text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <MapPin className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+          Localisation & Environnement
+        </h3>
 
-      <div className="bg-slate-100 rounded-3xl overflow-hidden border border-slate-200 shadow-inner relative aspect-[16/9] sm:aspect-[21/9] flex items-center justify-center p-6 text-center">
-        
-        {/* Decorative Map Pattern Graphic */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-primary-900/10 to-slate-900/20 pointer-events-none" />
+        {walkingMinutes && universityName && (
+          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+            <Footprints className="w-3.5 h-3.5" />
+            À {walkingMinutes} min à pied de {universityName}
+          </span>
+        )}
+      </div>
 
-        <div className="relative z-10 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-xl max-w-md border border-white flex flex-col gap-3 items-center">
-          <div className="w-12 h-12 rounded-full bg-primary-600 text-white flex items-center justify-center shadow-lg">
-            <Navigation className="w-6 h-6 animate-pulse" />
-          </div>
+      <div className="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft h-[320px] bg-slate-100">
+        <div ref={mapContainerRef} className="w-full h-full z-0" />
+
+        {/* Overlay d'information en bas */}
+        <div className="absolute bottom-3 left-3 right-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white/80 dark:border-slate-800 flex items-center justify-between gap-3 z-10">
           <div>
-            <h4 className="font-extrabold text-slate-900 text-base">{address}</h4>
-            <p className="text-xs text-slate-500 font-semibold mt-1">
-              Quartier {neighborhood}, {city} • Selouane
+            <h4 className="font-extrabold text-slate-900 dark:text-slate-100 text-xs sm:text-sm">
+              {address}
+            </h4>
+            <p className="text-[11px] text-slate-500 font-medium">
+              Quartier {neighborhood}, {city} • Proche campus
             </p>
           </div>
+
           <a
             href={`https://maps.google.com/?q=${lat},${lng}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-600 hover:text-primary-800 underline mt-1"
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-primary-50 text-primary-700 dark:text-primary-400 font-bold text-xs shrink-0 transition-colors"
           >
-            <Compass className="w-4 h-4" />
-            Ouvrir dans Google Maps →
+            <Compass className="w-3.5 h-3.5" />
+            Google Maps ↗
           </a>
         </div>
       </div>

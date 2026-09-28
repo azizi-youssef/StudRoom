@@ -35,6 +35,7 @@ export interface DbUser {
   full_name: string;
   phone: string;
   password_hash?: string;
+  avatar_url?: string;
   created_at: string;
   updated_at: string;
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
+// @ts-ignore - CSS import is side-effect only
 import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
@@ -7,6 +8,8 @@ import { AuthProvider } from '@/context/auth-context';
 import { AuthModal } from '@/components/forms/auth-modal';
 
 import { ThemeProvider } from '@/context/theme-context';
+import { ToastProvider } from '@/components/ui/toast';
+import { WidgetProvider } from '@/context/widget-context';
 import Script from 'next/script';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -19,13 +22,16 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL('https://studroom.ma'),
   title: 'StudRoom — Ton logement étudiant à Selouane / Nador',
-  description: 'StudRoom est la marque de logement étudiant au Maroc. Des studios et appartements meublés, ultra-connectés, proches de FPN, EST et ISTA Selouane.',
+  description: 'StudRoom est la marque de logement étudiant au Maroc. Des studios et appartements meublés, ultra-connectés, proches de FSAN, FSJPN, FEGN, FLLAN, EST et ISTA Selouane.',
   keywords: [
     'logement étudiant Nador',
     'logement étudiant Selouane',
     'chambre étudiant Selouane',
     'appartement meublé Al Omrane',
-    'FPN Selouane logement',
+    'FSAN Selouane logement',
+    'FEGN Nador logement',
+    'FSJPN Nador logement',
+    'FLLAN Nador logement',
     'EST Nador logement',
     'StudRoom Maroc',
   ],
@@ -41,7 +47,7 @@ export const metadata: Metadata = {
     siteName: 'StudRoom',
     images: [
       {
-        url: '/images/logo_studroom.png',
+        url: '/images/logo_StudRoom1.png',
         width: 800,
         height: 600,
         alt: 'StudRoom Logo',
@@ -66,12 +72,16 @@ export default function RootLayout({
       </head>
       <body className="font-sans bg-surface-light dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col min-h-screen antialiased selection:bg-primary-600 selection:text-white">
         <ThemeProvider>
-          <AuthProvider>
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-            <AuthModal />
-          </AuthProvider>
+          <WidgetProvider>
+            <ToastProvider>
+              <AuthProvider>
+                <Header />
+                <main className="flex-grow">{children}</main>
+                <Footer />
+                <AuthModal />
+              </AuthProvider>
+            </ToastProvider>
+          </WidgetProvider>
         </ThemeProvider>
       </body>
     </html>

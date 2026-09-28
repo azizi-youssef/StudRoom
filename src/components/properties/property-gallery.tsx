@@ -63,6 +63,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
           alt={mainImage.alt_text || title}
           fill
           priority
+          unoptimized={mainImage.image_url.startsWith('data:') || mainImage.image_url.startsWith('blob:')}
           sizes="(max-width: 1200px) 100vw, 70vw"
           className="object-cover group-hover:scale-105 transition-transform duration-500"
         />
@@ -125,6 +126,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                 src={img.image_url}
                 alt={img.alt_text || title}
                 fill
+                unoptimized={img.image_url.startsWith('data:') || img.image_url.startsWith('blob:')}
                 sizes="150px"
                 className="object-cover group-hover/thumb:scale-105 transition-transform"
               />
@@ -171,6 +173,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                 src={mainImage.image_url}
                 alt={mainImage.alt_text || title}
                 fill
+                unoptimized={mainImage.image_url.startsWith('data:') || mainImage.image_url.startsWith('blob:')}
                 sizes="(max-width: 1200px) 100vw, 1200px"
                 className="object-contain"
                 priority
@@ -220,6 +223,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                     src={img.image_url}
                     alt=""
                     fill
+                    unoptimized={img.image_url.startsWith('data:') || img.image_url.startsWith('blob:')}
                     sizes="80px"
                     className="object-cover"
                   />

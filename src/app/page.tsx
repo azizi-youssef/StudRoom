@@ -13,7 +13,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1
 async function getFeaturedProperties(): Promise<PropertyDetail[]> {
   try {
     const res = await fetch(`${API_URL}/properties/featured`, {
-      next: { revalidate: 60 },
+      cache: 'no-store',
     });
     if (!res.ok) return [];
     const json = await res.json();

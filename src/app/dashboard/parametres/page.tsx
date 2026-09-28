@@ -11,7 +11,6 @@ import {
   Database,
   CheckCircle2,
   Server,
-  Layers,
   ShieldCheck,
   Loader2,
   RefreshCw,
@@ -49,24 +48,38 @@ export default function AdminParametresPage() {
   }, [loadData]);
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-800 pb-5">
+      <div
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b"
+        style={{ borderColor: 'var(--border-subtle)' }}
+      >
         <div>
-          <div className="flex items-center gap-2 text-sm text-slate-400 mb-1">
-            <Link href="/dashboard" className="hover:text-primary-400 transition-colors text-xs">
+          <div className="flex items-center gap-2 text-xs mb-1.5" style={{ color: 'var(--text-muted)' }}>
+            <Link href="/dashboard" className="hover:underline transition-colors">
               Tableau de bord
             </Link>
             <span>/</span>
-            <span className="text-primary-400 font-medium text-xs">Paramètres & Référentiels</span>
+            <span className="font-medium" style={{ color: 'var(--brand-primary)' }}>
+              Paramètres & Référentiels
+            </span>
           </div>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary-950/80 border border-primary-800/80 flex items-center justify-center text-primary-400">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+              style={{
+                backgroundColor: 'var(--brand-bg)',
+                border: '1px solid var(--brand-bg-strong)',
+                color: 'var(--brand-primary)',
+              }}
+            >
               <Settings className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white tracking-tight">Paramètres & Données Référentielles</h1>
-              <p className="text-xs text-slate-400">
+              <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+                Paramètres & Données Référentielles
+              </h1>
+              <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>
                 Consultez et configurez les villes desservies, campus universitaires et équipements disponibles sur StudRoom.
               </p>
             </div>
@@ -76,69 +89,107 @@ export default function AdminParametresPage() {
         <Button
           onClick={loadData}
           variant="outline"
-          className="flex items-center gap-2 px-3 py-2 text-xs border-slate-800 text-slate-300 hover:bg-slate-800"
+          className="dash-card flex items-center gap-2 px-3.5 py-2 text-xs font-medium self-start sm:self-center"
+          style={{ color: 'var(--text-primary)' }}
         >
-          <RefreshCw className="w-3.5 h-3.5" />
+          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           Actualiser
         </Button>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
+      <div className="flex flex-wrap items-center gap-2 border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
         <button
           onClick={() => setActiveTab('cities')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition ${
+          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
             activeTab === 'cities'
-              ? 'bg-primary-600 text-white shadow-md'
-              : 'text-slate-400 hover:text-white bg-slate-900 border border-slate-800'
+              ? 'btn-brand text-white shadow-sm'
+              : 'dash-card'
           }`}
+          style={
+            activeTab !== 'cities'
+              ? {
+                  backgroundColor: 'var(--bg-card)',
+                  color: 'var(--text-secondary)',
+                }
+              : undefined
+          }
         >
-          <MapPin className="w-4 h-4" />
+          <MapPin className="w-3.5 h-3.5" />
           Villes ({cities.length})
         </button>
 
         <button
           onClick={() => setActiveTab('universities')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition ${
+          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
             activeTab === 'universities'
-              ? 'bg-primary-600 text-white shadow-md'
-              : 'text-slate-400 hover:text-white bg-slate-900 border border-slate-800'
+              ? 'btn-brand text-white shadow-sm'
+              : 'dash-card'
           }`}
+          style={
+            activeTab !== 'universities'
+              ? {
+                  backgroundColor: 'var(--bg-card)',
+                  color: 'var(--text-secondary)',
+                }
+              : undefined
+          }
         >
-          <GraduationCap className="w-4 h-4" />
+          <GraduationCap className="w-3.5 h-3.5" />
           Universités & Campus ({universities.length})
         </button>
 
         <button
           onClick={() => setActiveTab('amenities')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition ${
+          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
             activeTab === 'amenities'
-              ? 'bg-primary-600 text-white shadow-md'
-              : 'text-slate-400 hover:text-white bg-slate-900 border border-slate-800'
+              ? 'btn-brand text-white shadow-sm'
+              : 'dash-card'
           }`}
+          style={
+            activeTab !== 'amenities'
+              ? {
+                  backgroundColor: 'var(--bg-card)',
+                  color: 'var(--text-secondary)',
+                }
+              : undefined
+          }
         >
-          <Sparkles className="w-4 h-4" />
+          <Sparkles className="w-3.5 h-3.5" />
           Équipements & Commodités ({amenities.length})
         </button>
 
         <button
           onClick={() => setActiveTab('system')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition ${
+          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all ${
             activeTab === 'system'
-              ? 'bg-primary-600 text-white shadow-md'
-              : 'text-slate-400 hover:text-white bg-slate-900 border border-slate-800'
+              ? 'btn-brand text-white shadow-sm'
+              : 'dash-card'
           }`}
+          style={
+            activeTab !== 'system'
+              ? {
+                  backgroundColor: 'var(--bg-card)',
+                  color: 'var(--text-secondary)',
+                }
+              : undefined
+          }
         >
-          <Database className="w-4 h-4" />
+          <Database className="w-3.5 h-3.5" />
           État Système
         </button>
       </div>
 
-      {/* Loading state */}
+      {/* Tab Content */}
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-20 bg-slate-900/40 rounded-2xl border border-slate-800/60">
-          <Loader2 className="w-8 h-8 text-primary-400 animate-spin mb-3" />
-          <p className="text-xs text-slate-400">Chargement des référentiels...</p>
+        <div
+          className="dash-card flex flex-col items-center justify-center py-20"
+          style={{ backgroundColor: 'var(--bg-card)' }}
+        >
+          <Loader2 className="w-8 h-8 animate-spin mb-3" style={{ color: 'var(--brand-primary)' }} />
+          <p className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
+            Chargement des référentiels...
+          </p>
         </div>
       ) : activeTab === 'cities' ? (
         /* CITIES TAB */
@@ -146,19 +197,21 @@ export default function AdminParametresPage() {
           {cities.map((city) => (
             <div
               key={city.id}
-              className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800/80 flex items-center justify-between"
+              className="dash-card p-5 flex items-center justify-between transition-all"
+              style={{ backgroundColor: 'var(--bg-card)' }}
             >
               <div>
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-primary-400" />
+                <h3 className="text-sm font-bold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                  <MapPin className="w-4 h-4" style={{ color: 'var(--brand-primary)' }} />
                   {city.name}
                 </h3>
-                <p className="text-xs text-slate-400 mt-1">Slug: {city.slug}</p>
-                <span className="text-[11px] text-slate-500 font-mono mt-0.5 block">
+                <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>Slug: {city.slug}</p>
+                <span className="text-[11px] font-mono mt-0.5 block" style={{ color: 'var(--text-muted)' }}>
                   Région : {city.region || 'Oriental, Maroc'}
                 </span>
               </div>
-              <span className="px-2.5 py-1 rounded-lg bg-emerald-950/80 text-emerald-400 border border-emerald-800/80 text-[11px] font-semibold">
+              <span className="px-2.5 py-1 rounded-full badge-success text-[11px] font-semibold flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--color-emerald-500)' }} />
                 Active
               </span>
             </div>
@@ -170,19 +223,34 @@ export default function AdminParametresPage() {
           {universities.map((uni) => (
             <div
               key={uni.id}
-              className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800/80 flex items-start justify-between gap-4"
+              className="dash-card p-5 flex items-start justify-between gap-4 transition-all"
+              style={{ backgroundColor: 'var(--bg-card)' }}
             >
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary-950 border border-primary-800 text-primary-400 flex items-center justify-center shrink-0">
+              <div className="flex items-start gap-3.5">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                  style={{
+                    backgroundColor: 'var(--brand-bg)',
+                    border: '1px solid var(--brand-bg-strong)',
+                    color: 'var(--brand-primary)',
+                  }}
+                >
                   <GraduationCap className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">{uni.name}</h3>
-                  <p className="text-xs text-slate-400 mt-0.5">{uni.short_name || uni.city?.name || 'Selouane'}</p>
-                  <p className="text-[11px] text-slate-500 mt-1">{uni.address || 'Province de Nador'}</p>
+                  <h3 className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{uni.name}</h3>
+                  <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>{uni.short_name || uni.city?.name || 'Selouane'}</p>
+                  <p className="text-[11px] mt-1" style={{ color: 'var(--text-muted)' }}>{uni.address || 'Province de Nador'}</p>
                 </div>
               </div>
-              <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-mono">
+              <span
+                className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono border"
+                style={{
+                  backgroundColor: 'var(--bg-subtle)',
+                  borderColor: 'var(--border-subtle)',
+                  color: 'var(--text-secondary)',
+                }}
+              >
                 {uni.slug || 'campus'}
               </span>
             </div>
@@ -194,14 +262,22 @@ export default function AdminParametresPage() {
           {amenities.map((amenity) => (
             <div
               key={amenity.id}
-              className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800/80 flex items-center gap-3"
+              className="dash-card p-3.5 flex items-center gap-3 transition-all"
+              style={{ backgroundColor: 'var(--bg-card)' }}
             >
-              <div className="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-primary-400 shrink-0">
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border"
+                style={{
+                  backgroundColor: 'var(--bg-subtle)',
+                  borderColor: 'var(--border-subtle)',
+                  color: 'var(--brand-primary)',
+                }}
+              >
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
-                <span className="text-xs font-semibold text-white block">{amenity.name}</span>
-                <span className="text-[10px] text-slate-500 block uppercase font-mono">
+                <span className="text-xs font-semibold block" style={{ color: 'var(--text-primary)' }}>{amenity.name}</span>
+                <span className="text-[10px] block uppercase font-mono" style={{ color: 'var(--text-muted)' }}>
                   {amenity.category || 'essential'}
                 </span>
               </div>
@@ -210,51 +286,85 @@ export default function AdminParametresPage() {
         </div>
       ) : (
         /* SYSTEM TAB */
-        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-6">
-          <div className="flex items-center gap-3 pb-4 border-b border-slate-800">
-            <Server className="w-6 h-6 text-primary-400" />
+        <div className="dash-card p-6 space-y-6" style={{ backgroundColor: 'var(--bg-card)' }}>
+          <div className="flex items-center gap-3 pb-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+              style={{
+                backgroundColor: 'var(--brand-bg)',
+                border: '1px solid var(--brand-bg-strong)',
+                color: 'var(--brand-primary)',
+              }}
+            >
+              <Server className="w-5 h-5" />
+            </div>
             <div>
-              <h2 className="text-base font-bold text-white">Diagnostic & Infrastructure StudRoom</h2>
-              <p className="text-xs text-slate-400">Architecture haute disponibilité et intégrité relationnelle.</p>
+              <h2 className="text-base font-bold" style={{ color: 'var(--text-primary)' }}>Diagnostic & Infrastructure StudRoom</h2>
+              <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Architecture haute disponibilité et intégrité relationnelle.</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span className="text-xs text-slate-500 block font-medium">Environnement</span>
-              <span className="text-sm font-bold text-emerald-400 flex items-center gap-1.5 mt-1">
+            <div
+              className="p-4 rounded-xl border"
+              style={{
+                backgroundColor: 'var(--bg-subtle)',
+                borderColor: 'var(--border-subtle)',
+              }}
+            >
+              <span className="text-xs block font-medium" style={{ color: 'var(--text-muted)' }}>Environnement</span>
+              <span className="text-sm font-bold flex items-center gap-1.5 mt-1.5" style={{ color: 'var(--success-fg)' }}>
                 <CheckCircle2 className="w-4 h-4" /> Production Ready
               </span>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span className="text-xs text-slate-500 block font-medium">Sécurité RLS & RBAC</span>
-              <span className="text-sm font-bold text-primary-400 flex items-center gap-1.5 mt-1">
+            <div
+              className="p-4 rounded-xl border"
+              style={{
+                backgroundColor: 'var(--bg-subtle)',
+                borderColor: 'var(--border-subtle)',
+              }}
+            >
+              <span className="text-xs block font-medium" style={{ color: 'var(--text-muted)' }}>Sécurité RLS & RBAC</span>
+              <span className="text-sm font-bold flex items-center gap-1.5 mt-1.5" style={{ color: 'var(--brand-primary)' }}>
                 <ShieldCheck className="w-4 h-4" /> Actif & Verrouillé
               </span>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
-              <span className="text-xs text-slate-500 block font-medium">Contrainte Anti Double-Booking</span>
-              <span className="text-sm font-bold text-indigo-400 flex items-center gap-1.5 mt-1">
+            <div
+              className="p-4 rounded-xl border"
+              style={{
+                backgroundColor: 'var(--bg-subtle)',
+                borderColor: 'var(--border-subtle)',
+              }}
+            >
+              <span className="text-xs block font-medium" style={{ color: 'var(--text-muted)' }}>Contrainte Anti Double-Booking</span>
+              <span className="text-sm font-bold flex items-center gap-1.5 mt-1.5" style={{ color: 'var(--brand-primary)' }}>
                 <Database className="w-4 h-4" /> PostgreSQL GiST Active
               </span>
             </div>
           </div>
 
-          <div className="p-4 bg-slate-950/60 rounded-xl border border-slate-800/80 text-xs text-slate-400 space-y-2">
-            <div className="flex items-center gap-2 text-white font-semibold">
-              <Info className="w-4 h-4 text-primary-400" />
+          <div
+            className="p-4 rounded-xl border text-xs space-y-2"
+            style={{
+              backgroundColor: 'var(--bg-subtle)',
+              borderColor: 'var(--border-subtle)',
+              color: 'var(--text-secondary)',
+            }}
+          >
+            <div className="flex items-center gap-2 font-semibold" style={{ color: 'var(--text-primary)' }}>
+              <Info className="w-4 h-4" style={{ color: 'var(--brand-primary)' }} />
               Informations Système
             </div>
             <p>
-              • API REST : Node.js / Express / TypeScript montée sur <code className="text-primary-400">/api/v1</code>.
+              • API REST : Node.js / Express / TypeScript montée sur <code className="px-1.5 py-0.5 rounded font-mono" style={{ backgroundColor: 'var(--brand-bg)', color: 'var(--brand-primary)' }}>/api/v1</code>.
             </p>
             <p>
               • Frontend : Next.js 14 App Router avec SSR et Client Components sécurisés.
             </p>
             <p>
-              • Synchronisation temps réel : Déclencheur PostgreSQL <code className="text-primary-400">sync_property_room_stats()</code> garantissant le recalcul instantané du nombre de chambres et de la fourchette de prix.
+              • Synchronisation temps réel : Déclencheur PostgreSQL <code className="px-1.5 py-0.5 rounded font-mono" style={{ backgroundColor: 'var(--brand-bg)', color: 'var(--brand-primary)' }}>sync_property_room_stats()</code> garantissant le recalcul instantané du nombre de chambres et de la fourchette de prix.
             </p>
           </div>
         </div>

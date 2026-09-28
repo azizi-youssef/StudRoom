@@ -10,6 +10,7 @@ export interface AuthJwtPayload {
   email: string;
   role: UserRole;
   full_name: string;
+  avatar_url?: string;
 }
 
 declare global {

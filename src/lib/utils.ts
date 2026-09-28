@@ -44,6 +44,16 @@ export function sanitizeImageUrl(url?: string | null, fallback = '/images/studro
   const trimmed = url.trim();
   if (!trimmed) return fallback;
 
+  // Support des data URLs (ex: data:image/jpeg;base64,... pour les uploads directs)
+  if (trimmed.startsWith('data:image/')) {
+    return trimmed;
+  }
+
+  // Support des blobs
+  if (trimmed.startsWith('blob:')) {
+    return trimmed;
+  }
+
   // Si un chemin absolu Windows / Linux contenant public/images a été injecté
   const match = trimmed.match(/[/\\]public([/\\]images[/\\].*)$/i);
   if (match && match[1]) {

@@ -161,7 +161,7 @@ export default function MentionsLegalesPage() {
               <div>
                 <h3 className="font-bold text-slate-900 dark:text-white mb-1">3.1. Objet du Service</h3>
                 <p>
-                  StudRoom met à disposition des étudiants inscrits ou en cours d'inscription dans les établissements d'enseignement supérieur (FPN, FSAN, FEGN, ESTN, ISTA, etc.) une sélection de logements vérifiés, meublés et équipés. StudRoom permet la consultation des fiches techniques, la réservation en ligne et l'assistance contractuelle.
+                  StudRoom met à disposition des étudiants inscrits ou en cours d'inscription dans les établissements d'enseignement supérieur (FSAN, FLLAN, FEGN, FSJPN, ESTN, ISTA, etc.) une sélection de logements vérifiés, meublés et équipés. StudRoom permet la consultation des fiches techniques, la réservation en ligne et l'assistance contractuelle.
                 </p>
               </div>
 
