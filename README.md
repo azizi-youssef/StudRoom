@@ -1,7 +1,7 @@
 # StudRoom — Plateforme de Logement Étudiant à Selouane / Nador
 
 <p align="center">
-  <img src="public/images/logo_studroom.png" alt="StudRoom Logo" width="220" />
+  <img src="public/images/logo_StudRoom1.png" alt="StudRoom Logo" width="220" />
 </p>
 
 <p align="center">
