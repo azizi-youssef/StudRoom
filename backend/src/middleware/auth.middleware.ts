@@ -4,6 +4,7 @@ import { env } from '../config/env';
 import { AppError } from '../lib/response';
 import { UserRole } from '../shared/types/database';
 import { AUTH_COOKIE_NAME } from '../controllers/auth.controller';
+import { authRepository } from '../repositories/auth.repository';
 
 export interface AuthJwtPayload {
   id: string;
@@ -47,19 +48,34 @@ function extractToken(req: Request): string | null {
  * Attache le payload décodé à req.user.
  * Retourne 401 si le token est absent ou invalide.
  */
-export function requireAuth(req: Request, _res: Response, next: NextFunction): void {
+export async function requireAuth(req: Request, _res: Response, next: NextFunction): Promise<void> {
   const token = extractToken(req);
 
   if (!token) {
     return next(new AppError(401, 'UNAUTHORIZED', 'Session expirée ou non autorisée. Veuillez vous connecter.'));
   }
 
+  let decoded: AuthJwtPayload;
   try {
-    const decoded = jwt.verify(token, env.JWT_SECRET) as AuthJwtPayload;
-    req.user = decoded;
-    next();
+    decoded = jwt.verify(token, env.JWT_SECRET) as AuthJwtPayload;
   } catch {
-    next(new AppError(401, 'UNAUTHORIZED', "Jeton d'authentification invalide ou expiré."));
+    return next(new AppError(401, 'UNAUTHORIZED', "Jeton d'authentification invalide ou expiré."));
+  }
+
+  try {
+    // Revalidation en base : un compte supprimé, suspendu, bloqué ou dont le rôle a
+    // changé ne doit pas conserver ses droits jusqu'à l'expiration du JWT.
+    const user = await authRepository.findUserById(decoded.id);
+    if (!user) {
+      return next(new AppError(401, 'UNAUTHORIZED', "Jeton d'authentification invalide ou expiré."));
+    }
+    if (user.status && user.status !== 'ACTIVE') {
+      return next(new AppError(403, 'FORBIDDEN', 'Ce compte est suspendu ou bloqué.'));
+    }
+    req.user = { ...decoded, role: user.role, email: user.email };
+    next();
+  } catch (err) {
+    next(err);
   }
 }
 

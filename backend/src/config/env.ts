@@ -27,6 +27,10 @@ function getEnvRequired(key: string): string {
 
 const isDev = (process.env.NODE_ENV ?? 'development') === 'development';
 
+if (!process.env.NODE_ENV) {
+  console.warn("[ENV] NODE_ENV n'est pas défini : mode 'development' appliqué. Définissez NODE_ENV=production en déploiement.");
+}
+
 export const env = {
   PORT: parseInt(getEnv('PORT', '4000'), 10),
   NODE_ENV: getEnv('NODE_ENV', 'development'),
@@ -37,6 +41,8 @@ export const env = {
     ? getEnv('JWT_SECRET', 'studroom_dev_only_secret_change_in_prod')
     : getEnvRequired('JWT_SECRET'),
   JWT_EXPIRES_IN: getEnv('JWT_EXPIRES_IN', '7d'),
+  // Origines supplémentaires autorisées par CORS (séparées par des virgules)
+  CORS_EXTRA_ORIGINS: getEnv('CORS_EXTRA_ORIGINS', '').split(',').map((o) => o.trim()).filter(Boolean),
 
   // Cookie signing secret
   COOKIE_SECRET: isDev
@@ -48,8 +54,13 @@ export const env = {
   SUPABASE_ANON_KEY: getEnv('SUPABASE_ANON_KEY', getEnv('SUPABASE_KEY', '')),
   SUPABASE_SERVICE_ROLE_KEY: getEnv('SUPABASE_SERVICE_ROLE_KEY', getEnv('SUPABASE_SERVICE_KEY', '')),
 
+  // Opt-in explicite pour accepter un login OAuth sans jeton vérifié (développement local uniquement)
+  ALLOW_INSECURE_OAUTH: process.env.ALLOW_INSECURE_OAUTH === 'true',
+
   isDev: () => isDev,
   isProd: () => process.env.NODE_ENV === 'production',
+  /** Les jeux de données en mémoire ne sont autorisés qu'en développement local et en test. */
+  allowMockFallback: () => isDev || process.env.NODE_ENV === 'test',
 };
 
 

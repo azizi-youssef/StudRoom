@@ -91,7 +91,7 @@ export class BookingService {
         endDateObj.setMonth(endDateObj.getMonth() + durationMonths);
         const endDate = endDateObj.toISOString().split('T')[0];
 
-        const studentId = current.student_id || 'student-auto-' + current.id;
+        const studentId = current.student_id || (await bookingRepository.ensureStudentForBooking(current));
 
         // Atomically create the official reservation record with frozen prices
         // (will throw 409 DOUBLE_BOOKING_CONFLICT if room is already booked for these dates)

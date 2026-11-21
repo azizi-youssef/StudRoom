@@ -10,6 +10,14 @@ import {
   DbReservation,
 } from '../shared/types/database';
 import { AppError } from '../lib/response';
+import { env } from '../config/env';
+
+/** Les jeux de données en mémoire ne servent qu'en développement/test : en production, on échoue explicitement. */
+function assertMockAllowed(): void {
+  if (!env.allowMockFallback()) {
+    throw new AppError(503, 'SERVICE_UNAVAILABLE', 'Base de données indisponible. Veuillez réessayer plus tard.');
+  }
+}
 
 // Mock in-memory storage for reservations
 const mockReservations: DbReservation[] = [
@@ -115,6 +123,7 @@ export class BookingRepository {
       }
     }
 
+    assertMockAllowed();
     const now = new Date().toISOString();
     const newBooking: DbBookingRequest = {
       id: bookingId,
@@ -140,8 +149,9 @@ export class BookingRepository {
     const supabase = getSupabaseAdmin();
     if (supabase) {
       const { data, error } = await supabase.from('booking_requests').select('*').order('created_at', { ascending: false });
-      if (!error && data && data.length > 0) return data;
+      if (!error && data && (data.length > 0 || !env.allowMockFallback())) return data;
     }
+    assertMockAllowed();
     return mockBookings;
   }
 
@@ -157,6 +167,7 @@ export class BookingRepository {
       if (!error && data) return data;
     }
 
+    assertMockAllowed();
     const item = mockBookings.find((b) => b.id === id);
     if (item) {
       item.status = status;
@@ -191,6 +202,7 @@ export class BookingRepository {
       }
     }
 
+    assertMockAllowed();
     const newSub = {
       id: proposalId,
       full_name: data.fullName,
@@ -215,8 +227,9 @@ export class BookingRepository {
     const supabase = getSupabaseAdmin();
     if (supabase) {
       const { data, error } = await supabase.from('landlord_submissions').select('*').order('created_at', { ascending: false });
-      if (!error && data && data.length > 0) return data;
+      if (!error && data && (data.length > 0 || !env.allowMockFallback())) return data;
     }
+    assertMockAllowed();
     return mockLandlordSubmissions;
   }
 
@@ -232,6 +245,7 @@ export class BookingRepository {
       if (!error && data) return data;
     }
 
+    assertMockAllowed();
     const item = mockLandlordSubmissions.find((l) => l.id === id);
     if (item) {
       item.status = status;
@@ -258,6 +272,7 @@ export class BookingRepository {
       }
     }
 
+    assertMockAllowed();
     const newTicket = {
       id: ticketId,
       full_name: data.fullName,
@@ -275,8 +290,9 @@ export class BookingRepository {
     const supabase = getSupabaseAdmin();
     if (supabase) {
       const { data, error } = await supabase.from('contact_requests').select('*').order('created_at', { ascending: false });
-      if (!error && data && data.length > 0) return data;
+      if (!error && data && (data.length > 0 || !env.allowMockFallback())) return data;
     }
+    assertMockAllowed();
     return mockContactRequests;
   }
 
@@ -292,6 +308,7 @@ export class BookingRepository {
       if (!error && data) return data;
     }
 
+    assertMockAllowed();
     const item = mockContactRequests.find((c) => c.id === id);
     if (item) {
       item.status = status;
@@ -302,6 +319,46 @@ export class BookingRepository {
 
 
   // ─── Reservations (Official Leases) ──────────────────────────────────────────
+
+  /**
+   * Retourne l'identifiant `students.id` correspondant à une demande de réservation publique
+   * (sans compte). Réutilise le profil étudiant existant (même email) ou le crée.
+   */
+  async ensureStudentForBooking(booking: { id: string; student_name: string; student_email: string; student_phone?: string }): Promise<string> {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      const email = booking.student_email.toLowerCase().trim();
+      const { data: existing, error: findError } = await supabase
+        .from('students')
+        .select('id')
+        .eq('email', email)
+        .limit(1)
+        .maybeSingle();
+      if (findError) {
+        throw new AppError(503, 'SERVICE_UNAVAILABLE', 'Base de données indisponible. Veuillez réessayer plus tard.');
+      }
+      if (existing?.id) return existing.id as string;
+
+      const parts = (booking.student_name || '').trim().split(/\s+/);
+      const { data: created, error: createError } = await supabase
+        .from('students')
+        .insert([{
+          first_name: parts[0] || 'Étudiant',
+          last_name: parts.slice(1).join(' ') || 'StudRoom',
+          email,
+          phone: booking.student_phone || '',
+        }])
+        .select('id')
+        .single();
+      if (createError || !created) {
+        throw new AppError(503, 'SERVICE_UNAVAILABLE', "Impossible de créer le profil étudiant.");
+      }
+      return created.id as string;
+    }
+
+    assertMockAllowed();
+    return 'student-auto-' + booking.id;
+  }
 
   async createReservation(payload: {
     room_id: string;
@@ -358,6 +415,7 @@ export class BookingRepository {
     }
 
 
+    assertMockAllowed();
     // In-memory fallback with concurrency check
     const start = new Date(payload.start_date).getTime();
     const end = payload.end_date ? new Date(payload.end_date).getTime() : Infinity;
@@ -410,6 +468,7 @@ export class BookingRepository {
 
       if (!error && data) return data as unknown as DbReservation[];
     }
+    assertMockAllowed();
     return mockReservations;
   }
 
@@ -424,6 +483,7 @@ export class BookingRepository {
 
       if (!error && data) return data as unknown as DbReservation[];
     }
+    assertMockAllowed();
     return mockReservations.filter((r) => r.student_id === studentId);
   }
 
@@ -438,6 +498,7 @@ export class BookingRepository {
 
       if (!error && data) return data as DbReservation[];
     }
+    assertMockAllowed();
     return mockReservations.filter((r) => r.room_id === roomId);
   }
 }

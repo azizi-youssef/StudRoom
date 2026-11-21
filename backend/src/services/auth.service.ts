@@ -25,6 +25,8 @@ export class AuthService {
       throw new AppError(401, 'UNAUTHORIZED', 'Identifiants incorrects (email ou mot de passe).');
     }
 
+    this.assertActive(user);
+
     const token = jwt.sign(
       {
         id: user.id,
@@ -34,7 +36,7 @@ export class AuthService {
         avatar_url: user.avatar_url,
       },
       env.JWT_SECRET,
-      { expiresIn: '7d' }
+      { expiresIn: env.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'] }
     );
 
     const { password_hash, ...safeUser } = user;
@@ -67,7 +69,7 @@ export class AuthService {
         avatar_url: user.avatar_url,
       },
       env.JWT_SECRET,
-      { expiresIn: '7d' }
+      { expiresIn: env.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'] }
     );
 
     const { password_hash: _, ...safeUser } = user;
@@ -87,21 +89,24 @@ export class AuthService {
     let verifiedFullName = data.fullName;
     let verifiedId: string | undefined;
 
-    // Cryptographic verification of OAuth access token via Supabase Auth
-    if (data.accessToken && supabase) {
+    // Vérification cryptographique du jeton OAuth via Supabase Auth
+    if (data.accessToken) {
+      if (!supabase) {
+        throw new AppError(503, 'SERVICE_UNAVAILABLE', 'Service d’authentification indisponible.');
+      }
       const { data: userData, error } = await supabase.auth.getUser(data.accessToken);
       if (error || !userData.user?.email) {
         throw new AppError(401, 'UNAUTHORIZED', 'Jeton d’authentification Google / Supabase invalide ou expiré.');
       }
-      // Use cryptographically verified email & ID from Supabase Auth
+      // Utiliser l'email et l'ID vérifiés par Supabase Auth, jamais ceux du body
       verifiedEmail = userData.user.email.toLowerCase().trim();
       verifiedFullName = userData.user.user_metadata?.full_name || userData.user.user_metadata?.name || verifiedFullName;
       verifiedId = userData.user.id;
-    } else if (env.isProd()) {
-      // In production, an access token is strictly required
-      throw new AppError(401, 'UNAUTHORIZED', 'Jeton d’authentification OAuth requis en environnement de production.');
+    } else if (env.isDev() && env.ALLOW_INSECURE_OAUTH) {
+      // Opt-in explicite (ALLOW_INSECURE_OAUTH=true) et uniquement en développement
+      console.warn('[SECURITY WARNING] OAuth login executed without token verification (dev opt-in).');
     } else {
-      console.warn('[SECURITY WARNING] OAuth login executed without token verification (allowed in development only).');
+      throw new AppError(401, 'UNAUTHORIZED', 'Jeton d’authentification OAuth requis.');
     }
 
     if (!verifiedEmail) {
@@ -121,6 +126,7 @@ export class AuthService {
       });
     }
 
+    this.assertActive(user);
 
     const token = jwt.sign(
       {
@@ -131,11 +137,17 @@ export class AuthService {
         avatar_url: user.avatar_url,
       },
       env.JWT_SECRET,
-      { expiresIn: '7d' }
+      { expiresIn: env.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'] }
     );
 
     const { password_hash: _, ...safeUser } = user;
     return { token, user: safeUser };
+  }
+
+  private assertActive(user: DbUser): void {
+    if (user.status && user.status !== 'ACTIVE') {
+      throw new AppError(403, 'FORBIDDEN', 'Ce compte est suspendu ou bloqué.');
+    }
   }
 
   async getProfile(userId: string): Promise<Omit<DbUser, 'password_hash'>> {

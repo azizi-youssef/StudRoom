@@ -1,5 +1,13 @@
 import { DbUser, UserRole } from '../shared/types/database';
 import { getSupabase, getSupabaseAdmin } from '../config/supabase';
+import { env } from '../config/env';
+import { AppError } from '../lib/response';
+
+function assertMockAllowed(): void {
+  if (!env.allowMockFallback()) {
+    throw new AppError(503, 'SERVICE_UNAVAILABLE', 'Base de données indisponible. Veuillez réessayer plus tard.');
+  }
+}
 
 // Mock in-memory storage for development fallback
 const mockUsers: DbUser[] = [
@@ -31,6 +39,7 @@ export class AuthRepository {
         return data as DbUser;
       }
     }
+    if (!env.allowMockFallback()) return null; // échec fermé en production
     return mockUsers.find((u) => u.email.toLowerCase() === email.toLowerCase().trim()) ?? null;
   }
 
@@ -44,6 +53,7 @@ export class AuthRepository {
         return data as DbUser;
       }
     }
+    if (!env.allowMockFallback()) return null; // échec fermé en production
     return mockUsers.find((u) => u.id === id) ?? null;
   }
 
@@ -86,7 +96,7 @@ export class AuthRepository {
       }
     }
 
-    // In-memory fallback if Supabase table isn't created yet
+    assertMockAllowed();
     const newUser: DbUser = {
       id: userData.id || 'user-' + Math.floor(100000 + Math.random() * 900000),
       email: cleanEmail,
@@ -142,6 +152,7 @@ export class AuthRepository {
       }
     }
 
+    assertMockAllowed();
     const newUser: DbUser = {
       id: data.id || 'user-' + Math.floor(100000 + Math.random() * 900000),
       email: cleanEmail,

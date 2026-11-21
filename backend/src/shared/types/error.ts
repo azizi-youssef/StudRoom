@@ -8,7 +8,8 @@ export type ErrorCode =
   | 'INTERNAL_ERROR'
   | 'UNAUTHORIZED'
   | 'FORBIDDEN'
-  | 'TOO_MANY_REQUESTS';
+  | 'TOO_MANY_REQUESTS'
+  | 'SERVICE_UNAVAILABLE';
 
 
 

@@ -79,8 +79,11 @@ app.use('/api/v1/auth/google', authLimiter);
 app.use(morgan(env.isDev() ? 'dev' : 'combined'));
 
 // ── Body Parsing ──────────────────────────────────────────────────────────────
-app.use(express.json({ limit: '15mb' }));
-app.use(express.urlencoded({ limit: '15mb', extended: true }));
+// Limite élevée uniquement pour le back-office admin (images en data URL) ;
+// body-parser ignore les requêtes déjà parsées, la limite stricte s'applique ailleurs.
+app.use('/api/v1/admin', express.json({ limit: '15mb' }));
+app.use(express.json({ limit: '100kb' }));
+app.use(express.urlencoded({ limit: '100kb', extended: true }));
 
 // ── API Routes ────────────────────────────────────────────────────────────────
 app.use('/api/v1', apiRoutes);

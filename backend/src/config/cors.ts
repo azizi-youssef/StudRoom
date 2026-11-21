@@ -7,10 +7,9 @@ import { env } from './env';
  */
 export const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (server-to-server, curl, Postman in dev)
-    if (!origin && env.isDev()) return callback(null, true);
+    // Pas d'en-tête Origin = requête non-navigateur ou same-origin : CORS ne s'applique pas.
 
-    const allowed = [env.FRONTEND_URL, 'http://127.0.0.1:63636']; // Added preview port for testing
+    const allowed = [env.FRONTEND_URL, ...env.CORS_EXTRA_ORIGINS];
     if (!origin || allowed.includes(origin)) {
       callback(null, true);
     } else {
