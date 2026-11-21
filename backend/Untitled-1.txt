@@ -1,0 +1,155 @@
+[Accueil](http://localhost:3000/)
+[Logements](http://localhost:3000/logements)
+[Propriétaires](http://localhost:3000/proprietaires)
+[À propos](http://localhost:3000/a-propos)
+[Contact](http://localhost:3000/contact)
+[Trouver un logement](http://localhost:3000/logements)
+
+# Trouve ton logement étudiant clé en main & sans stress.
+
+Studios et appartements meublés, ultra-connectés avec Wi-Fi Fibre, situés à quelques minutes à pied de la FPN, EST et ISTA.
+[★★★★★Certifié StudRoomStudRoom Al Omrane 012 chambres disponiblesDès1.900 DH/m](http://localhost:3000/logements/studroom-al-omrane-01)
+
+#### StudRoom Al Omrane 01
+2 chambres disponibles
+
+## Plus qu'un simple logement. Un environnement pensé pour ta réussite.
+
+Chaque espace StudRoom allie confort moderne, proximité stratégique avec les facultés et gestion transparente pour étudier en toute sérénité.
+
+### Prêt à vivre dès le premier jour
+Pose simplement tes valises : lit confortable avec literie soignée, bureau spacieux avec chaise ergonomique pour tes révisions, rangements intégrés et kitchenette équipée pour ton autonomie complète.
+Literie complète
+Matelas confort neuf
+Bureau de travail
+Chaise ergonomique
+Kitchenette équipée
+Frigo & plaques inclus
+
+### Zéro transport inutile
+Situés au cœur d'Al Omrane à Selouane, nos logements te permettent de rejoindre la FSAN, l'EST ou l'ISTA à pied. Économise du temps, de l'argent et ton énergie.
+
+### Wi-Fi Fibre Haut Débit
+Suis tes cours à distance, télécharge tes supports d'études volumineux et assiste à tes visios sans aucune coupure grâce à notre infrastructure réseau optimisée.
+
+### Location 100% transparente & sécurisée
+Fini les mauvaises surprises avec les intermédiaires douteux : contrat officiel clair, état des lieux d'entrée rigoureux, assistance technique réactive 7j/7 et loyers transparents sans frais cachés.
+[Découvrir nos engagements](http://localhost:3000/a-propos)
+[Découvrir tous les logements disponibles](http://localhost:3000/logements)
+[Vous êtes propriétaire ? Confier votre bien](http://localhost:3000/proprietaires)
+
+## Découvre ton prochain chez-toi
+
+Des résidences étudiantes modernes et des appartements meublés prêts à vivre à moins de 10 minutes des amphis.
+[Explorer tous les logements (1)](http://localhost:3000/logements)
+
+### StudRoom Al Omrane 01
+
+[Voir l'offre](http://localhost:3000/logements/studroom-al-omrane-01)
+[Explorer tous les logements (1) →](http://localhost:3000/logements)
+
+## Comment trouver ton logement ?
+
+De la première recherche jusqu’à la remise des clés : un processus transparent conçu sur mesure pour les étudiants de Nador & Selouane.
+
+### Explore & Compare
+Filtre selon ta faculté (FSAN, FEGN, ESTN...), ton budget max, le quartier et les équipements souhaités.
+
+### Inspecte en détails
+Photos HD réelles, distance exacte à pied des amphis, équipements certifiés et planifie une visite en 1 clic.
+
+### Réserve en ligne
+Transmets ta demande directement sur la plateforme en moins de 2 minutes, sans frais cachés ni intermédiaire.
+
+### Installe-toi serein
+Bénéficie d’un état des lieux clair, récupère tes clés et commence tes cours l’esprit tranquille.
+[Trouver mon logement maintenant](http://localhost:3000/logements)
+[Des questions ? Découvrir StudRoom](http://localhost:3000/a-propos)
+
+## Votre bien immobilier à Selouane mérite un rendement serein.
+Vous possédez un studio ou un appartement à Selouane ou Nador ? Confiez-le à StudRoom : nous sélectionnons les locataires, entretenons votre bien et maximisons votre taux d'occupation toute l'année universitaire.
+Découvrez combien votre bien peut rapporter chaque mois avec StudRoom.
+[Proposer mon bien](http://localhost:3000/proprietaires)
+Réponse sous 24h · Sans engagement
+
+## Des logements vérifiés à proximité de votre campus
+Trouvez facilement un logement étudiant à quelques minutes à pied de votre établissement.
+[Voir les logements](http://localhost:3000/logements)
+
+### FSAN
+Faculté des Sciences Appliquées de Nador
+
+### FEGN
+Faculté d'Économie et de Gestion de Nador
+
+### ESTN
+École Supérieure de Technologie de Nador
+
+### FSJPN
+Faculté des Sciences Juridiques et Politiques de Nador
+
+### FLLAN
+Faculté des Langues, Lettres et Arts de Nador
+
+### FSAN
+Faculté des Sciences Appliquées de Nador
+
+### FEGN
+Faculté d'Économie et de Gestion de Nador
+
+### ESTN
+École Supérieure de Technologie de Nador
+
+### FSJPN
+Faculté des Sciences Juridiques et Politiques de Nador
+
+### FLLAN
+Faculté des Langues, Lettres et Arts de Nador
+
+### FSAN
+Faculté des Sciences Appliquées de Nador
+
+### FEGN
+Faculté d'Économie et de Gestion de Nador
+
+### ESTN
+École Supérieure de Technologie de Nador
+
+### FSJPN
+Faculté des Sciences Juridiques et Politiques de Nador
+
+### FLLAN
+Faculté des Langues, Lettres et Arts de Nador
+StudRoom redéfinit le logement étudiant au Maroc : des espaces meublés, ultra-connectés, proches des facultés de Selouane et Nador pour étudier en toute sérénité.
+
+#### Navigation
+- [Accueil](http://localhost:3000/)
+- [Nos Logements](http://localhost:3000/logements)
+- [Comment ça marche](http://localhost:3000/comment-ca-marche)
+- [Espace Propriétaires](http://localhost:3000/proprietaires)
+- [À propos](http://localhost:3000/a-propos)
+- [Mentions Légales & CGU](http://localhost:3000/mentions-legales)
+- [Confidentialité](http://localhost:3000/politique-confidentialite)
+- [Contact](http://localhost:3000/contact)
+[Accueil](http://localhost:3000/)
+[Nos Logements](http://localhost:3000/logements)
+[Comment ça marche](http://localhost:3000/comment-ca-marche)
+[Espace Propriétaires](http://localhost:3000/proprietaires)
+[À propos](http://localhost:3000/a-propos)
+[Mentions Légales & CGU](http://localhost:3000/mentions-legales)
+[Confidentialité](http://localhost:3000/politique-confidentialite)
+[Contact](http://localhost:3000/contact)
+
+#### Villes & Campus
+- Selouane / Al Omrane
+- Nador Ville
+- Oujda (Bientôt)
+- Tanger (Bientôt)
+
+#### Contact & Support
+[+212 634 536 286](tel:+212634536286)
+[studroom50@gmail.com](mailto:studroom50@gmail.com)
+© 2026 StudRoom Maroc. Tous droits réservés. Student living, made simple.
+[Mentions Légales & CGU](http://localhost:3000/mentions-legales)
+[Confidentialité](http://localhost:3000/politique-confidentialite)
+[Contact Direct](http://localhost:3000/contact)
