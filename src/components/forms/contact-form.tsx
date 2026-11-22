@@ -96,7 +96,7 @@ export function ContactForm() {
 
         {ticketRef && (
           <div className="flex flex-col items-center gap-1 bg-white dark:bg-slate-800 px-5 py-3 rounded-2xl border border-emerald-200/80 dark:border-emerald-800/80 shadow-2xs">
-            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Numéro de suivi
             </span>
             <span className="font-mono text-base font-black text-emerald-700 dark:text-emerald-400 tracking-wider">
@@ -159,7 +159,7 @@ export function ContactForm() {
               Besoin d'une réponse instantanée ?
               <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </p>
-            <p className="text-[11px] text-emerald-800 dark:text-emerald-400 font-medium">
+            <p className="text-xs text-emerald-800 dark:text-emerald-400 font-medium">
               Discutez directement sur WhatsApp &bull; Réponse &lt; 15 min
             </p>
           </div>
@@ -171,14 +171,15 @@ export function ContactForm() {
 
       {/* Quick Subject Chips */}
       <div className="flex flex-col gap-2">
-        <label className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+        <p className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
           Quel est le sujet de votre demande ? *
-        </label>
-        <div className="flex flex-wrap gap-2">
+        </p>
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Sujet de votre demande">
           {subjects.map((subj) => (
             <button
               key={subj}
               type="button"
+              aria-pressed={selectedSubject === subj}
               onClick={() => setValue('subject', subj, { shouldValidate: true })}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${selectedSubject === subj
                   ? 'bg-primary-600 text-white shadow-xs'
@@ -191,7 +192,7 @@ export function ContactForm() {
         </div>
         <input type="hidden" {...register('subject')} />
         {errors.subject && (
-          <span className="text-xs text-red-500 font-medium">{errors.subject.message}</span>
+          <span role="alert" className="text-xs text-red-500 font-medium">{errors.subject.message}</span>
         )}
       </div>
 
@@ -226,17 +227,17 @@ export function ContactForm() {
 
       {/* Message Area */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+        <label htmlFor="contactform-field-1" className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
           Votre message détaillé *
         </label>
-        <textarea
+        <textarea id="contactform-field-1"
           rows={4}
           placeholder="Dites-nous tout : le type de chambre recherché, la faculté fréquentée, vos dates souhaitées..."
-          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20"
+          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20"
           {...register('message')}
         />
         {errors.message && (
-          <span className="text-xs text-red-500 font-medium">{errors.message.message}</span>
+          <span role="alert" className="text-xs text-red-500 font-medium">{errors.message.message}</span>
         )}
       </div>
 
@@ -263,7 +264,7 @@ export function ContactForm() {
         </Button>
 
         {/* Guarantees */}
-        <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400 pt-1">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-slate-500 dark:text-slate-400 pt-1">
           <span className="inline-flex items-center gap-1">
             <Clock className="w-3.5 h-3.5 text-primary-500" />
             Réponse rapide sous 2h à 24h

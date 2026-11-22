@@ -442,7 +442,7 @@ export default function NouveauLogementPage() {
                   >
                     {step.label}
                   </div>
-                  <div className="text-[10px] truncate" style={{ color: 'var(--text-muted)' }}>
+                  <div className="text-xs truncate" style={{ color: 'var(--text-muted)' }}>
                     {step.sub}
                   </div>
                 </div>
@@ -485,7 +485,7 @@ export default function NouveauLogementPage() {
                     <h2 className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                       1. Identité & Caractéristiques du Bien
                     </h2>
-                    <p className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                       Définissez le type de résidence et le nom affiché aux étudiants.
                     </p>
                   </div>
@@ -530,7 +530,7 @@ export default function NouveauLogementPage() {
                           <div className="text-xs font-bold" style={{ color: 'var(--text-primary)' }}>
                             {pt.label}
                           </div>
-                          <div className="text-[11px] mt-0.5 leading-tight" style={{ color: 'var(--text-secondary)' }}>
+                          <div className="text-xs mt-0.5 leading-tight" style={{ color: 'var(--text-secondary)' }}>
                             {pt.desc}
                           </div>
                         </div>
@@ -546,7 +546,7 @@ export default function NouveauLogementPage() {
                   <label className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
                     Titre public de l'annonce <span style={{ color: 'var(--error-fg)' }}>*</span>
                   </label>
-                  <span className="text-[10px] font-mono" style={{ color: 'var(--text-muted)' }}>
+                  <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
                     {title.length}/100 caractères
                   </span>
                 </div>
@@ -618,7 +618,7 @@ export default function NouveauLogementPage() {
                   <label className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
                     Description détaillée <span style={{ color: 'var(--error-fg)' }}>*</span>
                   </label>
-                  <span className="text-[10px] font-mono" style={{ color: 'var(--text-muted)' }}>
+                  <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
                     {description.length} caractères (min. 10)
                   </span>
                 </div>
@@ -666,7 +666,7 @@ export default function NouveauLogementPage() {
                     <h2 className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                       2. Nombre de Chambres & Tarification
                     </h2>
-                    <p className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                       Fixez le nombre de pièces, le loyer mensuel et les conditions de caution.
                     </p>
                   </div>
@@ -711,7 +711,7 @@ export default function NouveauLogementPage() {
 
                   {/* Quick price presets */}
                   <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                    <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>Suggestions :</span>
+                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>Suggestions :</span>
                     {[1200, 1500, 1800, 2200].map((p) => (
                       <button
                         key={p}
@@ -720,7 +720,7 @@ export default function NouveauLogementPage() {
                           setPriceMonthly(p);
                           if (depositDh === priceMonthly) setDepositDh(p);
                         }}
-                        className="text-[10px] px-2 py-0.5 rounded-md border font-medium transition-all hover:border-cyan-500"
+                        className="text-xs px-2 py-0.5 rounded-md border font-medium transition-all hover:border-cyan-500"
                         style={{
                           backgroundColor: priceMonthly === p ? 'var(--brand-bg)' : 'var(--bg-subtle)',
                           borderColor: priceMonthly === p ? 'var(--brand-primary)' : 'var(--border-subtle)',
@@ -765,11 +765,11 @@ export default function NouveauLogementPage() {
 
                   {/* Quick deposit shortcuts */}
                   <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                    <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>Raccourci :</span>
+                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>Raccourci :</span>
                     <button
                       type="button"
                       onClick={() => setDepositDh(priceMonthly)}
-                      className="text-[10px] px-2 py-0.5 rounded-md border font-medium transition-all hover:border-cyan-500"
+                      className="text-xs px-2 py-0.5 rounded-md border font-medium transition-all hover:border-cyan-500"
                       style={{
                         backgroundColor: depositDh === priceMonthly ? 'var(--brand-bg)' : 'var(--bg-subtle)',
                         borderColor: depositDh === priceMonthly ? 'var(--brand-primary)' : 'var(--border-subtle)',
@@ -781,7 +781,7 @@ export default function NouveauLogementPage() {
                     <button
                       type="button"
                       onClick={() => setDepositDh(0)}
-                      className="text-[10px] px-2 py-0.5 rounded-md border font-medium transition-all hover:border-cyan-500"
+                      className="text-xs px-2 py-0.5 rounded-md border font-medium transition-all hover:border-cyan-500"
                       style={{
                         backgroundColor: depositDh === 0 ? 'var(--brand-bg)' : 'var(--bg-subtle)',
                         borderColor: depositDh === 0 ? 'var(--brand-primary)' : 'var(--border-subtle)',
@@ -904,7 +904,7 @@ export default function NouveauLogementPage() {
                   }}
                 >
                   <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" style={{ color: 'var(--brand-primary)' }} />
-                  <div className="text-[11px] leading-relaxed">
+                  <div className="text-xs leading-relaxed">
                     <span className="font-bold block" style={{ color: 'var(--brand-primary)' }}>
                       Génération automatique prête :
                     </span>
@@ -951,7 +951,7 @@ export default function NouveauLogementPage() {
                     <h2 className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                       3. Emplacement & Proximité Campus
                     </h2>
-                    <p className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                       Assurez un repérage précis sur la carte pour les étudiants venant d'autres villes.
                     </p>
                   </div>
@@ -1040,14 +1040,14 @@ export default function NouveauLogementPage() {
                       style={{ backgroundColor: 'var(--bg-subtle)' }}
                     >
                       <div>
-                        <div className="font-bold text-[11px]" style={{ color: 'var(--text-primary)' }}>
+                        <div className="font-bold text-xs" style={{ color: 'var(--text-primary)' }}>
                           {preset.name}
                         </div>
-                        <div className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
+                        <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
                           {preset.zone} · {preset.lat}, {preset.lng}
                         </div>
                       </div>
-                      <span className="text-[10px] font-semibold" style={{ color: 'var(--brand-primary)' }}>
+                      <span className="text-xs font-semibold" style={{ color: 'var(--brand-primary)' }}>
                         Appliquer
                       </span>
                     </button>
@@ -1125,7 +1125,7 @@ export default function NouveauLogementPage() {
                     <h2 className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                       4. Équipements & Commodités Inclus
                     </h2>
-                    <p className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                       Les commodités (WiFi haut débit, bureau, cuisine équipée) sont les critères n°1 des étudiants.
                     </p>
                   </div>
@@ -1134,7 +1134,7 @@ export default function NouveauLogementPage() {
                   <button
                     type="button"
                     onClick={handleSelectAllAmenities}
-                    className="text-[11px] font-semibold underline"
+                    className="text-xs font-semibold underline"
                     style={{ color: 'var(--brand-primary)' }}
                   >
                     {selectedAmenityIds.length === amenitiesList.length ? 'Tout désélectionner' : 'Tout sélectionner'}
@@ -1209,7 +1209,7 @@ export default function NouveauLogementPage() {
                     <h2 className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                       5. Galerie Photos Haute Définition
                     </h2>
-                    <p className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                       Importez vos visuels locaux, choisissez depuis le catalogue StudRoom ou collez une URL.
                     </p>
                   </div>
@@ -1250,7 +1250,7 @@ export default function NouveauLogementPage() {
                           />
                           {isPrimary && (
                             <span
-                              className="absolute top-2 left-2 px-2 py-0.5 rounded-lg text-white font-bold text-[10px] flex items-center gap-1 shadow-sm"
+                              className="absolute top-2 left-2 px-2 py-0.5 rounded-lg text-white font-bold text-xs flex items-center gap-1 shadow-sm"
                               style={{ backgroundColor: 'var(--brand-primary)' }}
                             >
                               <Star className="w-3 h-3 fill-white" />
@@ -1270,14 +1270,14 @@ export default function NouveauLogementPage() {
                             <button
                               type="button"
                               onClick={() => handleSetPrimary(index)}
-                              className="text-[10px] font-medium flex items-center gap-1 transition"
+                              className="text-xs font-medium flex items-center gap-1 transition"
                               style={{ color: 'var(--text-secondary)' }}
                             >
                               <Star className="w-3 h-3" />
                               Mettre en 1ère
                             </button>
                           ) : (
-                            <span className="text-[10px] font-bold" style={{ color: 'var(--brand-primary)' }}>
+                            <span className="text-xs font-bold" style={{ color: 'var(--brand-primary)' }}>
                               Principale
                             </span>
                           )}
@@ -1285,7 +1285,7 @@ export default function NouveauLogementPage() {
                           <button
                             type="button"
                             onClick={() => handleRemoveImage(index)}
-                            className="p-1 transition text-slate-400 hover:text-rose-500"
+                            className="p-1 transition text-slate-500 dark:text-slate-400 hover:text-rose-500"
                             title="Retirer cette photo"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -1342,7 +1342,7 @@ export default function NouveauLogementPage() {
                     <h2 className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                       6. Visibilité & Lancement
                     </h2>
-                    <p className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                       Choisissez quand rendre le logement visible aux étudiants.
                     </p>
                   </div>
@@ -1400,7 +1400,7 @@ export default function NouveauLogementPage() {
                 }}
               >
                 <Zap className="w-4 h-4 shrink-0 mt-0.5" style={{ color: 'var(--brand-primary)' }} />
-                <div className="text-[11px] leading-relaxed">
+                <div className="text-xs leading-relaxed">
                   <span className="font-bold block" style={{ color: 'var(--brand-primary)' }}>
                     Création complète avec chambres :
                   </span>
@@ -1472,14 +1472,14 @@ export default function NouveauLogementPage() {
                   Aperçu Étudiant en Direct
                 </span>
               </div>
-              <span className="text-[10px] px-2 py-0.5 rounded-full badge-success font-semibold">
+              <span className="text-xs px-2 py-0.5 rounded-full badge-success font-semibold">
                 Temps Réel
               </span>
             </div>
 
             {/* Quality Score Meter */}
             <div className="mb-4">
-              <div className="flex items-center justify-between text-[11px] mb-1">
+              <div className="flex items-center justify-between text-xs mb-1">
                 <span style={{ color: 'var(--text-secondary)' }}>Qualité de la fiche :</span>
                 <span className="font-bold font-mono" style={{ color: 'var(--brand-primary)' }}>
                   {completeness}%
@@ -1513,14 +1513,14 @@ export default function NouveauLogementPage() {
                 />
                 <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
                   <span
-                    className="px-2 py-0.5 rounded-lg text-[10px] font-bold text-white shadow-sm"
+                    className="px-2 py-0.5 rounded-lg text-xs font-bold text-white shadow-sm"
                     style={{ backgroundColor: status === 'AVAILABLE' ? 'var(--color-emerald-500)' : '#64748B' }}
                   >
                     {status === 'AVAILABLE' ? 'Disponible' : 'Brouillon'}
                   </span>
                   {featured && (
                     <span
-                      className="px-2 py-0.5 rounded-lg text-[10px] font-bold text-white shadow-sm flex items-center gap-1"
+                      className="px-2 py-0.5 rounded-lg text-xs font-bold text-white shadow-sm flex items-center gap-1"
                       style={{ backgroundColor: 'var(--brand-primary)' }}
                     >
                       <Star className="w-2.5 h-2.5 fill-white" /> Coup de cœur
@@ -1529,7 +1529,7 @@ export default function NouveauLogementPage() {
                 </div>
 
                 <div className="absolute bottom-2.5 right-2.5">
-                  <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-black/75 text-white backdrop-blur-sm">
+                  <span className="px-2 py-0.5 rounded-lg text-xs font-bold bg-black/75 text-white backdrop-blur-sm">
                     {surfaceSqm} m²
                   </span>
                 </div>
@@ -1537,7 +1537,7 @@ export default function NouveauLogementPage() {
 
               {/* Card Content */}
               <div className="p-3.5 flex flex-col gap-2">
-                <div className="flex items-center gap-1.5 text-[11px]" style={{ color: 'var(--brand-primary)' }}>
+                <div className="flex items-center gap-1.5 text-xs" style={{ color: 'var(--brand-primary)' }}>
                   <MapPin className="w-3.5 h-3.5 shrink-0" />
                   <span className="font-semibold truncate">
                     {neighborhood || 'Quartier non renseigné'}, {selectedCityName}
@@ -1548,7 +1548,7 @@ export default function NouveauLogementPage() {
                   {title || 'Titre du logement en cours...'}
                 </h3>
 
-                <p className="text-[11px] line-clamp-2 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                <p className="text-xs line-clamp-2 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   {description || 'La description apparaîtra ici telle que les étudiants la liront sur le portail...'}
                 </p>
 
@@ -1561,11 +1561,11 @@ export default function NouveauLogementPage() {
                     <span className="text-base font-bold" style={{ color: 'var(--brand-primary)' }}>
                       {priceMonthly > 0 ? `${priceMonthly.toLocaleString('fr-FR')} DH` : 'Prix à fixer'}
                     </span>
-                    <span className="text-[10px] ml-1 font-medium" style={{ color: 'var(--text-muted)' }}>
+                    <span className="text-xs ml-1 font-medium" style={{ color: 'var(--text-muted)' }}>
                       / mois
                     </span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: 'var(--text-secondary)' }}>
+                  <div className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
                     <BedDouble className="w-3.5 h-3.5" style={{ color: 'var(--brand-primary)' }} />
                     <span>
                       {availableRooms}/{totalRooms} libre{totalRooms > 1 ? 's' : ''}
@@ -1574,7 +1574,7 @@ export default function NouveauLogementPage() {
                 </div>
 
                 {/* Additional Pricing Badges */}
-                <div className="flex items-center gap-2 text-[10px] font-medium" style={{ color: 'var(--text-muted)' }}>
+                <div className="flex items-center gap-2 text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
                   <span>Caution : {depositDh > 0 ? `${depositDh.toLocaleString('fr-FR')} DH` : 'Sans caution'}</span>
                   {waterElecIncluded && (
                     <>
@@ -1592,7 +1592,7 @@ export default function NouveauLogementPage() {
                     return (
                       <span
                         key={id}
-                        className="text-[10px] px-2 py-0.5 rounded-md font-medium"
+                        className="text-xs px-2 py-0.5 rounded-md font-medium"
                         style={{
                           backgroundColor: 'var(--bg-subtle)',
                           color: 'var(--text-secondary)',
@@ -1604,7 +1604,7 @@ export default function NouveauLogementPage() {
                     );
                   })}
                   {selectedAmenityIds.length > 3 && (
-                    <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
+                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
                       +{selectedAmenityIds.length - 3} autres
                     </span>
                   )}
@@ -1613,7 +1613,7 @@ export default function NouveauLogementPage() {
             </div>
 
             {/* Quick Tips */}
-            <div className="mt-4 pt-3 border-t text-[11px] space-y-1.5" style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-secondary)' }}>
+            <div className="mt-4 pt-3 border-t text-xs space-y-1.5" style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-secondary)' }}>
               <div className="flex items-center gap-1.5 font-bold" style={{ color: 'var(--brand-primary)' }}>
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 Conseils StudRoom :

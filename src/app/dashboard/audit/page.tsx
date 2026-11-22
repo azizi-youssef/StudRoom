@@ -219,7 +219,7 @@ export default function AdminAuditLogsPage() {
                           {log.action}
                         </span>
                         <span
-                          className="text-[10px] px-2 py-0.5 rounded font-mono font-medium"
+                          className="text-xs px-2 py-0.5 rounded font-mono font-medium"
                           style={{
                             backgroundColor: 'var(--bg-subtle)',
                             color: 'var(--text-secondary)',
@@ -230,7 +230,7 @@ export default function AdminAuditLogsPage() {
                         </span>
                         {log.entity_id && (
                           <span
-                            className="text-[10px] font-mono truncate max-w-[140px]"
+                            className="text-xs font-mono truncate max-w-[140px]"
                             style={{ color: 'var(--text-muted)' }}
                           >
                             ID: {log.entity_id}
@@ -238,7 +238,7 @@ export default function AdminAuditLogsPage() {
                         )}
                       </div>
                       <div
-                        className="text-[11px] flex flex-wrap items-center gap-2 mt-1"
+                        className="text-xs flex flex-wrap items-center gap-2 mt-1"
                         style={{ color: 'var(--text-secondary)' }}
                       >
                         <span className="flex items-center gap-1">
@@ -253,7 +253,7 @@ export default function AdminAuditLogsPage() {
                         {log.ip_address && (
                           <>
                             <span>•</span>
-                            <span className="font-mono text-[10px]">IP: {log.ip_address}</span>
+                            <span className="font-mono text-xs">IP: {log.ip_address}</span>
                           </>
                         )}
                       </div>
@@ -263,7 +263,7 @@ export default function AdminAuditLogsPage() {
                   {(log.old_value || log.new_value) && (
                     <button
                       onClick={() => setExpandedLogId(isExpanded ? null : log.id)}
-                      className="dash-card px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 text-[11px] font-medium self-start sm:self-auto shrink-0"
+                      className="dash-card px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 text-xs font-medium self-start sm:self-auto shrink-0"
                       style={{
                         backgroundColor: 'var(--bg-subtle)',
                         color: 'var(--text-secondary)',
@@ -291,13 +291,13 @@ export default function AdminAuditLogsPage() {
                     {log.old_value && (
                       <div>
                         <span
-                          className="text-[11px] uppercase font-bold block mb-1.5"
+                          className="text-xs uppercase font-bold block mb-1.5"
                           style={{ color: 'var(--error-fg)' }}
                         >
                           Ancienne Valeur :
                         </span>
                         <pre
-                          className="p-3 rounded-xl font-mono text-[11px] overflow-x-auto max-h-48 border"
+                          className="p-3 rounded-xl font-mono text-xs overflow-x-auto max-h-48 border"
                           style={{
                             backgroundColor: 'var(--bg-subtle)',
                             borderColor: 'var(--border-subtle)',
@@ -311,13 +311,13 @@ export default function AdminAuditLogsPage() {
                     {log.new_value && (
                       <div>
                         <span
-                          className="text-[11px] uppercase font-bold block mb-1.5"
+                          className="text-xs uppercase font-bold block mb-1.5"
                           style={{ color: 'var(--success-fg)' }}
                         >
                           Nouvelle Valeur :
                         </span>
                         <pre
-                          className="p-3 rounded-xl font-mono text-[11px] overflow-x-auto max-h-48 border"
+                          className="p-3 rounded-xl font-mono text-xs overflow-x-auto max-h-48 border"
                           style={{
                             backgroundColor: 'var(--bg-subtle)',
                             borderColor: 'var(--border-subtle)',

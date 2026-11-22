@@ -160,7 +160,7 @@ export function BookingForm({ property, room, onSuccess, onClose }: BookingFormP
           <div className="flex flex-col min-w-0">
             <span className="font-bold text-primary-900 truncate">{property.title}</span>
             {room && (
-              <span className="text-[11px] text-primary-700 font-medium truncate">
+              <span className="text-xs text-primary-700 font-medium truncate">
                 🛏️ {room.name} ({room.room_type})
               </span>
             )}
@@ -267,13 +267,13 @@ export function BookingForm({ property, room, onSuccess, onClose }: BookingFormP
 
       {/* Message Optional */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+        <label htmlFor="bookingform-field-1" className="text-xs font-semibold uppercase tracking-wider text-slate-600">
           Message ou précision (Optionnel)
         </label>
-        <textarea
+        <textarea id="bookingform-field-1"
           rows={3}
           placeholder="Précisions sur vos préférences, colocataires souhaités..."
-          className="w-full bg-white border border-slate-200 rounded-xl p-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+          className="w-full bg-white border border-slate-200 rounded-xl p-3.5 text-sm text-slate-900 placeholder:text-slate-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
           {...register('message')}
         />
       </div>

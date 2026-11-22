@@ -67,11 +67,6 @@ export default function ConnexionPage() {
     }
   };
 
-  const handleFillDemo = (email: string, pass: string) => {
-    setValue('email', email, { shouldValidate: true });
-    setValue('password', pass, { shouldValidate: true });
-  };
-
   return (
     <div
       className="relative min-h-screen pt-24 pb-16 flex items-center justify-center px-4 transition-colors"
@@ -113,7 +108,7 @@ export default function ConnexionPage() {
               {/* Header Badge & Title */}
               <div className="mb-6">
                 <div
-                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider mb-3 border"
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 border"
                   style={{
                     backgroundColor: 'var(--brand-bg)',
                     borderColor: 'var(--brand-bg-strong)',
@@ -130,38 +125,6 @@ export default function ConnexionPage() {
                 <p className="text-xs sm:text-sm mt-1.5" style={{ color: 'var(--text-secondary)' }}>
                   Accédez à vos réservations, vos demandes de visite et vos hébergements à Selouane.
                 </p>
-              </div>
-
-              {/* Demo Account Fill Pills */}
-              <div
-                className="mb-5 p-3 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
-                style={{
-                  backgroundColor: 'var(--bg-subtle)',
-                  borderColor: 'var(--border-subtle)',
-                }}
-              >
-                <div className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: 'var(--text-secondary)' }}>
-                  <KeyRound className="w-3.5 h-3.5" style={{ color: 'var(--brand-primary)' }} />
-                  <span>Comptes de test rapide :</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => handleFillDemo('admin@studroom.ma', 'Admin123!')}
-                    className="dash-card px-2.5 py-1 text-[11px] font-semibold rounded-lg hover:border-cyan-500 transition-all"
-                    style={{ color: 'var(--brand-primary)' }}
-                  >
-                    🛡️ Admin
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleFillDemo('etudiant@studroom.ma', 'Etudiant123!')}
-                    className="dash-card px-2.5 py-1 text-[11px] font-semibold rounded-lg hover:border-cyan-500 transition-all"
-                    style={{ color: 'var(--text-primary)' }}
-                  >
-                    🎓 Étudiant
-                  </button>
-                </div>
               </div>
 
               {/* Error Message */}
@@ -189,7 +152,7 @@ export default function ConnexionPage() {
                 <div className="relative flex py-4 items-center">
                   <div className="flex-grow border-t" style={{ borderColor: 'var(--border-subtle)' }}></div>
                   <span
-                    className="shrink-0 mx-3 text-[11px] font-semibold uppercase tracking-wider"
+                    className="shrink-0 mx-3 text-xs font-semibold uppercase tracking-wider"
                     style={{ color: 'var(--text-muted)' }}
                   >
                     ou par identifiant
@@ -202,7 +165,7 @@ export default function ConnexionPage() {
               <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3.5">
                 {/* Email Field */}
                 <div>
-                  <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-primary)' }}>
+                  <label htmlFor="page-field-2" className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-primary)' }}>
                     Adresse Email <span style={{ color: 'var(--error-fg)' }}>*</span>
                   </label>
                   <div className="relative">
@@ -210,7 +173,7 @@ export default function ConnexionPage() {
                       className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
                       style={{ color: 'var(--text-muted)' }}
                     />
-                    <input
+                    <input id="page-field-2"
                       {...registerField('email')}
                       type="email"
                       placeholder="votre.email@etudiant.ma"
@@ -232,11 +195,11 @@ export default function ConnexionPage() {
                 {/* Password Field */}
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
+                    <label htmlFor="page-field-1" className="block text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
                       Mot de passe <span style={{ color: 'var(--error-fg)' }}>*</span>
                     </label>
                     <span
-                      className="text-[11px] font-medium hover:underline cursor-pointer"
+                      className="text-xs font-medium hover:underline cursor-pointer"
                       style={{ color: 'var(--brand-primary)' }}
                     >
                       Mot de passe oublié ?
@@ -247,7 +210,7 @@ export default function ConnexionPage() {
                       className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
                       style={{ color: 'var(--text-muted)' }}
                     />
-                    <input
+                    <input id="page-field-1"
                       {...registerField('password')}
                       type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••"
@@ -351,7 +314,7 @@ export default function ConnexionPage() {
                 </div>
                 <div>
                   <span className="text-base font-bold tracking-tight text-white">StudRoom</span>
-                  <p className="text-[10px] text-cyan-300 font-semibold uppercase tracking-wider">Selouane • Nador</p>
+                  <p className="text-xs text-cyan-300 font-semibold uppercase tracking-wider">Selouane • Nador</p>
                 </div>
               </div>
 
@@ -374,7 +337,7 @@ export default function ConnexionPage() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white">À 3 min à pied des Facultés</h4>
-                    <p className="text-[11px] text-slate-400 mt-0.5">FSAN, FEGN, FSJPN, FLLAN, EST Nador & campus Al Omrane.</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">FSAN, FEGN, FSJPN, FLLAN, EST Nador & campus Al Omrane.</p>
                   </div>
                 </div>
 
@@ -384,7 +347,7 @@ export default function ConnexionPage() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white">Bail conforme & Légal</h4>
-                    <p className="text-[11px] text-slate-400 mt-0.5">Contrat direct valable pour bourse et carte de séjour.</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Contrat direct valable pour bourse et carte de séjour.</p>
                   </div>
                 </div>
 
@@ -394,14 +357,14 @@ export default function ConnexionPage() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white">Support Local Réactif</h4>
-                    <p className="text-[11px] text-slate-400 mt-0.5">Équipe sur place à Selouane et assistance WhatsApp 6j/7.</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Équipe sur place à Selouane et assistance WhatsApp 6j/7.</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Bottom mini-card quote */}
-            <div className="relative z-10 pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
+            <div className="relative z-10 pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
               <span className="flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-cyan-400" />
                 Secteur Al Omrane, Selouane

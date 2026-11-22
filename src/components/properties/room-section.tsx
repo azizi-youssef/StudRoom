@@ -113,7 +113,7 @@ export function RoomSection({ rooms, property }: RoomSectionProps) {
                 {room.features && room.features.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {room.features.map((feat, idx) => (
-                      <span key={idx} className="text-[11px] font-semibold text-slate-600 bg-slate-100/80 px-2 py-0.5 rounded-md">
+                      <span key={idx} className="text-xs font-semibold text-slate-600 bg-slate-100/80 px-2 py-0.5 rounded-md">
                         ✓ {feat}
                       </span>
                     ))}
@@ -124,7 +124,7 @@ export function RoomSection({ rooms, property }: RoomSectionProps) {
               {/* Price & Action */}
               <div className="flex items-center justify-between md:flex-col md:items-end gap-3 pt-3 md:pt-0 border-t md:border-t-0 border-slate-100">
                 <div className="text-left md:text-right">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase">Loyer mensuel</span>
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Loyer mensuel</span>
                   <div className="text-xl font-black text-primary-600">
                     {formatCurrencyDH(room.price_monthly)}
                     <span className="text-xs font-semibold text-slate-500"> /mois</span>

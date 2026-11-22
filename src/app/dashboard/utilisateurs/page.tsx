@@ -262,7 +262,7 @@ export default function AdminUtilisateursPage() {
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr
-                className="border-b text-[11px] font-semibold uppercase tracking-wider"
+                className="border-b text-xs font-semibold uppercase tracking-wider"
                 style={{
                   borderColor: 'var(--border-subtle)',
                   backgroundColor: 'var(--bg-subtle)',
@@ -316,7 +316,7 @@ export default function AdminUtilisateursPage() {
             <table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr
-                  className="border-b text-[11px] font-semibold uppercase tracking-wider"
+                  className="border-b text-xs font-semibold uppercase tracking-wider"
                   style={{
                     borderColor: 'var(--border-subtle)',
                     backgroundColor: 'var(--bg-subtle)',
@@ -358,7 +358,7 @@ export default function AdminUtilisateursPage() {
                             <div className="font-semibold" style={{ color: 'var(--text-primary)' }}>
                               {u.full_name || 'Utilisateur sans nom'}
                             </div>
-                            <div className="text-[11px] flex items-center gap-2 mt-0.5" style={{ color: 'var(--text-secondary)' }}>
+                            <div className="text-xs flex items-center gap-2 mt-0.5" style={{ color: 'var(--text-secondary)' }}>
                               <span>{u.email}</span>
                               {u.phone && <span>• {u.phone}</span>}
                             </div>
@@ -367,18 +367,18 @@ export default function AdminUtilisateursPage() {
                       </td>
 
                       <td className="py-3 px-4">
-                        <span className={`px-2.5 py-1 text-[11px] font-semibold rounded-lg ${roleMeta.badgeClass}`}>
+                        <span className={`px-2.5 py-1 text-xs font-semibold rounded-lg ${roleMeta.badgeClass}`}>
                           {roleMeta.label}
                         </span>
                       </td>
 
                       <td className="py-3 px-4">
-                        <span className={`px-2.5 py-1 text-[11px] font-semibold rounded-lg ${statusMeta.badgeClass}`}>
+                        <span className={`px-2.5 py-1 text-xs font-semibold rounded-lg ${statusMeta.badgeClass}`}>
                           {statusMeta.label}
                         </span>
                       </td>
 
-                      <td className="py-3 px-4 font-mono text-[11px]" style={{ color: 'var(--text-muted)' }}>
+                      <td className="py-3 px-4 font-mono text-xs" style={{ color: 'var(--text-muted)' }}>
                         {new Date(u.created_at).toLocaleDateString('fr-FR', {
                           day: '2-digit',
                           month: 'short',
@@ -393,7 +393,7 @@ export default function AdminUtilisateursPage() {
                             <button
                               disabled={actionLoadingId === u.id}
                               onClick={() => handleStatusUpdate(u.id, 'SUSPENDED')}
-                              className="px-2 py-1 text-[11px] font-medium rounded-lg transition flex items-center gap-1 disabled:opacity-50"
+                              className="px-2 py-1 text-xs font-medium rounded-lg transition flex items-center gap-1 disabled:opacity-50"
                               style={{
                                 backgroundColor: 'var(--warning-bg)',
                                 color: 'var(--warning-fg)',
@@ -408,7 +408,7 @@ export default function AdminUtilisateursPage() {
                             <button
                               disabled={actionLoadingId === u.id}
                               onClick={() => handleStatusUpdate(u.id, 'ACTIVE')}
-                              className="px-2 py-1 text-[11px] font-medium rounded-lg transition flex items-center gap-1 disabled:opacity-50"
+                              className="px-2 py-1 text-xs font-medium rounded-lg transition flex items-center gap-1 disabled:opacity-50"
                               style={{
                                 backgroundColor: 'var(--success-bg)',
                                 color: 'var(--success-fg)',
@@ -426,7 +426,7 @@ export default function AdminUtilisateursPage() {
                             disabled={actionLoadingId === u.id}
                             value={u.role}
                             onChange={(e) => handleRoleUpdate(u.id, e.target.value as UserRole)}
-                            className="rounded-lg px-2 py-1 text-[11px] font-medium focus:outline-none transition cursor-pointer disabled:opacity-50"
+                            className="rounded-lg px-2 py-1 text-xs font-medium focus:outline-none transition cursor-pointer disabled:opacity-50"
                             style={{
                               backgroundColor: 'var(--bg-subtle)',
                               borderColor: 'var(--border-subtle)',
@@ -456,7 +456,7 @@ export default function AdminUtilisateursPage() {
                 backgroundColor: 'var(--bg-subtle)',
               }}
             >
-              <span className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+              <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                 {filteredUsers.length} utilisateur{filteredUsers.length > 1 ? 's' : ''} • Page {currentPage}/{totalPages}
               </span>
               <div className="flex items-center gap-1.5">
@@ -482,14 +482,14 @@ export default function AdminUtilisateursPage() {
                   }, [])
                   .map((p, i) =>
                     p === '...' ? (
-                      <span key={`ellipsis-${i}`} className="px-1.5 text-[11px]" style={{ color: 'var(--text-muted)' }}>
+                      <span key={`ellipsis-${i}`} className="px-1.5 text-xs" style={{ color: 'var(--text-muted)' }}>
                         …
                       </span>
                     ) : (
                       <button
                         key={p}
                         onClick={() => setCurrentPage(p as number)}
-                        className={`w-7 h-7 rounded-lg text-[11px] font-semibold transition-colors ${
+                        className={`w-7 h-7 rounded-lg text-xs font-semibold transition-colors ${
                           currentPage === p ? 'btn-brand text-white' : 'border'
                         }`}
                         style={

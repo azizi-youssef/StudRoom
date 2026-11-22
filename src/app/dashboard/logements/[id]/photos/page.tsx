@@ -327,14 +327,14 @@ export default function AdminLogementPhotosPage() {
                 <div className="absolute top-2 left-2 flex items-center gap-1.5">
                   {img.is_primary ? (
                     <span
-                      className="px-2.5 py-1 rounded-lg text-white font-bold text-[11px] shadow-sm flex items-center gap-1"
+                      className="px-2.5 py-1 rounded-lg text-white font-bold text-xs shadow-sm flex items-center gap-1"
                       style={{ backgroundColor: 'var(--brand-primary)' }}
                     >
                       <Star className="w-3 h-3 fill-white" />
                       Principale
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded-md bg-black/60 text-white text-[10px] backdrop-blur-sm">
+                    <span className="px-2 py-0.5 rounded-md bg-black/60 text-white text-xs backdrop-blur-sm">
                       Ordre #{img.display_order}
                     </span>
                   )}
@@ -359,7 +359,7 @@ export default function AdminLogementPhotosPage() {
                   <p className="text-xs font-semibold truncate" style={{ color: 'var(--text-primary)' }} title={img.alt_text || 'Sans description'}>
                     {img.alt_text || 'Photo sans libellé'}
                   </p>
-                  <p className="text-[11px] truncate font-mono mt-0.5" style={{ color: 'var(--text-muted)' }} title={img.image_url}>
+                  <p className="text-xs truncate font-mono mt-0.5" style={{ color: 'var(--text-muted)' }} title={img.image_url}>
                     {img.image_url}
                   </p>
                 </div>
@@ -369,7 +369,7 @@ export default function AdminLogementPhotosPage() {
                     <button
                       disabled={actionLoadingId === img.id}
                       onClick={() => handleSetPrimary(img.id)}
-                      className="dash-card px-2.5 py-1 text-[11px] font-medium rounded-lg transition flex items-center gap-1 disabled:opacity-50"
+                      className="dash-card px-2.5 py-1 text-xs font-medium rounded-lg transition flex items-center gap-1 disabled:opacity-50"
                       style={{ color: 'var(--text-secondary)' }}
                     >
                       {actionLoadingId === img.id ? (
@@ -380,7 +380,7 @@ export default function AdminLogementPhotosPage() {
                       Définir principale
                     </button>
                   ) : (
-                    <span className="text-[11px] font-semibold flex items-center gap-1" style={{ color: 'var(--brand-primary)' }}>
+                    <span className="text-xs font-semibold flex items-center gap-1" style={{ color: 'var(--brand-primary)' }}>
                       <Check className="w-3.5 h-3.5" /> Couverture
                     </span>
                   )}
@@ -479,10 +479,10 @@ export default function AdminLogementPhotosPage() {
                     }}
                   />
                   <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
-                    <span className="px-2 py-0.5 rounded bg-black/80 text-[10px] text-white flex items-center gap-1">
+                    <span className="px-2 py-0.5 rounded bg-black/80 text-xs text-white flex items-center gap-1">
                       ✓ Image sélectionnée
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-black/80 text-[10px] text-slate-300 font-mono truncate max-w-[180px]">
+                    <span className="px-2 py-0.5 rounded bg-black/80 text-xs text-slate-300 font-mono truncate max-w-[180px]">
                       {imageUrl.startsWith('data:') ? 'Fichier importé' : imageUrl}
                     </span>
                   </div>

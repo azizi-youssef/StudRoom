@@ -103,7 +103,7 @@ export function PropertyLocationMap({
             <h4 className="font-extrabold text-slate-900 dark:text-slate-100 text-xs sm:text-sm">
               {address}
             </h4>
-            <p className="text-[11px] text-slate-500 font-medium">
+            <p className="text-xs text-slate-500 font-medium">
               Quartier {neighborhood}, {city} • Proche campus
             </p>
           </div>

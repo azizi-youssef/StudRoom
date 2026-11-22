@@ -96,7 +96,7 @@ export function LandlordForm() {
 
         {proposalRef && (
           <div className="flex flex-col items-center gap-1 bg-white dark:bg-slate-800 px-5 py-3 rounded-2xl border border-emerald-200/80 dark:border-emerald-800/80 shadow-2xs">
-            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Référence du dossier
             </span>
             <span className="font-mono font-black text-sm text-slate-800 dark:text-slate-200 tracking-wide">
@@ -113,17 +113,17 @@ export function LandlordForm() {
           </p>
 
           <div className="flex items-start gap-3 text-xs text-slate-600 dark:text-slate-300">
-            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-50 dark:bg-primary-950 text-[10px] font-bold text-primary-700 dark:text-primary-300">1</span>
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-50 dark:bg-primary-950 text-xs font-bold text-primary-700 dark:text-primary-300">1</span>
             <span>Appel téléphonique de notre conseiller pour préciser vos attentes et caractéristiques du logement.</span>
           </div>
 
           <div className="flex items-start gap-3 text-xs text-slate-600 dark:text-slate-300">
-            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-50 dark:bg-primary-950 text-[10px] font-bold text-primary-700 dark:text-primary-300">2</span>
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-50 dark:bg-primary-950 text-xs font-bold text-primary-700 dark:text-primary-300">2</span>
             <span>Visite d'expertise gratuite sur place à Selouane / Nador pour estimer le loyer optimal.</span>
           </div>
 
           <div className="flex items-start gap-3 text-xs text-slate-600 dark:text-slate-300">
-            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-50 dark:bg-primary-950 text-[10px] font-bold text-primary-700 dark:text-primary-300">3</span>
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-50 dark:bg-primary-950 text-xs font-bold text-primary-700 dark:text-primary-300">3</span>
             <span>Signature du mandat de gestion et mise en ligne auprès de nos étudiants qualifiés.</span>
           </div>
         </div>
@@ -296,12 +296,13 @@ export function LandlordForm() {
 
         <div className="flex flex-col gap-2">
           <textarea
+            aria-label="Précisions sur les équipements"
             rows={3}
             placeholder="Récemment rénové, meublé, présence de balcon, Wi-Fi déjà installé, chauffe-eau neuf, etc."
-            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20"
+            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-500 transition-colors focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20"
             {...register('message')}
           />
-          <p className="text-[11px] text-slate-400 dark:text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Indiquez tout équipement qui pourrait valoriser votre bien auprès des étudiants (lits, bureaux, cuisine...).
           </p>
         </div>

@@ -88,7 +88,7 @@ export default function AdminLogementsPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Building2 className="w-4 h-4" style={{ color: 'var(--brand-primary)' }} />
-            <span className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: 'var(--brand-primary)' }}>
+            <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'var(--brand-primary)' }}>
               Catalogue & Inventaire
             </span>
           </div>
@@ -198,18 +198,18 @@ export default function AdminLogementsPage() {
 
                   {/* Badges */}
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                    <span className="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
                       style={{ background: 'rgba(255,255,255,0.9)', color: 'var(--text-primary)' }}>
                       {getPropertyTypeLabel(property.property_type)}
                     </span>
-                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${property.is_available ? 'badge-success' : 'badge-danger'}`}>
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-bold uppercase ${property.is_available ? 'badge-success' : 'badge-danger'}`}>
                       {property.is_available ? 'En ligne' : 'Hors ligne'}
                     </span>
                   </div>
 
                   {/* Location overlay */}
                   <div className="absolute bottom-3 left-3 right-3">
-                    <p className="text-[11px] font-semibold text-white truncate">
+                    <p className="text-xs font-semibold text-white truncate">
                       {property.neighborhood}, {property.city?.name || 'Selouane'}
                     </p>
                   </div>

@@ -238,7 +238,7 @@ function AdminBailleursContent() {
               >
                 {tab.label}
                 <span
-                  className="text-[10px] px-1.5 py-0.5 rounded-full font-semibold"
+                  className="text-xs px-1.5 py-0.5 rounded-full font-semibold"
                   style={{
                     backgroundColor: isActive ? 'rgba(255, 255, 255, 0.25)' : 'var(--bg-subtle)',
                     color: isActive ? '#FFFFFF' : 'var(--text-muted)',
@@ -326,7 +326,7 @@ function AdminBailleursContent() {
                           {sub.city} • {sub.neighborhood || 'Centre'}
                         </span>
                         <span>•</span>
-                        <span className="text-[11px]" style={{ color: 'var(--text-muted)' }}>
+                        <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
                           {new Date(sub.created_at).toLocaleDateString('fr-FR', {
                             day: 'numeric',
                             month: 'short',
@@ -336,7 +336,7 @@ function AdminBailleursContent() {
                       </div>
                     </div>
 
-                    <span className={`px-2.5 py-1 text-[11px] font-semibold rounded-lg ${statusMeta.badgeClass}`}>
+                    <span className={`px-2.5 py-1 text-xs font-semibold rounded-lg ${statusMeta.badgeClass}`}>
                       {statusMeta.label}
                     </span>
                   </div>
@@ -378,7 +378,7 @@ function AdminBailleursContent() {
                     }}
                   >
                     <div>
-                      <span className="text-[10px] block uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
+                      <span className="text-xs block uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
                         Loyer Souhaité
                       </span>
                       <span className="text-xs font-bold" style={{ color: 'var(--brand-primary)' }}>
@@ -386,7 +386,7 @@ function AdminBailleursContent() {
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] block uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
+                      <span className="text-xs block uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
                         Chambres
                       </span>
                       <span className="text-xs font-bold" style={{ color: 'var(--text-primary)' }}>
@@ -394,7 +394,7 @@ function AdminBailleursContent() {
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] block uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
+                      <span className="text-xs block uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
                         Superficie
                       </span>
                       <span className="text-xs font-bold" style={{ color: 'var(--text-primary)' }}>
@@ -413,7 +413,7 @@ function AdminBailleursContent() {
                         color: 'var(--text-secondary)',
                       }}
                     >
-                      <span className="font-semibold block text-[11px] mb-0.5" style={{ color: 'var(--text-primary)' }}>
+                      <span className="font-semibold block text-xs mb-0.5" style={{ color: 'var(--text-primary)' }}>
                         Note bailleur :
                       </span>
                       "{sub.message}"
@@ -431,7 +431,7 @@ function AdminBailleursContent() {
                       <button
                         disabled={actionLoadingId === sub.id}
                         onClick={() => handleStatusChange(sub.id, 'contacted')}
-                        className="px-2.5 py-1 text-[11px] rounded-lg transition-all font-medium border"
+                        className="px-2.5 py-1 text-xs rounded-lg transition-all font-medium border"
                         style={{
                           backgroundColor: 'var(--bg-subtle)',
                           borderColor: 'var(--border-subtle)',
@@ -445,7 +445,7 @@ function AdminBailleursContent() {
                       <button
                         disabled={actionLoadingId === sub.id}
                         onClick={() => handleStatusChange(sub.id, 'visited')}
-                        className="px-2.5 py-1 text-[11px] rounded-lg transition-all font-medium border"
+                        className="px-2.5 py-1 text-xs rounded-lg transition-all font-medium border"
                         style={{
                           backgroundColor: 'var(--bg-subtle)',
                           borderColor: 'var(--border-subtle)',
@@ -459,7 +459,7 @@ function AdminBailleursContent() {
                       <button
                         disabled={actionLoadingId === sub.id}
                         onClick={() => handleStatusChange(sub.id, 'rejected')}
-                        className="px-2.5 py-1 text-[11px] rounded-lg transition-all font-medium"
+                        className="px-2.5 py-1 text-xs rounded-lg transition-all font-medium"
                         style={{
                           color: 'var(--error-fg)',
                           backgroundColor: 'var(--error-bg)',
@@ -522,7 +522,7 @@ function AdminBailleursContent() {
                   <h3 className="text-base font-bold" style={{ color: 'var(--text-primary)' }}>
                     Conversion Automatisée en Logement
                   </h3>
-                  <p className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+                  <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
                     Bailleur : {selectedSubmission.first_name} {selectedSubmission.last_name}
                   </p>
                 </div>
@@ -598,7 +598,7 @@ function AdminBailleursContent() {
                   <p className="font-semibold mb-1" style={{ color: 'var(--brand-primary)' }}>
                     Processus de conversion automatique :
                   </p>
-                  <ul className="list-disc list-inside space-y-0.5 text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+                  <ul className="list-disc list-inside space-y-0.5 text-xs" style={{ color: 'var(--text-secondary)' }}>
                     <li>Crée la fiche logement dans la base de données</li>
                     <li>Génère automatiquement {overrideRooms} chambres individuelles prêtes</li>
                     <li>Lie le logement au compte propriétaire s'il existe</li>

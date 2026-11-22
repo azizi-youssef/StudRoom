@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 
@@ -10,11 +10,14 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
 }
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({ className, label, error, icon, options, ...props }, ref) => {
+  ({ className, label, error, icon, options, id, ...props }, ref) => {
+    const autoId = useId();
+    const fieldId = id ?? autoId;
+    const errorId = `${fieldId}-error`;
     return (
       <div className="w-full flex flex-col gap-1.5">
         {label && (
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+          <label htmlFor={fieldId} className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
             {label}
           </label>
         )}
@@ -25,6 +28,9 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             </div>
           )}
           <select
+            id={fieldId}
+            aria-invalid={error ? true : undefined}
+            aria-describedby={error ? errorId : undefined}
             ref={ref}
             className={cn(
               "w-full h-11 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 pr-9 text-sm text-slate-900 dark:text-white appearance-none transition-colors focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20 disabled:bg-slate-50 dark:disabled:bg-slate-900 disabled:cursor-not-allowed",
@@ -40,11 +46,11 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
               </option>
             ))}
           </select>
-          <div className="absolute right-3.5 text-slate-400 pointer-events-none">
+          <div className="absolute right-3.5 text-slate-500 dark:text-slate-400 pointer-events-none">
             <ChevronDown className="w-4 h-4" />
           </div>
         </div>
-        {error && <span className="text-xs text-red-500 font-medium">{error}</span>}
+        {error && <span id={errorId} role="alert" className="text-xs text-red-600 dark:text-red-400 font-medium">{error}</span>}
       </div>
     );
   }

@@ -7,6 +7,7 @@ import { LandlordBanner } from '@/components/home/landlord-banner';
 import { SupportedUniversitiesBanner } from '@/components/home/SupportedUniversitiesBanner';
 import { PropertyDetail } from '@/shared/types';
 import { DbUniversity } from '@/shared/types/database';
+import { PROPERTIES_DATA } from '@/data/properties';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
 
@@ -15,12 +16,18 @@ async function getFeaturedProperties(): Promise<PropertyDetail[]> {
     const res = await fetch(`${API_URL}/properties/featured`, {
       cache: 'no-store',
     });
-    if (!res.ok) return [];
+    if (!res.ok) return staticFeatured();
     const json = await res.json();
-    return json.data ?? [];
+    const data: PropertyDetail[] = json.data ?? [];
+    return data.length > 0 ? data : staticFeatured();
   } catch {
-    return [];
+    // API indisponible : on affiche la sélection éditoriale locale plutôt qu'une section vide
+    return staticFeatured();
   }
+}
+
+function staticFeatured(): PropertyDetail[] {
+  return PROPERTIES_DATA.filter((p) => p.featured);
 }
 
 async function getUniversities(): Promise<DbUniversity[]> {

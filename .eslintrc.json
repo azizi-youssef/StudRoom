@@ -3,5 +3,17 @@
   "rules": {
     "react/no-unescaped-entities": "off",
     "@next/next/no-img-element": "warn"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/components/ui/avatar.tsx",
+        "src/components/admin/image-source-picker.tsx",
+        "src/app/dashboard/**/*.tsx"
+      ],
+      "rules": {
+        "@next/next/no-img-element": "off"
+      }
+    }
+  ]
 }

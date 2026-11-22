@@ -230,7 +230,7 @@ export function ImageSourcePicker({ onImageSelected, className = '' }: ImageSour
                 <p className="text-xs font-bold text-white">
                   Cliquez pour parcourir ou glissez-déposez une image
                 </p>
-                <p className="text-[11px] text-slate-500 mt-0.5">
+                <p className="text-xs text-slate-500 mt-0.5">
                   Prend en charge JPG, PNG, WebP (Photos de vos dossiers locaux, bureau, etc.)
                 </p>
               </div>
@@ -242,7 +242,7 @@ export function ImageSourcePicker({ onImageSelected, className = '' }: ImageSour
               </div>
               <div className="flex-1 min-w-0 text-left">
                 <p className="text-xs font-bold text-white truncate">{fileName || 'Fichier image'}</p>
-                <p className="text-[10px] text-emerald-400 mt-0.5 flex items-center gap-1">
+                <p className="text-xs text-emerald-400 mt-0.5 flex items-center gap-1">
                   <Check className="w-3 h-3" /> Image locale chargée avec succès
                 </p>
               </div>
@@ -276,7 +276,7 @@ export function ImageSourcePicker({ onImageSelected, className = '' }: ImageSour
       {/* CONTENU ONGLET 2 : BIBLIOTHÈQUE LOCALE DU PROJET */}
       {activeTab === 'local_library' && (
         <div className="flex flex-col gap-2">
-          <p className="text-[11px] text-slate-400">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Sélectionnez une photo locale existante du projet (<code className="text-primary-400 font-mono">/public/images/</code>) :
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-h-56 overflow-y-auto pr-1">
@@ -297,16 +297,16 @@ export function ImageSourcePicker({ onImageSelected, className = '' }: ImageSour
                     }}
                   />
                   <div className="absolute inset-0 bg-primary-950/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-[10px] text-white font-bold bg-primary-600 px-2 py-0.5 rounded-lg shadow">
+                    <span className="text-xs text-white font-bold bg-primary-600 px-2 py-0.5 rounded-lg shadow">
                       + Choisir
                     </span>
                   </div>
                 </div>
                 <div className="p-1.5 bg-slate-950/80 border-t border-slate-800/80">
-                  <p className="text-[10px] font-bold text-white truncate" title={item.name}>
+                  <p className="text-xs font-bold text-white truncate" title={item.name}>
                     {item.name}
                   </p>
-                  <p className="text-[9px] text-slate-500 truncate font-mono">{item.url}</p>
+                  <p className="text-xs text-slate-500 truncate font-mono">{item.url}</p>
                 </div>
               </div>
             ))}

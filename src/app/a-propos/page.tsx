@@ -100,7 +100,7 @@ export default function AProposPage() {
               <div key={idx} className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xs text-center">
                 <p className="text-2xl sm:text-3xl font-black text-primary-600 dark:text-primary-400">{item.value}</p>
                 <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">{item.label}</p>
-                <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{item.desc}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -137,7 +137,7 @@ export default function AProposPage() {
               </div>
               <div>
                 <p className="text-xs font-bold text-slate-900 dark:text-white">Campus de Nador</p>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400">Proche FSAN, FEGN & ESTN</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Proche FSAN, FEGN & ESTN</p>
               </div>
             </div>
           </div>
@@ -221,7 +221,7 @@ export default function AProposPage() {
 
                     {/* Category Badge */}
                     <div className="mb-2.5">
-                      <span className="inline-block rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-primary-50 dark:group-hover:bg-primary-950 group-hover:text-primary-700 dark:group-hover:text-primary-300">
+                      <span className="inline-block rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-primary-50 dark:group-hover:bg-primary-950 group-hover:text-primary-700 dark:group-hover:text-primary-300">
                         {p.badge}
                       </span>
                     </div>
@@ -240,7 +240,7 @@ export default function AProposPage() {
                     {p.tags.map((tag, tIdx) => (
                       <span
                         key={tIdx}
-                        className="inline-flex items-center gap-1 rounded-full bg-slate-50 dark:bg-slate-800/80 px-2.5 py-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 group-hover:bg-primary-50/70 dark:group-hover:bg-primary-950/70 group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors"
+                        className="inline-flex items-center gap-1 rounded-full bg-slate-50 dark:bg-slate-800/80 px-2.5 py-1 text-xs font-medium text-slate-600 dark:text-slate-400 group-hover:bg-primary-50/70 dark:group-hover:bg-primary-950/70 group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors"
                       >
                         <CheckCircle2 className="h-3 w-3 text-emerald-500" />
                         {tag}
@@ -276,13 +276,13 @@ export default function AProposPage() {
               <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
                 <p className="text-xs font-semibold text-primary-300">Hub Universitaire</p>
                 <p className="text-base font-bold text-white mt-0.5">Selouane - Al Omrane</p>
-                <p className="text-xs text-slate-400 mt-1">À proximité directe de 5 facultés</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">À proximité directe de 5 facultés</p>
               </div>
 
               <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
                 <p className="text-xs font-semibold text-emerald-300">Engagement Qualité</p>
                 <p className="text-base font-bold text-white mt-0.5">Visites & Support 7j/7</p>
-                <p className="text-xs text-slate-400 mt-1">Présence continue sur le terrain</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Présence continue sur le terrain</p>
               </div>
             </div>
           </div>

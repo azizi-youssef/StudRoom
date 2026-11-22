@@ -24,7 +24,7 @@ export function AccordionItem({ question, answer, defaultOpen = false }: Accordi
         <span className="text-base sm:text-lg">{question}</span>
         <ChevronDown
           className={cn(
-            "w-5 h-5 text-slate-400 transition-transform duration-300 flex-shrink-0",
+            "w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-300 flex-shrink-0",
             isOpen && "transform rotate-180 text-primary-600"
           )}
         />

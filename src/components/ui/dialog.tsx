@@ -114,7 +114,7 @@ export function Dialog({ isOpen, onClose, title, children, maxWidth = 'lg' }: Di
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#0891B2]/40"
+              className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#0891B2]/40"
               aria-label="Fermer la modal"
             >
               <X className="w-5 h-5" />

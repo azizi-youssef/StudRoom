@@ -206,11 +206,11 @@ export default function AdminParametresPage() {
                   {city.name}
                 </h3>
                 <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>Slug: {city.slug}</p>
-                <span className="text-[11px] font-mono mt-0.5 block" style={{ color: 'var(--text-muted)' }}>
+                <span className="text-xs font-mono mt-0.5 block" style={{ color: 'var(--text-muted)' }}>
                   Région : {city.region || 'Oriental, Maroc'}
                 </span>
               </div>
-              <span className="px-2.5 py-1 rounded-full badge-success text-[11px] font-semibold flex items-center gap-1.5">
+              <span className="px-2.5 py-1 rounded-full badge-success text-xs font-semibold flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--color-emerald-500)' }} />
                 Active
               </span>
@@ -240,11 +240,11 @@ export default function AdminParametresPage() {
                 <div>
                   <h3 className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{uni.name}</h3>
                   <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>{uni.short_name || uni.city?.name || 'Selouane'}</p>
-                  <p className="text-[11px] mt-1" style={{ color: 'var(--text-muted)' }}>{uni.address || 'Province de Nador'}</p>
+                  <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>{uni.address || 'Province de Nador'}</p>
                 </div>
               </div>
               <span
-                className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono border"
+                className="px-2.5 py-0.5 rounded-lg text-xs font-mono border"
                 style={{
                   backgroundColor: 'var(--bg-subtle)',
                   borderColor: 'var(--border-subtle)',
@@ -277,7 +277,7 @@ export default function AdminParametresPage() {
               </div>
               <div>
                 <span className="text-xs font-semibold block" style={{ color: 'var(--text-primary)' }}>{amenity.name}</span>
-                <span className="text-[10px] block uppercase font-mono" style={{ color: 'var(--text-muted)' }}>
+                <span className="text-xs block uppercase font-mono" style={{ color: 'var(--text-muted)' }}>
                   {amenity.category || 'essential'}
                 </span>
               </div>

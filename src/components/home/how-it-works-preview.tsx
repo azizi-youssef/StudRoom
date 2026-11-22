@@ -161,7 +161,7 @@ export function HowItWorksPreview() {
 
                     {/* Step category badge */}
                     <div className="mb-2.5">
-                      <span className="inline-block rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-primary-50 dark:group-hover:bg-primary-950 group-hover:text-primary-700 dark:group-hover:text-primary-300">
+                      <span className="inline-block rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-primary-50 dark:group-hover:bg-primary-950 group-hover:text-primary-700 dark:group-hover:text-primary-300">
                         {s.badge}
                       </span>
                     </div>
@@ -180,7 +180,7 @@ export function HowItWorksPreview() {
                     {s.tags.map((tag, tIdx) => (
                       <span
                         key={tIdx}
-                        className="inline-flex items-center gap-1 rounded-full bg-slate-50 dark:bg-slate-800/80 px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:text-slate-400 group-hover:bg-primary-50/60 dark:group-hover:bg-primary-950/60 group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors"
+                        className="inline-flex items-center gap-1 rounded-full bg-slate-50 dark:bg-slate-800/80 px-2.5 py-1 text-xs font-medium text-slate-500 dark:text-slate-400 group-hover:bg-primary-50/60 dark:group-hover:bg-primary-950/60 group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors"
                       >
                         <CheckCircle2 className="h-3 w-3 text-emerald-500" />
                         {tag}

@@ -131,16 +131,16 @@ function LogementsContent() {
       {/* Quick University Filter Pills */}
       {universities.length > 0 && (
         <div className="mb-4 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-          <span className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5 mr-1">
-            <GraduationCap className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+          <span className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5 mr-1">
+            <GraduationCap className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
             Campus :
           </span>
           <button
             type="button"
             onClick={() => setFilters((prev) => ({ ...prev, universityId: 'all' }))}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+            className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
               filters.universityId === 'all'
-                ? 'bg-purple-700 text-white shadow-xs font-extrabold ring-2 ring-purple-500/20'
+                ? 'bg-primary-700 text-white shadow-xs font-extrabold ring-2 ring-primary-500/20'
                 : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/90 dark:border-slate-800'
             }`}
           >
@@ -156,17 +156,17 @@ function LogementsContent() {
                 key={uni.id}
                 type="button"
                 onClick={() => setFilters((prev) => ({ ...prev, universityId: uni.id }))}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
                   filters.universityId === uni.id
-                    ? 'bg-purple-700 text-white shadow-xs font-extrabold ring-2 ring-purple-500/20'
+                    ? 'bg-primary-700 text-white shadow-xs font-extrabold ring-2 ring-primary-500/20'
                     : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/90 dark:border-slate-800'
                 }`}
               >
                 <span>{uni.short_name}</span>
                 {count > 0 && (
                   <span
-                    className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${
-                      filters.universityId === uni.id ? 'bg-purple-900/60 text-purple-200' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+                    className={`text-xs px-1.5 py-0.2 rounded-full font-black ${
+                      filters.universityId === uni.id ? 'bg-primary-900/60 text-primary-200' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
                     }`}
                   >
                     {count}
@@ -187,7 +187,7 @@ function LogementsContent() {
           <div>
             <h3 className="font-extrabold text-sm text-slate-900 dark:text-slate-100 flex items-center gap-2">
               Engagement Confiance StudRoom
-              <span className="text-[10px] font-black uppercase tracking-wider bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
+              <span className="text-xs font-black uppercase tracking-wider bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
                 100% Vérifié
               </span>
             </h3>
@@ -217,7 +217,7 @@ function LogementsContent() {
         filters.onlyVerified ||
         filters.searchQuery) && (
         <div className="mb-5 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-bold text-slate-400">Filtres actifs :</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Filtres actifs :</span>
 
           {filters.searchQuery && (
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
@@ -233,7 +233,7 @@ function LogementsContent() {
           )}
 
           {filters.universityId !== 'all' && (
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-primary-100 dark:bg-primary-950/60 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-primary-800">
               🎓 {selectedUni?.short_name || 'Campus'}
               <button
                 type="button"
@@ -338,7 +338,7 @@ function LogementsContent() {
               </div>
             ) : (
               <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 text-center flex flex-col items-center gap-3">
-                <SearchX className="w-8 h-8 text-slate-400" />
+                <SearchX className="w-8 h-8 text-slate-500 dark:text-slate-400" />
                 <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">Aucun résultat</h3>
                 <p className="text-xs text-slate-500">Ajustez vos filtres pour voir d'autres logements.</p>
               </div>
@@ -429,7 +429,7 @@ function LogementsContent() {
           </button>
           <span className="text-sm font-semibold text-slate-500">
             Page {pagination.page} / {pagination.totalPages}
-            <span className="ml-2 text-xs text-slate-400">({pagination.total} logements)</span>
+            <span className="ml-2 text-xs text-slate-500 dark:text-slate-400">({pagination.total} logements)</span>
           </span>
           <button
             type="button"
@@ -451,7 +451,7 @@ export default function LogementsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Hero Section */}
         <div className="mb-6 max-w-3xl">
-          <div className="inline-flex items-center gap-2 text-[11px] font-extrabold text-primary-700 dark:text-primary-300 uppercase tracking-wider bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm px-3.5 py-1 rounded-full border border-primary-200/80 dark:border-primary-800/80 shadow-2xs">
+          <div className="inline-flex items-center gap-2 text-xs font-extrabold text-primary-700 dark:text-primary-300 uppercase tracking-wider bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm px-3.5 py-1 rounded-full border border-primary-200/80 dark:border-primary-800/80 shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Catalogue Logements Étudiants Certifiés · Selouane & Nador
           </div>

@@ -15,7 +15,7 @@ export function LandlordBanner() {
   ];
 
   return (
-    <section className="py-20 sm:py-28 bg-white relative">
+    <section className="py-20 sm:py-28 bg-white dark:bg-slate-950 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div
@@ -83,15 +83,15 @@ export function LandlordBanner() {
               <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-800">
                 <div>
                   <div className="text-2xl font-black text-white">+98%</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Taux d'occupation</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Taux d'occupation</div>
                 </div>
                 <div>
                   <div className="text-2xl font-black text-primary-400">0 DH</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Frais d'adhésion</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Frais d'adhésion</div>
                 </div>
                 <div className="col-span-2 sm:col-span-1">
                   <div className="text-2xl font-black text-emerald-400">100%</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Baux certifiés</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Baux certifiés</div>
                 </div>
               </div>
 
@@ -137,7 +137,7 @@ export function LandlordBanner() {
                   </Button>
                 </Link>
 
-                <p className="text-[11px] text-slate-400">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Réponse sous 24h · Sans engagement
                 </p>
               </div>

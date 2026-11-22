@@ -118,7 +118,7 @@ export default function InscriptionPage() {
               {/* Header Badge & Title */}
               <div className="mb-6">
                 <div
-                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider mb-3 border"
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 border"
                   style={{
                     backgroundColor: 'var(--brand-bg)',
                     borderColor: 'var(--brand-bg-strong)',
@@ -162,7 +162,7 @@ export default function InscriptionPage() {
                 <div className="relative flex py-4 items-center">
                   <div className="flex-grow border-t" style={{ borderColor: 'var(--border-subtle)' }}></div>
                   <span
-                    className="shrink-0 mx-3 text-[11px] font-semibold uppercase tracking-wider"
+                    className="shrink-0 mx-3 text-xs font-semibold uppercase tracking-wider"
                     style={{ color: 'var(--text-muted)' }}
                   >
                     ou remplir vos informations
@@ -175,9 +175,9 @@ export default function InscriptionPage() {
               <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3.5">
                 {/* Role Switcher */}
                 <div>
-                  <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-primary)' }}>
+                  <p className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-primary)' }}>
                     Vous êtes : <span style={{ color: 'var(--error-fg)' }}>*</span>
-                  </label>
+                  </p>
                   <div className="grid grid-cols-2 gap-2.5">
                     <button
                       type="button"
@@ -211,7 +211,7 @@ export default function InscriptionPage() {
 
                 {/* Full Name Field */}
                 <div>
-                  <label className="block text-xs font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                  <label htmlFor="page-field-4" className="block text-xs font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
                     Nom Complet <span style={{ color: 'var(--error-fg)' }}>*</span>
                   </label>
                   <div className="relative">
@@ -219,7 +219,7 @@ export default function InscriptionPage() {
                       className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
                       style={{ color: 'var(--text-muted)' }}
                     />
-                    <input
+                    <input id="page-field-4"
                       {...registerField('fullName')}
                       type="text"
                       placeholder="ex: Amina Tazi"
@@ -240,7 +240,7 @@ export default function InscriptionPage() {
 
                 {/* Email Field */}
                 <div>
-                  <label className="block text-xs font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                  <label htmlFor="page-field-3" className="block text-xs font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
                     Adresse Email <span style={{ color: 'var(--error-fg)' }}>*</span>
                   </label>
                   <div className="relative">
@@ -248,7 +248,7 @@ export default function InscriptionPage() {
                       className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
                       style={{ color: 'var(--text-muted)' }}
                     />
-                    <input
+                    <input id="page-field-3"
                       {...registerField('email')}
                       type="email"
                       placeholder="exemple@etudiant.ma"
@@ -269,7 +269,7 @@ export default function InscriptionPage() {
 
                 {/* Phone Field */}
                 <div>
-                  <label className="block text-xs font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                  <label htmlFor="page-field-2" className="block text-xs font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
                     Numéro de Téléphone / WhatsApp <span style={{ color: 'var(--error-fg)' }}>*</span>
                   </label>
                   <div className="relative">
@@ -277,7 +277,7 @@ export default function InscriptionPage() {
                       className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
                       style={{ color: 'var(--text-muted)' }}
                     />
-                    <input
+                    <input id="page-field-2"
                       {...registerField('phone')}
                       type="tel"
                       placeholder="06 12 34 56 78"
@@ -298,7 +298,7 @@ export default function InscriptionPage() {
 
                 {/* Password Field */}
                 <div>
-                  <label className="block text-xs font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                  <label htmlFor="page-field-1" className="block text-xs font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
                     Mot de passe <span style={{ color: 'var(--error-fg)' }}>*</span> (min. 8 caractères)
                   </label>
                   <div className="relative">
@@ -306,7 +306,7 @@ export default function InscriptionPage() {
                       className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
                       style={{ color: 'var(--text-muted)' }}
                     />
-                    <input
+                    <input id="page-field-1"
                       {...registerField('password')}
                       type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••"
@@ -410,7 +410,7 @@ export default function InscriptionPage() {
                 </div>
                 <div>
                   <span className="text-base font-bold tracking-tight text-white">StudRoom</span>
-                  <p className="text-[10px] text-cyan-300 font-semibold uppercase tracking-wider">Selouane • Nador</p>
+                  <p className="text-xs text-cyan-300 font-semibold uppercase tracking-wider">Selouane • Nador</p>
                 </div>
               </div>
 
@@ -433,7 +433,7 @@ export default function InscriptionPage() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white">Réservation Directe & Sans Frais Cachés</h4>
-                    <p className="text-[11px] text-slate-400 mt-0.5">Prix transparents en Dirhams marocains avec caution claire.</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Prix transparents en Dirhams marocains avec caution claire.</p>
                   </div>
                 </div>
 
@@ -443,7 +443,7 @@ export default function InscriptionPage() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white">Visites Guidées sur Place</h4>
-                    <p className="text-[11px] text-slate-400 mt-0.5">Planifiez une visite physique accompagnée avant de signer.</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Planifiez une visite physique accompagnée avant de signer.</p>
                   </div>
                 </div>
 
@@ -453,14 +453,14 @@ export default function InscriptionPage() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white">Communauté Vérifiée</h4>
-                    <p className="text-[11px] text-slate-400 mt-0.5">Propriétaires de confiance et étudiants rigoureusement identifiés.</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Propriétaires de confiance et étudiants rigoureusement identifiés.</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Bottom mini-card quote */}
-            <div className="relative z-10 pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
+            <div className="relative z-10 pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
               <span className="flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-cyan-400" />
                 Campus Universitaire Selouane

@@ -47,7 +47,7 @@ export function Footer() {
                 />
               </div>
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
+            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed max-w-sm">
               StudRoom redéfinit le logement étudiant au Maroc : des espaces meublés, ultra-connectés, proches des facultés de Selouane et Nador pour étudier en toute sérénité.
             </p>
 
@@ -149,15 +149,15 @@ export function Footer() {
           <div className="flex flex-col gap-3.5">
             <h4 className="text-white font-extrabold text-xs uppercase tracking-wider">Contact & Support</h4>
             <div className="flex flex-col gap-3 text-sm">
-              <div className="flex items-start gap-2.5 text-slate-400">
+              <div className="flex items-start gap-2.5 text-slate-500 dark:text-slate-400">
                 <MapPin className="w-4 h-4 text-primary-400 flex-shrink-0 mt-0.5" />
                 <span>Al Omrane, Selouane, Nador, Maroc</span>
               </div>
-              <div className="flex items-center gap-2.5 text-slate-400">
+              <div className="flex items-center gap-2.5 text-slate-500 dark:text-slate-400">
                 <Phone className="w-4 h-4 text-primary-400 flex-shrink-0" />
                 <a href="tel:+212634536286" className="hover:text-white transition-colors font-medium">+212 634 536 286</a>
               </div>
-              <div className="flex items-center gap-2.5 text-slate-400">
+              <div className="flex items-center gap-2.5 text-slate-500 dark:text-slate-400">
                 <Mail className="w-4 h-4 text-primary-400 flex-shrink-0" />
                 <a href="mailto:studroom50@gmail.com" className="hover:text-white transition-colors truncate font-medium">studroom50@gmail.com</a>
               </div>

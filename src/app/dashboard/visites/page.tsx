@@ -276,7 +276,7 @@ export default function AdminVisitesPage() {
                     </div>
 
                     <span
-                      className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
+                      className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${
                         isUpcoming ? 'badge-primary' : 'badge-neutral'
                       }`}
                     >
@@ -293,7 +293,7 @@ export default function AdminVisitesPage() {
                     }}
                   >
                     <div>
-                      <span className="text-[10px] uppercase font-semibold block" style={{ color: 'var(--text-muted)' }}>
+                      <span className="text-xs uppercase font-semibold block" style={{ color: 'var(--text-muted)' }}>
                         Date & Heure :
                       </span>
                       <span className="text-xs font-mono font-bold" style={{ color: 'var(--text-primary)' }}>
@@ -317,7 +317,7 @@ export default function AdminVisitesPage() {
                         color: 'var(--text-secondary)',
                       }}
                     >
-                      <span className="font-semibold block text-[10px] mb-0.5" style={{ color: 'var(--text-primary)' }}>
+                      <span className="font-semibold block text-xs mb-0.5" style={{ color: 'var(--text-primary)' }}>
                         Consignes de visite :
                       </span>
                       {v.visit_notes}
@@ -358,7 +358,7 @@ export default function AdminVisitesPage() {
                   className="pt-3 border-t flex items-center justify-between"
                   style={{ borderColor: 'var(--border-subtle)' }}
                 >
-                  <span className="text-[11px] font-mono" style={{ color: 'var(--text-muted)' }}>
+                  <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
                     Statut: <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>{v.status}</span>
                   </span>
 

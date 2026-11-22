@@ -41,6 +41,77 @@ interface FAQItem {
   badge?: string;
 }
 
+const faqs: FAQItem[] = [
+  {
+    id: 'faq-1',
+    category: 'visites',
+    categoryLabel: 'Visites & Réservation',
+    q: 'Comment planifier une visite sur place à Selouane ?',
+    a: 'Envoyez-nous simplement un message sur WhatsApp ou via le formulaire. Notre conseiller local vous donne rendez-vous directement à la Résidence Al Omrane pour vous faire visiter les logements témoins, les espaces communs et les commodités du quartier.',
+    tip: 'Les visites sont possibles du Lundi au Samedi de 09h à 19h (et le Dimanche sur rendez-vous express).',
+    badge: 'Très demandé',
+  },
+  {
+    id: 'faq-2',
+    category: 'visites',
+    categoryLabel: 'Visites & Réservation',
+    q: 'Peut-on réserver à 100% à distance avant d’arriver à Nador ou Selouane ?',
+    a: 'Oui, tout à fait ! Plus de 70% de nos étudiants réservent depuis d’autres villes (Fès, Rabat, Casablanca, Oujda, Tanger...). Nous organisons une visite vidéo en direct sur WhatsApp pour inspecter la chambre, puis nous préparons votre contrat de bail étudiant en ligne.',
+    tip: 'Votre chambre est immédiatement bloquée à votre nom et vous recevez une attestation de réservation officielle.',
+    badge: 'Réservation express',
+  },
+  {
+    id: 'faq-3',
+    category: 'dossier',
+    categoryLabel: 'Dossier & Contrat',
+    q: 'Quels documents obligatoires faut-il préparer pour le dossier ?',
+    a: 'Pour valider votre réservation, seuls 3 éléments sont nécessaires : 1. Une copie de votre pièce d’identité (CIN ou Passeport valide). 2. Une attestation d’inscription ou pré-inscription universitaire (FSAN, FLLAN, FEGN, FSJPN, EST Nador...). 3. La pièce d’identité et les coordonnées du garant (parent ou tuteur).',
+    tip: 'Aucun justificatif de salaire complexe n’est exigé : les formalités sont simplifiées pour les étudiants.',
+  },
+  {
+    id: 'faq-4',
+    category: 'dossier',
+    categoryLabel: 'Dossier & Contrat',
+    q: 'Le contrat de bail est-il légalisé et valable pour la carte de séjour ou la bourse ?',
+    a: 'Oui, sans exception. Chaque bail étudiant fourni par StudRoom est un contrat individuel complet, conforme à la loi marocaine, légalisable auprès des autorités de la commune de Selouane. Il fait office de justificatif de domicile officiel.',
+    tip: 'Idéal pour les étudiants internationaux sollicitant leur carte d’immatriculation marocaine.',
+    badge: 'Conforme & Légal',
+  },
+  {
+    id: 'faq-5',
+    category: 'prix',
+    categoryLabel: 'Prix & Caution',
+    q: 'Qu’est-ce qui est inclus dans le loyer affiché sur le site ?',
+    a: 'Tous les logements proposés sont 100% meublés (lit avec matelas, bureau, chaise de travail, placard, kitchenette équipée, chauffe-eau). L’accès au Wi-Fi haut débit fibre optique et les charges de copropriété sont inclus dans la majorité des biens.',
+    tip: 'Zéro frais d’agence cachés ni commission surprise : transparence totale dès le premier jour.',
+  },
+  {
+    id: 'faq-6',
+    category: 'prix',
+    categoryLabel: 'Prix & Caution',
+    q: 'Comment fonctionne la caution et quand est-elle restituée ?',
+    a: 'Le dépôt de garantie équivaut généralement à un mois de loyer. Il est consigné à la remise des clés et vous est restitué dans son intégralité le jour de votre départ après un état des lieux de sortie contradictoire.',
+    tip: 'Un reçu officiel de caution vous est remis lors de la signature du bail.',
+  },
+  {
+    id: 'faq-7',
+    category: 'services',
+    categoryLabel: 'Emplacement & Sécurité',
+    q: 'À quelle distance se trouvent les facultés et grandes écoles ?',
+    a: 'Nos résidences à Selouane sont situées à seulement 3 minutes à pied des facultés (FSAN, FLLAN, FEGN, FSJPN) et à 4 minutes de l’École Supérieure de Technologie (EST). Vous évitez les frais de taxi quotidien et gagnez un temps précieux de révision.',
+    tip: 'Des supérettes, pharmacies, boulangeries et restaurants étudiants sont situés au pied des immeubles.',
+    badge: 'Campus 3 min',
+  },
+  {
+    id: 'faq-8',
+    category: 'services',
+    categoryLabel: 'Emplacement & Sécurité',
+    q: 'Comment sont assurés le calme et la sécurité dans les résidences ?',
+    a: 'Toutes les résidences sélectionnées disposent d’entrées sécurisées (serrures renforcées / interphones) et d’un règlement intérieur strict interdisant le tapage nocturne afin de préserver la réussite scolaire de chacun. En cas de problème technique (eau, électricité), un concierge ou artisan référent intervient rapidement.',
+    tip: 'Notre équipe locale reste joignable par téléphone et WhatsApp 6 jours sur 7.',
+  },
+];
+
 export default function ContactPage() {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
@@ -69,76 +140,6 @@ export default function ContactPage() {
     { id: 'services', label: 'Emplacement & Sécurité', icon: ShieldCheck },
   ];
 
-  const faqs: FAQItem[] = [
-    {
-      id: 'faq-1',
-      category: 'visites',
-      categoryLabel: 'Visites & Réservation',
-      q: 'Comment planifier une visite sur place à Selouane ?',
-      a: 'Envoyez-nous simplement un message sur WhatsApp ou via le formulaire. Notre conseiller local vous donne rendez-vous directement à la Résidence Al Omrane pour vous faire visiter les logements témoins, les espaces communs et les commodités du quartier.',
-      tip: 'Les visites sont possibles du Lundi au Samedi de 09h à 19h (et le Dimanche sur rendez-vous express).',
-      badge: 'Très demandé',
-    },
-    {
-      id: 'faq-2',
-      category: 'visites',
-      categoryLabel: 'Visites & Réservation',
-      q: 'Peut-on réserver à 100% à distance avant d’arriver à Nador ou Selouane ?',
-      a: 'Oui, tout à fait ! Plus de 70% de nos étudiants réservent depuis d’autres villes (Fès, Rabat, Casablanca, Oujda, Tanger...). Nous organisons une visite vidéo en direct sur WhatsApp pour inspecter la chambre, puis nous préparons votre contrat de bail étudiant en ligne.',
-      tip: 'Votre chambre est immédiatement bloquée à votre nom et vous recevez une attestation de réservation officielle.',
-      badge: 'Réservation express',
-    },
-    {
-      id: 'faq-3',
-      category: 'dossier',
-      categoryLabel: 'Dossier & Contrat',
-      q: 'Quels documents obligatoires faut-il préparer pour le dossier ?',
-      a: 'Pour valider votre réservation, seuls 3 éléments sont nécessaires : 1. Une copie de votre pièce d’identité (CIN ou Passeport valide). 2. Une attestation d’inscription ou pré-inscription universitaire (FSAN, FLLAN, FEGN, FSJPN, EST Nador...). 3. La pièce d’identité et les coordonnées du garant (parent ou tuteur).',
-      tip: 'Aucun justificatif de salaire complexe n’est exigé : les formalités sont simplifiées pour les étudiants.',
-    },
-    {
-      id: 'faq-4',
-      category: 'dossier',
-      categoryLabel: 'Dossier & Contrat',
-      q: 'Le contrat de bail est-il légalisé et valable pour la carte de séjour ou la bourse ?',
-      a: 'Oui, sans exception. Chaque bail étudiant fourni par StudRoom est un contrat individuel complet, conforme à la loi marocaine, légalisable auprès des autorités de la commune de Selouane. Il fait office de justificatif de domicile officiel.',
-      tip: 'Idéal pour les étudiants internationaux sollicitant leur carte d’immatriculation marocaine.',
-      badge: 'Conforme & Légal',
-    },
-    {
-      id: 'faq-5',
-      category: 'prix',
-      categoryLabel: 'Prix & Caution',
-      q: 'Qu’est-ce qui est inclus dans le loyer affiché sur le site ?',
-      a: 'Tous les logements proposés sont 100% meublés (lit avec matelas, bureau, chaise de travail, placard, kitchenette équipée, chauffe-eau). L’accès au Wi-Fi haut débit fibre optique et les charges de copropriété sont inclus dans la majorité des biens.',
-      tip: 'Zéro frais d’agence cachés ni commission surprise : transparence totale dès le premier jour.',
-    },
-    {
-      id: 'faq-6',
-      category: 'prix',
-      categoryLabel: 'Prix & Caution',
-      q: 'Comment fonctionne la caution et quand est-elle restituée ?',
-      a: 'Le dépôt de garantie équivaut généralement à un mois de loyer. Il est consigné à la remise des clés et vous est restitué dans son intégralité le jour de votre départ après un état des lieux de sortie contradictoire.',
-      tip: 'Un reçu officiel de caution vous est remis lors de la signature du bail.',
-    },
-    {
-      id: 'faq-7',
-      category: 'services',
-      categoryLabel: 'Emplacement & Sécurité',
-      q: 'À quelle distance se trouvent les facultés et grandes écoles ?',
-      a: 'Nos résidences à Selouane sont situées à seulement 3 minutes à pied des facultés (FSAN, FLLAN, FEGN, FSJPN) et à 4 minutes de l’École Supérieure de Technologie (EST). Vous évitez les frais de taxi quotidien et gagnez un temps précieux de révision.',
-      tip: 'Des supérettes, pharmacies, boulangeries et restaurants étudiants sont situés au pied des immeubles.',
-      badge: 'Campus 3 min',
-    },
-    {
-      id: 'faq-8',
-      category: 'services',
-      categoryLabel: 'Emplacement & Sécurité',
-      q: 'Comment sont assurés le calme et la sécurité dans les résidences ?',
-      a: 'Toutes les résidences sélectionnées disposent d’entrées sécurisées (serrures renforcées / interphones) et d’un règlement intérieur strict interdisant le tapage nocturne afin de préserver la réussite scolaire de chacun. En cas de problème technique (eau, électricité), un concierge ou artisan référent intervient rapidement.',
-      tip: 'Notre équipe locale reste joignable par téléphone et WhatsApp 6 jours sur 7.',
-    },
-  ];
 
   const filteredFaqs = useMemo(() => {
     return faqs.filter((item) => {
@@ -263,7 +264,7 @@ export default function ContactPage() {
                     <h3 className="font-extrabold text-slate-900 dark:text-white text-base">
                       WhatsApp Direct
                     </h3>
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 dark:bg-emerald-900/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-900/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       En ligne
                     </span>
@@ -286,12 +287,12 @@ export default function ContactPage() {
                       {copiedPhone ? (
                         <>
                           <Check className="w-3.5 h-3.5 text-emerald-600" />
-                          <span className="text-[10px]">Copié !</span>
+                          <span className="text-xs">Copié !</span>
                         </>
                       ) : (
                         <>
                           <Copy className="w-3.5 h-3.5" />
-                          <span className="text-[10px]">Copier</span>
+                          <span className="text-xs">Copier</span>
                         </>
                       )}
                     </button>
@@ -329,7 +330,7 @@ export default function ContactPage() {
                     <h3 className="font-extrabold text-slate-900 dark:text-white text-base">
                       Adresse Email Officielle
                     </h3>
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
+                    <span className="text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
                       Réponse &lt; 24h
                     </span>
                   </div>
@@ -351,12 +352,12 @@ export default function ContactPage() {
                       {copiedEmail ? (
                         <>
                           <Check className="w-3.5 h-3.5 text-emerald-600" />
-                          <span className="text-[10px]">Copié !</span>
+                          <span className="text-xs">Copié !</span>
                         </>
                       ) : (
                         <>
                           <Copy className="w-3.5 h-3.5" />
-                          <span className="text-[10px]">Copier</span>
+                          <span className="text-xs">Copier</span>
                         </>
                       )}
                     </button>
@@ -392,7 +393,7 @@ export default function ContactPage() {
                     <h3 className="font-extrabold text-slate-900 dark:text-white text-base">
                       Bureau Local & Accueil
                     </h3>
-                    <span className="text-[11px] font-bold text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-950/60 px-2 py-0.5 rounded-full border border-primary-200/60 dark:border-primary-800/60">
+                    <span className="text-xs font-bold text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-950/60 px-2 py-0.5 rounded-full border border-primary-200/60 dark:border-primary-800/60">
                       Sur place
                     </span>
                   </div>
@@ -404,7 +405,7 @@ export default function ContactPage() {
                     À 3 minutes à pied des facultés (FSAN, FLLAN, FEGN, FSJPN) & EST.
                   </p>
 
-                  <div className="mt-3 flex items-center gap-3 text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                  <div className="mt-3 flex items-center gap-3 text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
                     <Clock className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" />
                     <span>Ouvert du Lundi au Samedi : 09h00 – 19h00</span>
                   </div>
@@ -436,7 +437,7 @@ export default function ContactPage() {
                 Tous nos appartements et résidences partenaires sont situés à proximité immédiate des établissements universitaires :
               </p>
 
-              <div className="grid grid-cols-2 gap-2 text-[11px]">
+              <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="bg-white/10 rounded-xl p-2.5 border border-white/10 flex items-center gap-2">
                   <Building2 className="w-3.5 h-3.5 text-primary-300 shrink-0" />
                   <span>FSAN Selouane : 3 min</span>
@@ -480,19 +481,19 @@ export default function ContactPage() {
           <div className="max-w-4xl mx-auto mb-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             {/* Search Input */}
             <div className="relative flex-1">
-              <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Rechercher une question (ex: visite, caution, documents, distance...)"
-                className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all shadow-2xs"
+                className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all shadow-2xs"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
                 >
                   Effacer
                 </button>
@@ -526,7 +527,7 @@ export default function ContactPage() {
           <div className="max-w-4xl mx-auto flex flex-col gap-4">
             {filteredFaqs.length === 0 ? (
               <div className="text-center py-12 bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-slate-300 dark:border-slate-800 p-8">
-                <Info className="w-10 h-10 text-slate-400 mx-auto mb-3" />
+                <Info className="w-10 h-10 text-slate-500 dark:text-slate-400 mx-auto mb-3" />
                 <h4 className="text-base font-bold text-slate-900 dark:text-white">Aucune question ne correspond à votre recherche</h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   Essayez avec un autre mot-clé ou contactez directement notre équipe sur WhatsApp.
@@ -571,11 +572,11 @@ export default function ContactPage() {
 
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-[10px] font-extrabold uppercase tracking-wider text-primary-600 dark:text-primary-400">
+                            <span className="text-xs font-extrabold uppercase tracking-wider text-primary-600 dark:text-primary-400">
                               {faq.categoryLabel}
                             </span>
                             {faq.badge && (
-                              <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80">
+                              <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80">
                                 <Sparkles className="w-2.5 h-2.5 text-emerald-500" />
                                 {faq.badge}
                               </span>
@@ -629,7 +630,7 @@ export default function ContactPage() {
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
               <div className="text-center md:text-left max-w-xl">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-white/10 text-primary-300 border border-white/10 mb-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-primary-300 border border-white/10 mb-2">
                   <MessageCircle className="w-3.5 h-3.5" />
                   Support en direct
                 </span>

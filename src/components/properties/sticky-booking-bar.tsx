@@ -22,7 +22,7 @@ export function StickyBookingBar({ property }: StickyBookingBarProps) {
         
         <div className="flex items-baseline justify-between pb-4 border-b border-slate-100">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">À partir de</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">À partir de</span>
             <div className="text-3xl font-black text-primary-600">
               {formatCurrencyDH(property.min_price_dh)}
               <span className="text-xs font-semibold text-slate-500"> / mois</span>
@@ -70,10 +70,10 @@ export function StickyBookingBar({ property }: StickyBookingBarProps) {
       {/* Mobile Sticky Bottom Bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 p-4 shadow-2xl flex items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-bold text-slate-400 uppercase">Loyer dès</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Loyer dès</span>
           <div className="text-lg font-black text-primary-600 leading-tight">
             {formatCurrencyDH(property.min_price_dh)}
-            <span className="text-[10px] font-semibold text-slate-500"> /mois</span>
+            <span className="text-xs font-semibold text-slate-500"> /mois</span>
           </div>
         </div>
 

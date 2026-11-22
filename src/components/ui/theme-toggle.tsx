@@ -115,7 +115,7 @@ export function ThemeToggle({ className, variant = 'button' }: ThemeToggleProps)
       {/* Theme Selection Dropdown */}
       {isOpen && (
         <div className="absolute right-0 mt-2 w-44 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xl p-1.5 z-50 animate-fade-in text-xs font-medium">
-          <div className="px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+          <div className="px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Mode d'affichage
           </div>
           

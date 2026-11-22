@@ -77,7 +77,7 @@ export function PropertyCard({
           {/* Type de logement */}
           <Badge
             variant="primary"
-            className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md text-primary-700 dark:text-primary-300 shadow-sm border-white/80 dark:border-slate-700 font-extrabold text-[11px] px-3 py-1 rounded-full"
+            className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md text-primary-700 dark:text-primary-300 shadow-sm border-white/80 dark:border-slate-700 font-extrabold text-xs px-3 py-1 rounded-full"
           >
             {getPropertyTypeLabel(property.property_type)}
           </Badge>
@@ -86,7 +86,7 @@ export function PropertyCard({
           {isAvailableNow && (
             <Badge
               variant="success"
-              className="bg-emerald-600/95 backdrop-blur-md text-white font-bold text-[11px] border-none shadow-sm px-3 py-1 rounded-full flex items-center gap-1.5"
+              className="bg-emerald-600/95 backdrop-blur-md text-white font-bold text-xs border-none shadow-sm px-3 py-1 rounded-full flex items-center gap-1.5"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
               🟢 {availableRoomsCount > 0 ? `${availableRoomsCount} ch. libre${availableRoomsCount > 1 ? 's' : ''}` : 'Disponible'}
@@ -96,7 +96,7 @@ export function PropertyCard({
           {isAvailableOctober && (
             <Badge
               variant="primary"
-              className="bg-amber-500/95 backdrop-blur-md text-white font-bold text-[11px] border-none shadow-sm px-3 py-1 rounded-full flex items-center gap-1.5"
+              className="bg-amber-500/95 backdrop-blur-md text-white font-bold text-xs border-none shadow-sm px-3 py-1 rounded-full flex items-center gap-1.5"
             >
               <CalendarCheck className="w-3.5 h-3.5" />
               🟡 Dispo 1er Octobre
@@ -106,7 +106,7 @@ export function PropertyCard({
           {isFullyBooked && (
             <Badge
               variant="outline"
-              className="bg-rose-900/90 backdrop-blur-md text-white border-none font-bold text-[11px] px-3 py-1 rounded-full flex items-center gap-1"
+              className="bg-rose-900/90 backdrop-blur-md text-white border-none font-bold text-xs px-3 py-1 rounded-full flex items-center gap-1"
             >
               🔴 Complet
             </Badge>
@@ -115,7 +115,7 @@ export function PropertyCard({
 
         {/* 🟠 Priorité 3 — Badge Vérification StudRoom sur la photo */}
         {property.is_verified && (
-          <div className="absolute top-12 left-3.5 bg-emerald-950/85 backdrop-blur-md border border-emerald-500/40 text-emerald-300 px-2.5 py-1 rounded-full text-[10px] font-extrabold flex items-center gap-1.5 shadow-sm">
+          <div className="absolute top-12 left-3.5 bg-emerald-950/85 backdrop-blur-md border border-emerald-500/40 text-emerald-300 px-2.5 py-1 rounded-full text-xs font-extrabold flex items-center gap-1.5 shadow-sm">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
             <span>✓ Logement vérifié</span>
           </div>
@@ -130,7 +130,7 @@ export function PropertyCard({
                 À {closestProximity.walking_time_min} min à pied de {closestProximity.university.short_name}
               </span>
             </div>
-            <span className="text-[11px] text-emerald-400 font-extrabold shrink-0 bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-500/30">
+            <span className="text-xs text-emerald-400 font-extrabold shrink-0 bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-500/30">
               {closestProximity.distance_km < 1
                 ? `${Math.round(closestProximity.distance_km * 1000)} m`
                 : `${closestProximity.distance_km.toFixed(1)} km`}
@@ -155,7 +155,7 @@ export function PropertyCard({
                 <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                 <span>{property.rating.toFixed(1)}</span>
                 {property.review_count && (
-                  <span className="text-[10px] text-amber-700/80 dark:text-amber-400/80 font-medium">
+                  <span className="text-xs text-amber-700/80 dark:text-amber-400/80 font-medium">
                     ({property.review_count})
                   </span>
                 )}
@@ -171,7 +171,7 @@ export function PropertyCard({
         </div>
 
         {/* 🟠 Priorité 3 — Ligne de Confiance (Propriétaire & Audit) */}
-        <div className="flex items-center flex-wrap gap-2 text-[11px] text-slate-500 dark:text-slate-400 py-1 border-y border-slate-100 dark:border-slate-800/80">
+        <div className="flex items-center flex-wrap gap-2 text-xs text-slate-500 dark:text-slate-400 py-1 border-y border-slate-100 dark:border-slate-800/80">
           {property.landlord_verified && (
             <span className="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-md border border-emerald-200/60 dark:border-emerald-800/50">
               <UserCheck className="w-3 h-3" />
@@ -185,7 +185,7 @@ export function PropertyCard({
             </span>
           )}
           {property.verified_at && (
-            <span className="text-[10px] text-slate-400 dark:text-slate-500 ml-auto">
+            <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto">
               Vérifié le {property.verified_at}
             </span>
           )}
@@ -193,19 +193,19 @@ export function PropertyCard({
 
         {/* 🔴 Priorité 2 — Équipements clés */}
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300">
             <Home className="w-3 h-3 text-primary-600 dark:text-primary-400" />
             Meublé
           </span>
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300">
             <Wifi className="w-3 h-3 text-primary-600 dark:text-primary-400" />
             Fibre
           </span>
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300">
             <Laptop className="w-3 h-3 text-primary-600 dark:text-primary-400" />
             Bureau
           </span>
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300">
             <Bed className="w-3 h-3 text-primary-600 dark:text-primary-400" />
             {property.total_rooms} {property.total_rooms > 1 ? 'chambres' : 'studio'}
           </span>
@@ -215,7 +215,7 @@ export function PropertyCard({
         <div className="pt-3.5 border-t border-slate-100 dark:border-slate-800/80 mt-auto flex items-center justify-between gap-3">
           <div>
             <div className="flex items-baseline gap-1">
-              <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+              <span className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Dès
               </span>
               <span className="text-xl font-black text-primary-600 dark:text-primary-400 tracking-tight">
@@ -223,7 +223,7 @@ export function PropertyCard({
               </span>
               <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">/ mois</span>
             </div>
-            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold block">
+            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold block">
               Sans frais d’agence · Wi-Fi inclus
             </span>
           </div>

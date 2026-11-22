@@ -156,7 +156,7 @@ export function AuthModal() {
         {/* Divider */}
         <div className="relative flex py-1 items-center">
           <div className="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
-          <span className="shrink-0 mx-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+          <span className="shrink-0 mx-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             ou par email
           </span>
           <div className="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
@@ -166,49 +166,48 @@ export function AuthModal() {
         {activeTab === 'login' && (
           <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="flex flex-col gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="authmodal-field-6" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                 Adresse Email *
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <Input
+                <Mail className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Input id="authmodal-field-6"
                   {...loginForm.register('email')}
                   type="email"
                   placeholder="exemple@etudiant.ma"
-                  className="pl-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20"
+                  className="pl-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-500 focus:ring-2 focus:ring-primary-500/20"
                 />
               </div>
               {loginForm.formState.errors.email && (
-                <p className="text-xs text-rose-500 font-semibold mt-1">
-                  {loginForm.formState.errors.email.message}
+                <p role="alert" className="text-xs text-rose-500 font-semibold mt-1">{loginForm.formState.errors.email.message}
                 </p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="authmodal-field-5" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                 Mot de passe *
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <Input
+                <Lock className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Input id="authmodal-field-5"
                   {...loginForm.register('password')}
                   type={showLoginPassword ? 'text' : 'password'}
                   placeholder="••••••••"
-                  className="pl-10 pr-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20"
+                  className="pl-10 pr-10 h-10.5 text-xs sm:text-sm rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder:text-slate-500 focus:ring-2 focus:ring-primary-500/20"
                 />
                 <button
                   type="button"
                   onClick={() => setShowLoginPassword(!showLoginPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-1"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-1"
                   title={showLoginPassword ? 'Masquer' : 'Afficher'}
+                  aria-label={showLoginPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
                 >
                   {showLoginPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
               {loginForm.formState.errors.password && (
-                <p className="text-xs text-rose-500 font-semibold mt-1">
-                  {loginForm.formState.errors.password.message}
+                <p role="alert" className="text-xs text-rose-500 font-semibold mt-1">{loginForm.formState.errors.password.message}
                 </p>
               )}
             </div>
@@ -241,9 +240,9 @@ export function AuthModal() {
             
             {/* Role Switcher */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+              <p className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Vous êtes : *
-              </label>
+              </p>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
@@ -273,10 +272,10 @@ export function AuthModal() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nom Complet *</label>
+              <label htmlFor="authmodal-field-4" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nom Complet *</label>
               <div className="relative">
-                <User className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <Input
+                <User className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Input id="authmodal-field-4"
                   {...registerForm.register('fullName')}
                   type="text"
                   placeholder="Karim El Amrani"
@@ -284,17 +283,16 @@ export function AuthModal() {
                 />
               </div>
               {registerForm.formState.errors.fullName && (
-                <p className="text-xs text-rose-500 font-semibold mt-1">
-                  {registerForm.formState.errors.fullName.message}
+                <p role="alert" className="text-xs text-rose-500 font-semibold mt-1">{registerForm.formState.errors.fullName.message}
                 </p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Adresse Email *</label>
+              <label htmlFor="authmodal-field-3" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Adresse Email *</label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <Input
+                <Mail className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Input id="authmodal-field-3"
                   {...registerForm.register('email')}
                   type="email"
                   placeholder="exemple@etudiant.ma"
@@ -302,17 +300,16 @@ export function AuthModal() {
                 />
               </div>
               {registerForm.formState.errors.email && (
-                <p className="text-xs text-rose-500 font-semibold mt-1">
-                  {registerForm.formState.errors.email.message}
+                <p role="alert" className="text-xs text-rose-500 font-semibold mt-1">{registerForm.formState.errors.email.message}
                 </p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Numéro Téléphone / WhatsApp *</label>
+              <label htmlFor="authmodal-field-2" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Numéro Téléphone / WhatsApp *</label>
               <div className="relative">
-                <Phone className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <Input
+                <Phone className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Input id="authmodal-field-2"
                   {...registerForm.register('phone')}
                   type="tel"
                   placeholder="+212 634 536 286"
@@ -320,19 +317,18 @@ export function AuthModal() {
                 />
               </div>
               {registerForm.formState.errors.phone && (
-                <p className="text-xs text-rose-500 font-semibold mt-1">
-                  {registerForm.formState.errors.phone.message}
+                <p role="alert" className="text-xs text-rose-500 font-semibold mt-1">{registerForm.formState.errors.phone.message}
                 </p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+              <label htmlFor="authmodal-field-1" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Mot de passe * (min. 8 caractères)
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <Input
+                <Lock className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Input id="authmodal-field-1"
                   {...registerForm.register('password')}
                   type={showRegisterPassword ? 'text' : 'password'}
                   placeholder="••••••••"
@@ -341,15 +337,15 @@ export function AuthModal() {
                 <button
                   type="button"
                   onClick={() => setShowRegisterPassword(!showRegisterPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-1"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-1"
                   title={showRegisterPassword ? 'Masquer' : 'Afficher'}
+                  aria-label={showRegisterPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
                 >
                   {showRegisterPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
               {registerForm.formState.errors.password && (
-                <p className="text-xs text-rose-500 font-semibold mt-1">
-                  {registerForm.formState.errors.password.message}
+                <p role="alert" className="text-xs text-rose-500 font-semibold mt-1">{registerForm.formState.errors.password.message}
                 </p>
               )}
             </div>

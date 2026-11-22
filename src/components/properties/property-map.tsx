@@ -146,13 +146,13 @@ export default function PropertyMap({
           }">
             <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full font-black text-xs shadow-lg border-2 ${
               isSelected
-                ? 'bg-purple-700 text-white border-white ring-4 ring-purple-500/30'
-                : 'bg-indigo-900 text-purple-100 border-purple-400/80 hover:bg-purple-800'
+                ? 'bg-primary-700 text-white border-white ring-4 ring-primary-500/30'
+                : 'bg-primary-900 text-primary-100 border-primary-400/80 hover:bg-primary-800'
             }">
               <span class="text-base">🎓</span>
               <span class="tracking-tight whitespace-nowrap">${uni.short_name}</span>
             </div>
-            <div class="w-2 h-2 bg-purple-700 rotate-45 mx-auto -mt-1 border-r border-b border-white"></div>
+            <div class="w-2 h-2 bg-primary-700 rotate-45 mx-auto -mt-1 border-r border-b border-white"></div>
           </div>
         `,
         iconSize: [120, 36],
@@ -166,17 +166,17 @@ export default function PropertyMap({
       });
       marker.bindPopup(`
         <div class="p-2 text-slate-900 font-sans max-w-xs">
-          <div class="flex items-center gap-1.5 text-purple-700 font-black text-xs uppercase mb-1">
+          <div class="flex items-center gap-1.5 text-primary-700 font-black text-xs uppercase mb-1">
             <span>🏫 Campus Universitaire</span>
           </div>
           <h4 class="font-extrabold text-sm mb-1">${uni.name}</h4>
           <p class="text-xs text-slate-500 mb-2">${uni.address}</p>
-          <div class="text-[11px] bg-purple-50 text-purple-800 font-bold p-2 rounded-xl mb-2">
+          <div class="text-xs bg-primary-50 text-primary-800 font-bold p-2 rounded-xl mb-2">
             📍 Référence pour le calcul de distance piétonne
           </div>
           <button
             onclick="window.dispatchEvent(new CustomEvent('filter-by-campus', { detail: '${uni.id}' }))"
-            class="w-full text-center py-1.5 px-3 bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors"
+            class="w-full text-center py-1.5 px-3 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors"
           >
             Filtrer les logements proches
           </button>
@@ -282,7 +282,7 @@ export default function PropertyMap({
             html: `
               <div class="relative flex items-center justify-center">
                 <div class="w-8 h-8 rounded-full bg-blue-500/25 animate-ping absolute"></div>
-                <div class="w-5 h-5 rounded-full bg-blue-600 border-2 border-white shadow-xl flex items-center justify-center text-white text-[10px] font-black z-10">
+                <div class="w-5 h-5 rounded-full bg-blue-600 border-2 border-white shadow-xl flex items-center justify-center text-white text-xs font-black z-10">
                   📍
                 </div>
               </div>
@@ -315,7 +315,7 @@ export default function PropertyMap({
             html: `
               <div class="relative flex items-center justify-center">
                 <div class="w-8 h-8 rounded-full bg-blue-500/25 animate-ping absolute"></div>
-                <div class="w-5 h-5 rounded-full bg-blue-600 border-2 border-white shadow-xl flex items-center justify-center text-white text-[10px] font-black z-10">
+                <div class="w-5 h-5 rounded-full bg-blue-600 border-2 border-white shadow-xl flex items-center justify-center text-white text-xs font-black z-10">
                   📍
                 </div>
               </div>
@@ -361,9 +361,9 @@ export default function PropertyMap({
       <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none z-10 gap-2">
         {/* Badge campus de référence & Distance */}
         <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-md pointer-events-auto flex items-center gap-2 max-w-sm">
-          <GraduationCap className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
+          <GraduationCap className="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" />
           <div className="truncate text-xs">
-            <span className="text-[10px] text-slate-400 font-extrabold uppercase block leading-none">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-extrabold uppercase block leading-none">
               Campus de référence :
             </span>
             <span className="font-extrabold text-slate-800 dark:text-slate-100 truncate">
@@ -409,7 +409,7 @@ export default function PropertyMap({
       </div>
 
       {/* Légende flottante inférieure gauche */}
-      <div className="absolute bottom-3.5 left-3.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-lg z-10 hidden sm:flex items-center gap-3.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 pointer-events-auto">
+      <div className="absolute bottom-3.5 left-3.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-lg z-10 hidden sm:flex items-center gap-3.5 text-xs font-bold text-slate-700 dark:text-slate-300 pointer-events-auto">
         <div className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>Disponible</span>
@@ -422,7 +422,7 @@ export default function PropertyMap({
           <span className="w-2.5 h-2.5 rounded-full bg-slate-700"></span>
           <span>Complet</span>
         </div>
-        <div className="flex items-center gap-1.5 text-purple-700 dark:text-purple-400">
+        <div className="flex items-center gap-1.5 text-primary-700 dark:text-primary-400">
           <span>🎓 Campus</span>
         </div>
       </div>
@@ -444,7 +444,7 @@ export default function PropertyMap({
             >
               ✕
             </button>
-            <div className="absolute bottom-2 left-2 bg-slate-950/80 backdrop-blur-md text-white px-2 py-0.5 rounded-lg text-[10px] font-bold">
+            <div className="absolute bottom-2 left-2 bg-slate-950/80 backdrop-blur-md text-white px-2 py-0.5 rounded-lg text-xs font-bold">
               {selectedProperty.neighborhood}, Selouane
             </div>
           </div>
@@ -464,7 +464,7 @@ export default function PropertyMap({
 
             {/* Calcul de distance en direct */}
             {activeUniversity && (
-              <div className="flex items-center gap-1.5 text-xs font-bold text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40 px-2 py-1 rounded-xl">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-primary-700 dark:text-primary-400 bg-primary-50 dark:bg-primary-950/40 px-2 py-1 rounded-xl">
                 <Footprints className="w-3.5 h-3.5 shrink-0" />
                 <span>
                   À {estimateWalkingTimeMinutes(

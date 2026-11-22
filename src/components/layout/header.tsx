@@ -114,7 +114,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-md p-1.5 rounded-full border border-slate-200/70 dark:border-slate-800/80 shadow-inner-light">
+        <nav className="hidden lg:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-md p-1.5 rounded-full border border-slate-200/70 dark:border-slate-800/80 shadow-inner-light">
           {mainNavItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -138,7 +138,7 @@ export function Header() {
         </nav>
 
         {/* Desktop CTA, Theme & Auth */}
-        <div className="hidden md:flex items-center gap-2.5">
+        <div className="hidden lg:flex items-center gap-2.5">
           {/* Theme Switcher */}
           <ThemeToggle />
 
@@ -158,7 +158,7 @@ export function Header() {
                   />
                   <div className="flex flex-col text-left pr-1">
                     <span className="text-xs font-bold leading-tight">{user.full_name}</span>
-                    <span className="text-[10px] text-primary-600 dark:text-primary-400 font-semibold uppercase tracking-wider">
+                    <span className="text-xs text-primary-600 dark:text-primary-400 font-semibold uppercase tracking-wider">
                       🛡️ Admin (Dashboard)
                     </span>
                   </div>
@@ -173,7 +173,7 @@ export function Header() {
                   />
                   <div className="flex flex-col text-left pr-1">
                     <span className="text-xs font-bold leading-tight">{user.full_name}</span>
-                    <span className="text-[10px] text-primary-600 dark:text-primary-400 font-semibold uppercase tracking-wider">
+                    <span className="text-xs text-primary-600 dark:text-primary-400 font-semibold uppercase tracking-wider">
                       {user.role === 'student' ? '🎓 Étudiant' : '🏠 Propriétaire'}
                     </span>
                   </div>
@@ -215,7 +215,7 @@ export function Header() {
         </div>
 
         {/* Mobile menu button & Theme toggle */}
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <ThemeToggle />
 
           {isAuthenticated ? (
@@ -253,7 +253,7 @@ export function Header() {
       {(mobileMenuOpen || isMenuClosing) && (
         <div
           className={cn(
-            "md:hidden fixed inset-x-0 top-[60px] glass-card dark:bg-slate-900/95 border-b border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 flex flex-col gap-4 z-50 transition-all duration-200",
+            "lg:hidden fixed inset-x-0 top-[60px] glass-card dark:bg-slate-900/95 border-b border-slate-200/80 dark:border-slate-800 shadow-2xl p-6 flex flex-col gap-4 z-50 transition-all duration-200",
             isMenuClosing
               ? "opacity-0 -translate-y-2 pointer-events-none"
               : "opacity-100 translate-y-0 animate-fade-in"

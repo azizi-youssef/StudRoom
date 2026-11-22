@@ -487,7 +487,7 @@ export default function DashboardOverviewPage() {
                   </p>
                   <p className="text-[12px] mt-0.5" style={{ color: 'var(--text-muted)' }}>Par statut de traitement</p>
                 </div>
-                <span className="badge-brand text-[11px] font-semibold px-2.5 py-1 rounded-full">
+                <span className="badge-brand text-xs font-semibold px-2.5 py-1 rounded-full">
                   {m?.totalBookings ?? 0} total
                 </span>
               </div>
@@ -518,7 +518,7 @@ export default function DashboardOverviewPage() {
                   </p>
                   <p className="text-[12px] mt-0.5" style={{ color: 'var(--text-muted)' }}>Répartition du parc immobilier</p>
                 </div>
-                <span className="badge-brand text-[11px] font-semibold px-2.5 py-1 rounded-full">
+                <span className="badge-brand text-xs font-semibold px-2.5 py-1 rounded-full">
                   {totalRooms} chambre{totalRooms > 1 ? 's' : ''}
                 </span>
               </div>
@@ -813,7 +813,7 @@ export default function DashboardOverviewPage() {
                         <span className="text-[12px] font-bold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
                           {log.action}
                         </span>
-                        <span className="px-2 py-0.5 rounded-md text-[11px] font-mono"
+                        <span className="px-2 py-0.5 rounded-md text-xs font-mono"
                           style={{
                             background: 'var(--border-subtle)',
                             color: 'var(--text-secondary)',
@@ -821,7 +821,7 @@ export default function DashboardOverviewPage() {
                           }}>
                           {log.entity_type}
                         </span>
-                        <span className="text-[11px] font-mono" style={{ color: 'var(--text-muted)' }}>
+                        <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
                           {log.entity_id ? log.entity_id.slice(0, 8) : '—'}
                         </span>
                       </div>

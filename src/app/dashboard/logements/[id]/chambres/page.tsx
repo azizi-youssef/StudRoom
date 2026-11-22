@@ -216,7 +216,7 @@ export default function AdminLogementChambresPage() {
           <div className="flex items-center gap-2 mb-1.5">
             <DoorOpen className="w-4 h-4" style={{ color: 'var(--brand-primary)' }} />
             <span
-              className="text-[11px] font-bold uppercase tracking-wider"
+              className="text-xs font-bold uppercase tracking-wider"
               style={{ color: 'var(--brand-primary)' }}
             >
               Découpage en Chambres
@@ -261,7 +261,7 @@ export default function AdminLogementChambresPage() {
             <table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr
-                  className="border-b text-[11px] font-semibold uppercase tracking-wider"
+                  className="border-b text-xs font-semibold uppercase tracking-wider"
                   style={{
                     borderColor: 'var(--border-subtle)',
                     backgroundColor: 'var(--bg-subtle)',
@@ -320,7 +320,7 @@ export default function AdminLogementChambresPage() {
                               <span>{room.name}</span>
                               {room.images && room.images.length > 0 && (
                                 <span
-                                  className="text-[10px] px-1.5 py-0.2 rounded font-mono font-medium"
+                                  className="text-xs px-1.5 py-0.2 rounded font-mono font-medium"
                                   style={{
                                     backgroundColor: 'var(--brand-bg)',
                                     color: 'var(--brand-primary)',
@@ -331,7 +331,7 @@ export default function AdminLogementChambresPage() {
                                 </span>
                               )}
                             </div>
-                            <span className="text-[10px] font-mono block mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                            <span className="text-xs font-mono block mt-0.5" style={{ color: 'var(--text-muted)' }}>
                               Étage {room.floor} · {room.furnished ? 'Meublée' : 'Non meublée'}
                             </span>
                           </div>
@@ -340,7 +340,7 @@ export default function AdminLogementChambresPage() {
 
                       <td className="px-5 py-3.5">
                         <span
-                          className="px-2 py-0.5 rounded-md font-medium border text-[11px]"
+                          className="px-2 py-0.5 rounded-md font-medium border text-xs"
                           style={{
                             backgroundColor: 'var(--bg-subtle)',
                             borderColor: 'var(--border-subtle)',
@@ -368,7 +368,7 @@ export default function AdminLogementChambresPage() {
                           value={room.status}
                           disabled={actionLoadingId === room.id}
                           onChange={(e) => handleStatusChange(room.id, e.target.value as RoomStatus)}
-                          className={`text-[11px] font-semibold px-2.5 py-1 rounded-xl focus:outline-none cursor-pointer ${statusConfig.badgeClass}`}
+                          className={`text-xs font-semibold px-2.5 py-1 rounded-xl focus:outline-none cursor-pointer ${statusConfig.badgeClass}`}
                         >
                           <option value="AVAILABLE">Disponible</option>
                           <option value="RESERVED">Réservée</option>
@@ -611,7 +611,7 @@ export default function AdminLogementChambresPage() {
                             }}
                           />
                           <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-end justify-between p-1.5">
-                            <span className="text-[9px] px-1.5 py-0.5 rounded bg-black/80 text-white">
+                            <span className="text-xs px-1.5 py-0.5 rounded bg-black/80 text-white">
                               #{idx + 1}
                             </span>
                             <button

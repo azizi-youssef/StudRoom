@@ -139,7 +139,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
           {/* Breadcrumb */}
           <nav
             aria-label="Fil d'Ariane"
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 dark:text-slate-500 mb-6"
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 mb-6"
           >
             <Link href="/" className="flex items-center gap-1 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
               <Home className="w-3.5 h-3.5" />
@@ -216,7 +216,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
             </div>
 
             <div className="text-left md:text-right">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 block">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
                 Loyer mensuel dès
               </span>
               <div className="text-3xl font-black text-primary-600 dark:text-primary-400">
@@ -252,7 +252,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
                   </div>
 
                   {property.verified_at && (
-                    <span className="text-[11px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">
+                    <span className="text-xs font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">
                       Dernière vérification : {property.verified_at}
                     </span>
                   )}
@@ -265,7 +265,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
                       <h4 className="font-extrabold text-xs text-slate-900 dark:text-slate-100">
                         Logement inspecté
                       </h4>
-                      <p className="text-[11px] text-slate-500">
+                      <p className="text-xs text-slate-500">
                         Conformité électrique, plomberie et serrures contrôlées sur place.
                       </p>
                     </div>
@@ -277,7 +277,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
                       <h4 className="font-extrabold text-xs text-slate-900 dark:text-slate-100">
                         Bailleur identifié
                       </h4>
-                      <p className="text-[11px] text-slate-500">
+                      <p className="text-xs text-slate-500">
                         {property.landlord_name || 'Propriétaire certifié'} ({property.landlord_response_time || '< 1h'}).
                       </p>
                     </div>
@@ -289,7 +289,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
                       <h4 className="font-extrabold text-xs text-slate-900 dark:text-slate-100">
                         Photos certifiées 100%
                       </h4>
-                      <p className="text-[11px] text-slate-500">
+                      <p className="text-xs text-slate-500">
                         Prises sans grand angle trompeur, conformité visuelle garantie.
                       </p>
                     </div>
@@ -300,21 +300,21 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
               {/* Key Specs Pills */}
               <div className="grid grid-cols-3 gap-4 bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-soft text-center">
                 <div className="flex flex-col items-center">
-                  <span className="text-xs font-bold text-slate-400 uppercase">Superficie</span>
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Superficie</span>
                   <div className="flex items-center gap-1 font-black text-slate-900 dark:text-slate-100 text-lg mt-0.5">
                     <Maximize className="w-4 h-4 text-primary-600" />
                     {property.surface_sqm} m²
                   </div>
                 </div>
                 <div className="flex flex-col items-center border-x border-slate-100 dark:border-slate-800">
-                  <span className="text-xs font-bold text-slate-400 uppercase">Chambres</span>
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Chambres</span>
                   <div className="flex items-center gap-1 font-black text-slate-900 dark:text-slate-100 text-lg mt-0.5">
                     <Bed className="w-4 h-4 text-primary-600" />
                     {property.total_rooms} {property.total_rooms > 1 ? 'chambres' : 'studio'}
                   </div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <span className="text-xs font-bold text-slate-400 uppercase">Disponibilité</span>
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Disponibilité</span>
                   <div className="flex items-center gap-1 font-black text-emerald-600 text-lg mt-0.5">
                     <Check className="w-4 h-4" />
                     {isAvailableNow
@@ -372,7 +372,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
                             <span className="font-extrabold text-sm text-slate-900 dark:text-slate-100 block">
                               {rev.student_name}
                             </span>
-                            <span className="text-[11px] text-purple-700 dark:text-purple-400 font-bold">
+                            <span className="text-xs text-primary-700 dark:text-primary-400 font-bold">
                               Étudiant {rev.university_short}
                             </span>
                           </div>
@@ -394,7 +394,7 @@ export default async function PropertyDetailPage({ params }: PropertyDetailPageP
                           « {rev.comment} »
                         </p>
 
-                        <div className="flex items-center justify-between pt-1 text-[10px] text-slate-400 font-medium">
+                        <div className="flex items-center justify-between pt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
                           <span>{rev.date}</span>
                           <span className="text-emerald-600 font-bold flex items-center gap-1">
                             ✓ Résident vérifié

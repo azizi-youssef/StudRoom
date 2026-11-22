@@ -26,6 +26,8 @@ function getEnvRequired(key: string): string {
 }
 
 const isDev = (process.env.NODE_ENV ?? 'development') === 'development';
+// Jest définit NODE_ENV=test : secrets factices autorisés uniquement dans ce cas (jamais en production/staging)
+const usesDevSecrets = isDev || process.env.NODE_ENV === 'test';
 
 if (!process.env.NODE_ENV) {
   console.warn("[ENV] NODE_ENV n'est pas défini : mode 'development' appliqué. Définissez NODE_ENV=production en déploiement.");
@@ -37,7 +39,7 @@ export const env = {
   FRONTEND_URL: getEnv('FRONTEND_URL', 'http://localhost:3000'),
 
   // JWT — no fallback in production, must be explicitly set
-  JWT_SECRET: isDev
+  JWT_SECRET: usesDevSecrets
     ? getEnv('JWT_SECRET', 'studroom_dev_only_secret_change_in_prod')
     : getEnvRequired('JWT_SECRET'),
   JWT_EXPIRES_IN: getEnv('JWT_EXPIRES_IN', '7d'),
@@ -45,7 +47,7 @@ export const env = {
   CORS_EXTRA_ORIGINS: getEnv('CORS_EXTRA_ORIGINS', '').split(',').map((o) => o.trim()).filter(Boolean),
 
   // Cookie signing secret
-  COOKIE_SECRET: isDev
+  COOKIE_SECRET: usesDevSecrets
     ? getEnv('COOKIE_SECRET', 'studroom_cookie_dev_secret_change_in_prod')
     : getEnvRequired('COOKIE_SECRET'),
 

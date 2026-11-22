@@ -85,7 +85,7 @@ export function AccessDenied({ reason = 'forbidden' }: AccessDeniedProps) {
         </div>
 
         {/* Branding */}
-        <p className="mt-8 text-[11px]" style={{ color: 'var(--text-muted)' }}>
+        <p className="mt-8 text-xs" style={{ color: 'var(--text-muted)' }}>
           StudRoom — Logement étudiant Selouane / Nador
         </p>
       </div>

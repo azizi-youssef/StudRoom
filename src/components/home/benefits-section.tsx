@@ -95,7 +95,7 @@ export function BenefitsSection() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Literie complète</p>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Matelas confort neuf</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Matelas confort neuf</p>
                 </div>
               </div>
 
@@ -105,7 +105,7 @@ export function BenefitsSection() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Bureau de travail</p>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Chaise ergonomique</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Chaise ergonomique</p>
                 </div>
               </div>
 
@@ -115,7 +115,7 @@ export function BenefitsSection() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Kitchenette équipée</p>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Frigo & plaques inclus</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Frigo & plaques inclus</p>
                 </div>
               </div>
             </div>
@@ -149,7 +149,7 @@ export function BenefitsSection() {
                 <Building className="h-3.5 w-3.5 text-orange-500 shrink-0" />
                 <span>Campus FSA ·FEG · FLLA · FSJP · EST · ISTA Selouane</span>
               </div>
-              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+              <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
                 <CheckCircle2 className="h-3 w-3" />
                 Économie de taxi & bus au quotidien
               </span>
@@ -184,7 +184,7 @@ export function BenefitsSection() {
                 <Zap className="w-4 h-4 text-emerald-500" />
                 Inclus sans surcoût
               </span>
-              <span className="text-slate-400 dark:text-slate-500 font-normal text-[11px]">Débit garanti</span>
+              <span className="text-slate-500 dark:text-slate-400 font-normal text-xs">Débit garanti</span>
             </div>
 
             {/* Bottom accent hover bar */}

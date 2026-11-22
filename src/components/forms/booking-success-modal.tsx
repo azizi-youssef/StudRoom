@@ -209,10 +209,10 @@ export function BookingSuccessContent({
       {hasSummary && (
         <div className="w-full bg-slate-50/90 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 text-xs space-y-2.5 mb-4 text-left shadow-2xs">
           <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 dark:border-slate-700/60">
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400">
+            <span className="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400">
               Récapitulatif de la demande
             </span>
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100/70 dark:bg-emerald-900/40 px-2 py-0.5 rounded-full">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100/70 dark:bg-emerald-900/40 px-2 py-0.5 rounded-full">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Transmise
             </span>
@@ -241,7 +241,7 @@ export function BookingSuccessContent({
               <span className="font-bold text-slate-900 dark:text-slate-100 text-right truncate max-w-[210px] sm:max-w-[260px]">
                 {roomName}
                 {roomType && (
-                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 ml-1">
+                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 ml-1">
                     ({getPropertyTypeLabel(roomType)})
                   </span>
                 )}
@@ -259,7 +259,7 @@ export function BookingSuccessContent({
               <span className="font-bold text-slate-900 dark:text-slate-100 text-right">
                 {arrivalDate ? formatDateFr(arrivalDate) : ''}
                 {durationMonths ? (
-                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 ml-1">
+                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 ml-1">
                     • {durationMonths} mois
                   </span>
                 ) : null}
@@ -276,7 +276,7 @@ export function BookingSuccessContent({
               </span>
               <span className="font-black text-[#046C7A] dark:text-[#22D3EE] text-sm">
                 {formatCurrencyDH(price)}
-                <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                   {' '}/ mois
                 </span>
               </span>
@@ -289,7 +289,7 @@ export function BookingSuccessContent({
       {bookingRef && (
         <div className="w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-2xl bg-slate-100/90 dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 mb-5">
           <div className="flex flex-col min-w-0 text-left">
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400">
+            <span className="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400">
               Référence dossier
             </span>
             <span className="font-mono text-xs sm:text-sm font-black text-slate-900 dark:text-slate-100 tracking-wide truncate">

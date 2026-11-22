@@ -205,7 +205,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               />
             </div>
           </Link>
-          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md"
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-md"
             style={{
               background: 'var(--brand-bg)',
               color: 'var(--brand-primary)',
@@ -219,7 +219,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="flex-1 overflow-y-auto scrollbar-none px-3 py-4 flex flex-col gap-6">
           {navSections.map((section, idx) => (
             <div key={idx}>
-              <p className="px-3 mb-1.5 text-[10px] font-semibold uppercase tracking-widest"
+              <p className="px-3 mb-1.5 text-xs font-semibold uppercase tracking-widest"
                 style={{ color: 'var(--text-muted)' }}>
                 {section.title}
               </p>
@@ -242,7 +242,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         <span>{item.label}</span>
                       </div>
                       {item.badge !== undefined && item.badge > 0 && (
-                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold tabular-nums
+                        <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold tabular-nums
                           ${isActive
                             ? 'bg-[var(--brand-primary)] text-white'
                             : 'badge-warning'}`}>
@@ -273,7 +273,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <p className="text-xs font-semibold truncate" style={{ color: 'var(--text-primary)' }}>
                 {user?.full_name || 'Administrateur'}
               </p>
-              <p className="text-[10px] truncate font-mono" style={{ color: 'var(--text-muted)' }}>
+              <p className="text-xs truncate font-mono" style={{ color: 'var(--text-muted)' }}>
                 {user?.email}
               </p>
             </div>
@@ -416,10 +416,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     <p className="text-xs font-bold truncate" style={{ color: 'var(--text-primary)' }}>
                       {user?.full_name || 'Administrateur'}
                     </p>
-                    <p className="text-[11px] truncate font-mono mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                    <p className="text-xs truncate font-mono mt-0.5" style={{ color: 'var(--text-muted)' }}>
                       {user?.email}
                     </p>
-                    <span className="inline-block mt-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider badge-primary">
+                    <span className="inline-block mt-2 px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider badge-primary">
                       {user?.role === 'admin' ? '🛡️ Administrateur' : user?.role === 'landlord' ? '🏠 Bailleur' : '🎓 Étudiant'}
                     </span>
                   </div>

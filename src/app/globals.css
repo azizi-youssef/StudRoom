@@ -6,7 +6,6 @@
 /* StudRoom — Premium SaaS Design Tokens                                       */
 /* ─────────────────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
   /* Brand */
@@ -14,11 +13,11 @@
   --brand-100: #CFFAFE;
   --brand-200: #A5F3FC;
   --brand-400: #22D3EE;
-  --brand-500: #0EA5C6;
-  --brand-600: #087E9F;
+  --brand-500: #046C7A;
+  --brand-600: #055864;
   --brand-700: #155E75;
-  --brand-primary: #0EA5C6;
-  --brand-dark:    #087E9F;
+  --brand-primary: #046C7A;
+  --brand-dark:    #055864;
   --brand-light:   #22D3EE;
 
   /* Surface */
@@ -44,7 +43,7 @@
 /* Dashboard Theme — Light (default)                                           */
 /* ─────────────────────────────────────────────────────────────────────────── */
 .dashboard-theme {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
 
   /* Backgrounds */
   --bg-main:          #F7F9FC;
@@ -64,8 +63,8 @@
   --text-muted:       #94A3B8;
 
   /* Brand */
-  --brand-primary:    #0EA5C6;
-  --brand-dark:       #087E9F;
+  --brand-primary:    #046C7A;
+  --brand-dark:       #055864;
   --brand-light:      #22D3EE;
   --brand-bg:         #EFF9FC;
   --brand-bg-strong:  #CFFAFE;
@@ -97,6 +96,9 @@
 /* Dashboard Theme — Dark override                                             */
 /* ─────────────────────────────────────────────────────────────────────────── */
 .dashboard-theme:not(.light) {
+  --brand-primary:    #22D3EE;
+  --brand-dark:       #0891B2;
+  --brand-light:      #67E8F9;
   --bg-main:          #0F1623;
   --bg-sidebar:       #141D2E;
   --bg-surface:       #1A2438;
@@ -111,8 +113,8 @@
   --text-secondary:   #94A3B8;
   --text-muted:       #64748B;
 
-  --brand-bg:         rgba(14, 165, 198, 0.10);
-  --brand-bg-strong:  rgba(14, 165, 198, 0.18);
+  --brand-bg:         rgba(34, 211, 238, 0.10);
+  --brand-bg-strong:  rgba(34, 211, 238, 0.18);
 
   --success:          #22C55E;
   --success-fg:       #4ADE80;
@@ -160,19 +162,19 @@
 /* Brand Button                                                                */
 /* ─────────────────────────────────────────────────────────────────────────── */
 .btn-brand {
-  background-color: var(--brand-primary, #0EA5C6) !important;
+  background-color: var(--brand-primary, #046C7A) !important;
   color: #FFFFFF !important;
-  border: 1px solid var(--brand-primary, #0EA5C6) !important;
-  box-shadow: 0 1px 2px 0 rgba(14, 165, 198, 0.25);
+  border: 1px solid var(--brand-primary, #046C7A) !important;
+  box-shadow: 0 1px 2px 0 rgba(34, 211, 238, 0.25);
   transition: all 0.15s ease-in-out;
   cursor: pointer;
 }
 
 .btn-brand:hover {
-  background-color: var(--brand-dark, #087E9F) !important;
-  border-color: var(--brand-dark, #087E9F) !important;
+  background-color: var(--brand-dark, #055864) !important;
+  border-color: var(--brand-dark, #055864) !important;
   color: #FFFFFF !important;
-  box-shadow: 0 4px 10px 0 rgba(14, 165, 198, 0.35);
+  box-shadow: 0 4px 10px 0 rgba(34, 211, 238, 0.35);
 }
 
 .btn-brand:active {
@@ -241,7 +243,7 @@
 .badge-brand {
   background-color: var(--brand-bg);
   color: var(--brand-primary);
-  border: 1px solid rgba(14, 165, 198, 0.2);
+  border: 1px solid rgba(34, 211, 238, 0.2);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── */
@@ -310,7 +312,7 @@
 /* ─────────────────────────────────────────────────────────────────────────── */
 @layer base {
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
     @apply bg-slate-50 text-slate-900 antialiased;
   }
 }
@@ -451,3 +453,34 @@ input[type='range']::-moz-range-track {
   display: none !important;
 }
 
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* Accessibilité tactile : cibles de 44px minimum sur écrans tactiles           */
+/* ─────────────────────────────────────────────────────────────────────────── */
+@media (pointer: coarse) {
+  button:not([class*='w-2']):not([class*='w-3']),
+  [role='button'],
+  select,
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='hidden']) {
+    min-height: 44px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* Typographie : titres équilibrés, paragraphes sans veuves                     */
+/* ─────────────────────────────────────────────────────────────────────────── */
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* Apparition douce des sections (désactivée si l'utilisateur réduit les animations) */
+@keyframes sr-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.sr-fade-up { animation: sr-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.sr-delay-1 { animation-delay: 0.08s; }
+.sr-delay-2 { animation-delay: 0.16s; }
+.sr-delay-3 { animation-delay: 0.24s; }
+@media (prefers-reduced-motion: reduce) {
+  .sr-fade-up { animation: none; }
+}

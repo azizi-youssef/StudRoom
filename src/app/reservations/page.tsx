@@ -115,6 +115,8 @@ export default function ReservationsPage() {
     if (isAuthenticated) {
       fetchBookings();
     }
+    // fetchBookings est recréée à chaque rendu : on ne relance que sur changement d'authentification
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   // Statistics calculation
@@ -273,7 +275,7 @@ export default function ReservationsPage() {
             <div>
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Demandes</p>
               <p className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">{stats.total}</p>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">Dossiers déposés</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Dossiers déposés</p>
             </div>
             <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center">
               <FileText className="w-6 h-6" />
@@ -284,7 +286,7 @@ export default function ReservationsPage() {
             <div>
               <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider">En cours d'étude</p>
               <p className="text-2xl sm:text-3xl font-black text-amber-700 dark:text-amber-400 mt-1">{stats.pending}</p>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">Réponse sous 24h</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Réponse sous 24h</p>
             </div>
             <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/80 flex items-center justify-center">
               <Clock className="w-6 h-6" />
@@ -295,7 +297,7 @@ export default function ReservationsPage() {
             <div>
               <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Confirmées / Visites</p>
               <p className="text-2xl sm:text-3xl font-black text-emerald-700 dark:text-emerald-400 mt-1">{stats.approved}</p>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">Prêtes pour emménagement</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Prêtes pour emménagement</p>
             </div>
             <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/80 flex items-center justify-center">
               <CheckCircle2 className="w-6 h-6" />
@@ -384,7 +386,7 @@ export default function ReservationsPage() {
             </button>
           </div>
 
-          <span className="text-xs text-slate-400">
+          <span className="text-xs text-slate-500 dark:text-slate-400">
             {filteredBookings.length} résultat{filteredBookings.length > 1 ? 's' : ''}
           </span>
         </div>
@@ -445,7 +447,7 @@ export default function ReservationsPage() {
                   <div>
                     {/* Header: Reference + Status Badge */}
                     <div className="flex items-center justify-between gap-2 mb-4">
-                      <span className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+                      <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
                         #{booking.id.slice(0, 8)}
                       </span>
                       <StatusBadge status={booking.status} />
@@ -462,7 +464,7 @@ export default function ReservationsPage() {
                     </p>
 
                     {/* Status insight banner */}
-                    <div className="mt-3.5 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed flex items-start gap-2">
+                    <div className="mt-3.5 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 leading-relaxed flex items-start gap-2">
                       <div className="mt-0.5 shrink-0 text-primary-600 dark:text-primary-400">
                         <ShieldCheck className="w-3.5 h-3.5" />
                       </div>
@@ -472,7 +474,7 @@ export default function ReservationsPage() {
                     {/* Details list */}
                     <div className="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
                       <div className="flex items-center gap-2.5">
-                        <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                        <User className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 shrink-0" />
                         <span className="font-semibold text-slate-800 dark:text-slate-200">{booking.student_name}</span>
                       </div>
 
@@ -482,22 +484,22 @@ export default function ReservationsPage() {
                       </div>
 
                       <div className="flex items-center gap-2.5">
-                        <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                        <Phone className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 shrink-0" />
                         <span>{booking.student_phone}</span>
                       </div>
 
                       <div className="flex items-center gap-2.5">
-                        <Calendar className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                        <Calendar className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 shrink-0" />
                         <span>
                           Arrivée : <strong>{booking.preferred_move_in_date}</strong>{' '}
-                          <span className="text-slate-400 dark:text-slate-500">({booking.preferred_duration_months} mois)</span>
+                          <span className="text-slate-500 dark:text-slate-400">({booking.preferred_duration_months} mois)</span>
                         </span>
                       </div>
                     </div>
                   </div>
 
                   {/* Card footer */}
-                  <div className="pt-3.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500">
+                  <div className="pt-3.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                     <span>
                       Déposé le {new Date(booking.created_at).toLocaleDateString('fr-FR', {
                         day: '2-digit',
